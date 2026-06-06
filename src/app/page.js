@@ -23,17 +23,23 @@ export default function Home() {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            if (window.location.hash.includes('access_token=') || window.location.hash.includes('error=')) {
-                setIntroFinished(true);
-            } else if (sessionStorage.getItem('ffml_intro_finished') === 'true') {
-                setIntroFinished(true);
+            try {
+                if (window.location.hash.includes('access_token=') || window.location.hash.includes('error=')) {
+                    setIntroFinished(true);
+                } else if (sessionStorage.getItem('ffml_intro_finished') === 'true') {
+                    setIntroFinished(true);
+                }
+            } catch (e) {
+                console.error("Storage access denied:", e);
             }
         }
     }, []);
 
     useEffect(() => {
         if (introFinished && typeof window !== 'undefined') {
-            sessionStorage.setItem('ffml_intro_finished', 'true');
+            try {
+                sessionStorage.setItem('ffml_intro_finished', 'true');
+            } catch (e) {}
         }
     }, [introFinished]);
     const [currentUser, setCurrentUser] = useState(null);
@@ -72,11 +78,19 @@ export default function Home() {
     const [isEditInfoOpen, setIsEditInfoOpen] = useState(false);
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [displayName, setDisplayName] = useState(() => {
-        if (typeof window !== 'undefined') return localStorage.getItem('ffml_display_name') || 'Farid Owner';
+        if (typeof window !== 'undefined') {
+            try {
+                return localStorage.getItem('ffml_display_name') || 'Farid Owner';
+            } catch (e) { return 'Farid Owner'; }
+        }
         return 'Farid Owner';
     });
     const [displaySubtitle, setDisplaySubtitle] = useState(() => {
-        if (typeof window !== 'undefined') return localStorage.getItem('ffml_display_subtitle') || 'Kelola akun game dan pantau penjualan dengan mudah.';
+        if (typeof window !== 'undefined') {
+            try {
+                return localStorage.getItem('ffml_display_subtitle') || 'Kelola akun game dan pantau penjualan dengan mudah.';
+            } catch (e) { return 'Kelola akun game dan pantau penjualan dengan mudah.'; }
+        }
         return 'Kelola akun game dan pantau penjualan dengan mudah.';
     });
     const [editNameTemp, setEditNameTemp] = useState('');
@@ -135,9 +149,13 @@ export default function Home() {
     // 1. Initial Load of Saved Users Index (Device Level)
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const localSavedUsers = localStorage.getItem('ffml_saved_users');
-            if (localSavedUsers) {
-                setSavedUsers(JSON.parse(localSavedUsers));
+            try {
+                const localSavedUsers = localStorage.getItem('ffml_saved_users');
+                if (localSavedUsers) {
+                    setSavedUsers(JSON.parse(localSavedUsers));
+                }
+            } catch (e) {
+                console.error("Storage access denied for saved users");
             }
             
             // Adjust sidebar state for mobile screens initially
@@ -232,13 +250,18 @@ export default function Home() {
         const email = user.email;
         
         // 1. Fast Load from Namespaced LocalStorage
-        const localAcc = localStorage.getItem(`ffml_${email}_accounts`);
-        const localSales = localStorage.getItem(`ffml_${email}_sales`);
-        const localBuyer = localStorage.getItem(`ffml_${email}_buyer_search`);
-        const localKeu = localStorage.getItem(`ffml_${email}_keuangan`);
-        const localWish = localStorage.getItem(`ffml_${email}_wishlist`);
-        const localJur = localStorage.getItem(`ffml_${email}_jurnal`);
-        const localLast = localStorage.getItem(`ffml_${email}_lastSaved`);
+        let localAcc, localSales, localBuyer, localKeu, localWish, localJur, localLast;
+        try {
+            localAcc = localStorage.getItem(`ffml_${email}_accounts`);
+            localSales = localStorage.getItem(`ffml_${email}_sales`);
+            localBuyer = localStorage.getItem(`ffml_${email}_buyer_search`);
+            localKeu = localStorage.getItem(`ffml_${email}_keuangan`);
+            localWish = localStorage.getItem(`ffml_${email}_wishlist`);
+            localJur = localStorage.getItem(`ffml_${email}_jurnal`);
+            localLast = localStorage.getItem(`ffml_${email}_lastSaved`);
+        } catch (e) {
+            console.error("Local storage read blocked");
+        }
 
         if (localAcc) setAccounts(JSON.parse(localAcc));
         else setAccounts([]);
@@ -271,34 +294,38 @@ export default function Home() {
 
             if (data) {
                 // Supabase is the source of truth, override local namespaced cache
-                if (data.accounts) {
-                    setAccounts(data.accounts);
-                    localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(data.accounts));
+                try {
+                    if (data.accounts) {
+                        setAccounts(data.accounts);
+                        localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(data.accounts));
+                    }
+                    if (data.sales) {
+                        setSales(data.sales);
+                        localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(data.sales));
+                    }
+                    if (data.buyer_search) {
+                        setBuyerSearchAccounts(data.buyer_search);
+                        localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(data.buyer_search));
+                    }
+                    if (data.keuangan) {
+                        setKeuanganTransactions(data.keuangan);
+                        localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(data.keuangan));
+                    }
+                    if (data.wishlist) {
+                        setWishlistItems(data.wishlist);
+                        localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(data.wishlist));
+                    }
+                    if (data.jurnal) {
+                        setJurnalBisnis(data.jurnal);
+                        localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(data.jurnal));
+                    }
+                    
+                    const lastSavedTime = data.updated_at || new Date().toISOString();
+                    localStorage.setItem(`ffml_${email}_lastSaved`, lastSavedTime);
+                    setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
+                } catch (e) {
+                    console.error("Local storage write blocked", e);
                 }
-                if (data.sales) {
-                    setSales(data.sales);
-                    localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(data.sales));
-                }
-                if (data.buyer_search) {
-                    setBuyerSearchAccounts(data.buyer_search);
-                    localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(data.buyer_search));
-                }
-                if (data.keuangan) {
-                    setKeuanganTransactions(data.keuangan);
-                    localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(data.keuangan));
-                }
-                if (data.wishlist) {
-                    setWishlistItems(data.wishlist);
-                    localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(data.wishlist));
-                }
-                if (data.jurnal) {
-                    setJurnalBisnis(data.jurnal);
-                    localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(data.jurnal));
-                }
-                
-                const lastSavedTime = data.updated_at || new Date().toISOString();
-                localStorage.setItem(`ffml_${email}_lastSaved`, lastSavedTime);
-                setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
             }
         } catch (e) {
             console.error('Supabase load error:', e);
