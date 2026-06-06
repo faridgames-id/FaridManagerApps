@@ -251,7 +251,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     {/* Statistik Keuangan (4 Mini Cards) */}
                     <div className="s-card stagger-1" style={{ padding: '24px' }}>
                         <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '20px' }}>Statistik Keuangan</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+                        <div className="finance-stats-grid">
                             <div className="finance-mini-card">
                                 <div className="f-icon text-blue">{KpiIcons.wallet}</div>
                                 <div className="f-title">TOTAL MODAL</div>

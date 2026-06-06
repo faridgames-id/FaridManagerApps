@@ -613,6 +613,24 @@ h2 {
     .top-header {
         padding: 0 16px;
     }
+    .finance-stats-grid {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    .finance-stats-grid .finance-mini-card {
+        min-width: 140px;
+        flex-shrink: 0;
+    }
+    .ss-stats-grid {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    .ss-stats-grid .ss-stat-col {
+        min-width: 90px;
+        flex-shrink: 0;
+    }
     .header-left h2 {
         font-size: 1rem;
     }
@@ -1212,6 +1230,12 @@ table td:not(:last-child) {
 .kpi-trend-v2.green { color: var(--accent-green); }
 
 /* Finance Mini Cards */
+.finance-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
 .finance-mini-card {
     border: 1px solid var(--border-light);
     border-radius: var(--r-md);
