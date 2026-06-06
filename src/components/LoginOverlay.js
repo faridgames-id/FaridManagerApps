@@ -124,21 +124,18 @@ export default function LoginOverlay({ onLoginSuccess, initialEmail }) {
                 width: '90%',
                 backdropFilter: 'blur(20px)'
             }}>
-                <div style={{
-                    width: '64px',
-                    height: '64px',
-                    background: 'var(--bg-surface)',
-                    borderRadius: '16px',
-                    margin: '0 auto 16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    boxShadow: '0 4px 12px rgba(31, 107, 189, 0.3)',
-                    color: '#F2F7FD',
-                    letterSpacing: '1px'
-                }}>FRD</div>
+                <img 
+                    src="/logo.png" 
+                    alt="FRD Logo" 
+                    style={{
+                        width: '90px',
+                        height: '90px',
+                        objectFit: 'contain',
+                        borderRadius: '15px',
+                        filter: 'drop-shadow(0 0 10px rgba(0, 210, 255, 0.5))',
+                        margin: '0 auto 16px'
+                    }}
+                />
                 <h2 style={{
                     marginBottom: '6px',
                     fontSize: '1.2rem',
