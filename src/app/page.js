@@ -844,9 +844,9 @@ export default function Home() {
                                         </div>
                                     </div>
                                     
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                    <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', flex: 1, justifyContent: 'flex-end' }}>
                                         {/* Search Bar */}
-                                        <div style={{ position: 'relative', width: '280px' }}>
+                                        <div style={{ position: 'relative', flex: '1 1 200px', maxWidth: '280px' }}>
                                             <input 
                                                 type="text" 
                                                 placeholder="Ketik lalu Enter..." 
