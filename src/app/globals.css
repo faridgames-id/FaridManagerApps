@@ -620,6 +620,30 @@ h2 {
 @media (max-width: 480px) {
     .grid-kpi {
         grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .s-card, .form-section {
+        padding: 16px;
+    }
+    .kpi-val-v2 {
+        font-size: 1.4rem;
+    }
+    .kpi-title-v2 {
+        font-size: 0.65rem;
+    }
+    .grid-dashboard {
+        gap: 16px;
+    }
+    .container {
+        padding: 16px 12px;
+    }
+    .form-control {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    .form-label {
+        font-size: 0.75rem;
     }
 }
 
