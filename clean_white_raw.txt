@@ -1,0 +1,83 @@
+﻿Created At: 2026-06-04T06:16:52Z
+Completed At: 2026-06-04T06:16:52Z
+File Path: `file:///c:/WEB%20DAN%20APLIKASI/MANAGEMENT%20AKUN%20V2%20-%20Copy/android-app/app/src/main/assets/ManajemenAkunFFML.html`
+Total Lines: 6356
+Total Bytes: 331475
+Showing lines 1 to 100
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <!DOCTYPE html>
+2: <html lang="id">
+3: <head>
+4:     <meta charset="UTF-8">
+5:     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6:     <title>Manajemen Akun FF & ML</title>
+7:     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+8:     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+9:     <style>
+10: /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+11:    CLEAN WHITE Â· EMERALD GREEN Â· MODERN DASHBOARD
+12:    Theme  : Clean White Â· Emerald #10B981 Â· Minimal
+13:    Font   : Plus Jakarta Sans Â· Inter
+14:    Design : Flat Clean Â· Card-Based Â· Mobile-First
+15:    Version: 5.0 Clean White Edition
+16: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+17: 
+18: @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700;800&display=swap');
+19: 
+20: :root {
+21:     /* â”€â”€ Core Colors â€” Premium Midnight Blue â”€â”€ */
+22:     --bg:         #04091A;
+23:     --bg2:        #0D1635;
+24:     --surface:    rgba(20, 30, 50, 0.6);
+25:     --surface2:   rgba(30, 45, 75, 0.5);
+26: 
+27:     /* â”€â”€ Primary â€” Emerald Green â”€â”€ */
+28:     --primary:       #10B981;
+29:     --primary-light: #34D399;
+
+<truncated 947 bytes>
+500: #CBD5E1;
+59:     --gray-600: #E2E8F0;
+60:     --gray-700: #E8ECF1;
+61:     --gray-800: #F1F5F9;
+62:     --gray-900: #FFFFFF;
+63: 
+64:     /* â”€â”€ Semantic Colors â”€â”€ */
+65:     --green:  #10B981;  --green2: #059669;
+66:     --red:    #EF4444;  --red2:   #DC2626;
+67:     --amber:  #F59E0B;  --amber2: #D97706;
+68:     --purple: #8B5CF6;  --cyan:   #06B6D4;
+69: 
+70:     /* â”€â”€ UI Tokens â”€â”€ */
+71:     --r:       12px;
+72:     --r-sm:    8px;
+73:     --r-lg:    16px;
+74:     --r-xl:    24px;
+75:     --shadow:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+76:     --shadow-md: 0 4px 12px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.04);
+77:     --shadow-lg: 0 10px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.04);
+78:     --shadow-xl: 0 20px 50px rgba(0,0,0,.1);
+79:     --border:  1px solid #E2E8F0;
+80:     --T:       all .2s ease;
+81:     --T-spring: all .25s cubic-bezier(.34,1.2,.64,1);
+82:     --font:    'Plus Jakarta Sans', 'Inter', -apple-system, system-ui, sans-serif;
+83:     --font-d:  'Inter', 'Plus Jakarta Sans', sans-serif;
+84:     --sidebar-w: 220px;
+85: }
+86: 
+87: *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+88: html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
+89: ::-webkit-scrollbar { width: 5px; height: 5px; }
+90: ::-webkit-scrollbar-track { background: var(--gray-100); }
+91: ::-webkit-scrollbar-thumb { background: var(--blue-300); border-radius: 6px; }
+92: ::-webkit-scrollbar-thumb:hover { background: var(--blue-500); }
+93: ::selection { background: var(--blue-200); color: var(--navy); }
+94: /* Premium HD Quality rendering */
+95: * {
+96:     -webkit-font-smoothing: subpixel-antialiased;
+97:     text-rendering: geometricPrecision;
+98:     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+99:     -webkit-text-stroke: 0.01em transparent;
+100: }
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+

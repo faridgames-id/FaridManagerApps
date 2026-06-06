@@ -1,0 +1,55 @@
+﻿Created At: 2026-06-04T09:22:09Z
+Completed At: 2026-06-04T09:22:09Z
+File Path: `file:///c:/WEB%20DAN%20APLIKASI/MANAGEMENT%20AKUN%20V2%20-%20Copy/web-app/src/components/DashboardTab.js`
+Total Lines: 273
+Total Bytes: 18279
+Showing lines 80 to 180
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+80: 
+81:     return (
+82:         <div id="dashboard" className="tab-content active" style={{ display: 'block' }}>
+83:             <div className="content">
+84:                 {/* Welcome Header */}
+85:                 <div className="welcome-header">
+86:                     <h2 style={{ margin: '0 0 10px 0', fontSize: '1.8rem', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>ðŸ‘‹ Selamat Datang di Dashboard</h2>
+87:                     <p style={{ margin: 0, opacity: 0.9, fontSize: '1.1rem', textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>Ringkasan lengkap stok dan penjualan akun FF & ML Anda</p>
+88:                 </div>
+89: 
+90:                 {/* Summary Cards */}
+91:                 <div className="summary-cards" style={{ marginBottom: '30px' }}>
+92:                     <div className="card stok-ff">
+93:                         <h3>ðŸ”¶ Total Akun FF</h3>
+94:                         <div className="amount">{ffAccounts.length}</div>
+95:                     </div>
+96:                     <div className="card ff-akun">
+97:                         <h3>ðŸ”¥ FF Ready</h3>
+98:                         <div className="amount">{ffReadyCount}</div>
+99:                     </div>
+100:                     <div className="card stok-ml">
+101:                         <h3>ðŸ”µ Total Akun ML</h3>
+102:                         <div className="amount">{mlAccounts.length}</div>
+103:                     </div>
+104:                     <div className="card ml-akun">
+105:                         <h3>âš¡ ML Ready</h3>
+106:                         <div className=
+<truncated 4997 bytes>
+ 'right' }}>Profit/Loss</th>
+164:                                 </tr>
+165:                             </thead>
+166:                             <tbody>
+167:                                 <tr>
+168:                                     <td><span className="badge badge-ff">FF</span> Free Fire</td>
+169:                                     <td style={{ textAlign: 'center' }}>{ffAccounts.length}</td>
+170:                                     <td style={{ textAlign: 'center', color: '#27ae60', fontWeight: 'bold' }}>{ffAccounts.filter(a => a.status === 'aktif').length}</td>
+171:                                     <td style={{ textAlign: 'center', color: '#e74c3c', fontWeight: 'bold' }}>{ffSold.length}</td>
+172:                                     <td style={{ textAlign: 'center', color: '#1abc9c', fontWeight: 'bold' }}>{ffAccounts.filter(a => a.status === 'cicilan').length}</td>
+173:                                     <td style={{ textAlign: 'right' }}>{formatRupiah(ffAccounts.reduce((sum, a) => sum + (a.buyPrice || 0), 0))}</td>
+174:                                     <td style={{ textAlign: 'right' }}>{formatRupiah(ffSold.reduce((sum, a) => sum + (a.sellPrice || 0), 0))}</td>
+175:                                     <td style={{ textAlign: 'right', color: ffProfit >= 0 ? '#27ae60' : '#e74c3c', fontWeight: 'bold' }}>{ffProfit >= 0 ? '+' : ''}{formatRupiah(ffProfit)}</td>
+176:                                 </tr>
+177:                                 <tr>
+178:                                     <td><span className="badge badge-ml">ML</span> Mobile Legends</td>
+179:                                     <td style={{ textAlign: 'center' }}>{mlAccounts.length}</td>
+180:                                     <td style={{ textAlign: 'center', color: '#27ae60', fontWeight: 'bold' }}>{mlAccounts.filter(a => a.status === 'aktif').length}</td>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+

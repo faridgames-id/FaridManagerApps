@@ -1,0 +1,74 @@
+﻿Created At: 2026-06-04T09:19:42Z
+Completed At: 2026-06-04T09:19:42Z
+File Path: `file:///c:/WEB%20DAN%20APLIKASI/MANAGEMENT%20AKUN%20V2%20-%20Copy/web-app/src/app/page.js`
+Total Lines: 940
+Total Bytes: 46394
+Showing lines 775 to 940
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+775:             )}
+776: 
+777:             {/* 4. Switch Account Modal Overlay */}
+778:             {isSwitchAccountOpen && (
+779:                 <div style={{
+780:                     position: 'fixed',
+781:                     inset: 0,
+782:                     zIndex: 100000,
+783:                     background: 'rgba(4,9,26,0.85)',
+784:                     backdropFilter: 'blur(15px)',
+785:                     display: 'flex',
+786:                     alignItems: 'center',
+787:                     justifyContent: 'center',
+788:                     color: 'white'
+789:                 }}>
+790:                     <div style={{
+791:                         background: 'rgba(20,30,50,0.75)',
+792:                         border: '1px solid rgba(255,255,255,0.1)',
+793:                         borderRadius: '24px',
+794:                         padding: '32px',
+795:                         boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+796:                         width: '90%',
+797:                         maxWidth: '450px'
+798:                     }}>
+799:                         <h3 style={{ marginBottom: '8px', fontSize: '1.3rem', fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>ðŸ”„ Ganti Akun</h3>
+800:                         <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '20px' }}>Pilih akun yang ingin Anda gunakan atau masuk dengan akun baru.</p>
+801:                         
+802:                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '25px', ma
+<truncated 8544 bytes>
+          flex: 1,
+906:                                         padding: '12px',
+907:                                         background: 'rgba(239, 68, 68, 0.1)',
+908:                                         border: '1px solid rgba(239, 68, 68, 0.2)',
+909:                                         borderRadius: '10px',
+910:                                         color: '#fca5a5',
+911:                                         fontWeight: 600,
+912:                                         fontSize: '0.85rem',
+913:                                         cursor: 'pointer',
+914:                                         transition: 'all 0.2s'
+915:                                     }}
+916:                                 >ðŸšª Sign Out</button>
+917:                                 
+918:                                 <button 
+919:                                     onClick={() => setIsSwitchAccountOpen(false)}
+920:                                     style={{
+921:                                         flex: 1,
+922:                                         padding: '12px',
+923:                                         background: 'transparent',
+924:                                         border: '1px solid rgba(255,255,255,0.15)',
+925:                                         borderRadius: '10px',
+926:                                         color: '#94a3b8',
+927:                                         fontWeight: 600,
+928:                                         fontSize: '0.85rem',
+929:                                         cursor: 'pointer'
+930:                                     }}
+931:                                 >Batal</button>
+932:                             </div>
+933:                         </div>
+934:                     </div>
+935:                 </div>
+936:             )}
+937:         </>
+938:     );
+939: }
+940: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
