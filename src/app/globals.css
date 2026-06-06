@@ -645,6 +645,13 @@ h2 {
     .form-label {
         font-size: 0.75rem;
     }
+    .stock-table th, .data-table th,
+    .stock-table td, .data-table td {
+        white-space: normal;
+        word-break: break-word;
+        padding: 8px 4px;
+        font-size: 0.7rem;
+    }
 }
 
 /* -- LEGACY COMPATIBILITY (DARK STYLED) -- */

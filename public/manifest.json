@@ -1,0 +1,24 @@
+{
+  "name": "Farid Shop Game - Manajemen Akun",
+  "short_name": "Farid Shop",
+  "description": "Sistem Manajemen Akun FF & ML - Farid Shop Game",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04091A",
+  "theme_color": "#10B981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
