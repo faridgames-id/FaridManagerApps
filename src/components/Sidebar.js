@@ -98,7 +98,14 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
     };
 
     return (
-        <div className={`sidebar ${!isOpen ? 'closed' : 'mobile-open'}`}>
+        <>
+            {/* Overlay background for mobile */}
+            <div 
+                className={`sidebar-overlay ${isOpen ? 'show' : ''}`}
+                onClick={() => toggleSidebar(false)}
+            ></div>
+
+            <div className={`sidebar ${!isOpen ? 'closed' : 'mobile-open'}`}>
             
             {/* Logo Area */}
             <div className="s-logo" style={{ position: 'relative' }}>
@@ -600,7 +607,33 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     border: 1px solid rgba(0, 210, 255, 0.1) !important;
                     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 210, 255, 0.2) !important;
                 }
+                
+                .sidebar-overlay {
+                    display: none;
+                }
+
+                @media (max-width: 768px) {
+                    .sidebar-overlay {
+                        display: block;
+                        position: fixed;
+                        inset: 0;
+                        background: rgba(0, 0, 0, 0.6);
+                        backdrop-filter: blur(4px);
+                        -webkit-backdrop-filter: blur(4px);
+                        z-index: 90;
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: opacity 0.3s ease;
+                    }
+                    .sidebar-overlay.show {
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                    .sidebar {
+                        z-index: 100;
+                    }
+                }
             `}</style>
-        </div>
+        </>
     );
 }

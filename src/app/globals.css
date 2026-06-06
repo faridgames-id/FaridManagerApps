@@ -592,6 +592,9 @@ h2 {
     .main-content {
         margin-left: 0;
     }
+    .date-display, .export-btn {
+        display: none !important;
+    }
     .container {
         padding: 24px 16px;
     }
