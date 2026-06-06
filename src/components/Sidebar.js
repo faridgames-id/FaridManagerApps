@@ -634,6 +634,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     }
                 }
             `}</style>
+        </div>
         </>
     );
 }
