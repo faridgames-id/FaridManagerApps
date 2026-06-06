@@ -196,6 +196,7 @@ body {
     overflow-x: hidden;
     line-height: 1.6;
     letter-spacing: 0.01em;
+    touch-action: pan-y;
 }
 
 /* ── PREMIUM BACKGROUND ── */
@@ -243,6 +244,7 @@ body::after {
     display: flex;
     min-height: 100vh;
     width: 100%;
+    overflow-x: hidden;
 }
 
 /* MAIN CONTENT */
