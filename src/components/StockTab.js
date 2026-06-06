@@ -25,6 +25,7 @@ export default function StockTab({
     const [seller, setSeller] = useState('');
     const [buyer, setBuyer] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [notes, setNotes] = useState('');
     const [keterangan, setKeterangan] = useState('');
     const [keteranganCustom, setKeteranganCustom] = useState('');
@@ -115,6 +116,7 @@ export default function StockTab({
             seller: seller || '-',
             buyer: buyer || '',
             email: email || '-',
+            password: password || '-',
             notes: notes || '-',
             keterangan: finalKeterangan,
             device: device || '-',
@@ -133,6 +135,7 @@ export default function StockTab({
         setSeller('');
         setBuyer('');
         setEmail('');
+        setPassword('');
         setNotes('');
         setKeterangan('');
         setKeteranganCustom('');
@@ -151,6 +154,7 @@ export default function StockTab({
             buyPrice: account.buyPrice ? formatRupiah(account.buyPrice) : '',
             targetPrice: account.targetPrice ? formatRupiah(account.targetPrice) : '',
             email: account.email || '',
+            password: account.password || '',
             buyDate: account.buyDate || '',
             seller: account.seller || '',
             device: account.device || '',
@@ -168,6 +172,7 @@ export default function StockTab({
             buyPrice: parseRupiah(editForm.buyPrice),
             targetPrice: parseRupiah(editForm.targetPrice),
             email: editForm.email,
+            password: editForm.password,
             buyDate: editForm.buyDate,
             seller: editForm.seller,
             device: editForm.device,
@@ -307,9 +312,9 @@ export default function StockTab({
     const handleCopyFormat = (account, type) => {
         let text = '';
         if (type === 'FF') {
-            text = `SPEK AKUN ⬇️\n${account.spek || '-'}\n✨ FARID STOCK #FREE FIRE ✨\n────────────────────\nKETERANGAN : \n✉️ Email          : ${account.email || ''}\n🔐 Password       : \n────────────────────\n⚠️ PENTING DIBACA ⚠️\n1. Jangan langsung amankan akun Google setelah terima  \n   Risiko akun langsung kenonaktif\n2. Simpan semua data dengan baik setelah diterima\n3. Alrefull berlaku 16hari proses bind ulang / rebind / undbind\n4. Garansi hangus jika akun dijual kembali\n────────────────────\nFarid Shop © 2026`;
+            text = `SPEK AKUN ⬇️\n${account.spek || '-'}\n✨ FARID STOCK #FREE FIRE ✨\n────────────────────\nKETERANGAN : \n✉️ Email          : ${account.email || ''}\n🔐 Password       : ${account.password || ''}\n────────────────────\n⚠️ PENTING DIBACA ⚠️\n1. Jangan langsung amankan akun Google setelah terima  \n   Risiko akun langsung kenonaktif\n2. Simpan semua data dengan baik setelah diterima\n3. Alrefull berlaku 16hari proses bind ulang / rebind / undbind\n4. Garansi hangus jika akun dijual kembali\n────────────────────\nFarid Shop © 2026`;
         } else {
-            text = `SPEK AKUN ⬇️\n${account.spek || '-'}\n✨ FARID STOCK #MOBILE LEGEND ✨\n────────────────────\nKETERANGAN : \n✉️ Email          : ${account.email || ''}\n🔐 Password       : \n────────────────────\n⚠️ PENTING DIBACA ⚠️\n1. Jangan langsung amankan akun Google setelah terima  \n   Risiko akun langsung kenonaktif\n2. Simpan semua data dengan baik setelah diterima\n3. Alrefull berlaku 30DAY proses kontak gm\n4. Garansi hangus jika akun dijual kembali\n────────────────────\nFarid Shop © 2026`;
+            text = `SPEK AKUN ⬇️\n${account.spek || '-'}\n✨ FARID STOCK #MOBILE LEGEND ✨\n────────────────────\nKETERANGAN : \n✉️ Email          : ${account.email || ''}\n🔐 Password       : ${account.password || ''}\n────────────────────\n⚠️ PENTING DIBACA ⚠️\n1. Jangan langsung amankan akun Google setelah terima  \n   Risiko akun langsung kenonaktif\n2. Simpan semua data dengan baik setelah diterima\n3. Alrefull berlaku 30DAY proses kontak gm\n4. Garansi hangus jika akun dijual kembali\n────────────────────\nFarid Shop © 2026`;
         }
         
         navigator.clipboard.writeText(text).then(() => {
@@ -416,12 +421,12 @@ export default function StockTab({
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Nama Pembeli (Kosongi jika Ready)</label>
+                                <label>Password Akun</label>
                                 <input 
                                     type="text" 
-                                    value={buyer}
-                                    onChange={(e) => setBuyer(e.target.value)}
-                                    placeholder="Contoh: Agus" 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Password login..." 
                                 />
                             </div>
                         </div>
@@ -436,6 +441,7 @@ export default function StockTab({
                                     placeholder="email@login.com / 0812..." 
                                 />
                             </div>
+
                             <div className="form-group">
                                 <label>Keterangan Status</label>
                                 <select 
@@ -741,6 +747,14 @@ export default function StockTab({
                                     type="text" 
                                     value={editForm.email} 
                                     onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password Akun</label>
+                                <input 
+                                    type="text" 
+                                    value={editForm.password} 
+                                    onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
                                 />
                             </div>
                             <div className="form-group">

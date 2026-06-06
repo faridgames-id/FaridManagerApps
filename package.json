@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "electron:build": "electron-packager . \"Farid Shop App\" --platform=win32 --arch=x64 --out=dist-desktop --overwrite --icon=public/icon.png --ignore=\"^/dist|^/android|^/.next|^/.git\""
+    "electron:build": "electron-packager . \"Farid Shop App\" --platform=win32 --arch=x64 --out=dist-desktop-4 --overwrite --icon=public/icon.png --ignore=\"^/dist|^/android|^/.next|^/.git\""
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",
@@ -18,7 +18,8 @@
     "next": "16.2.7",
     "react": "19.2.4",
     "react-chartjs-2": "^5.3.1",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "express": "^5.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,7 +28,6 @@
     "electron-packager": "^17.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
-    "express": "^5.2.1",
     "tailwindcss": "^4"
   },
   "main": "main.js",
@@ -35,7 +35,7 @@
     "appId": "com.farid.shop",
     "productName": "Farid Shop App",
     "directories": {
-      "output": "dist-desktop-2"
+      "output": "dist-desktop-4"
     },
     "files": [
       "out/**/*",

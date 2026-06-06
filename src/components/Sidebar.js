@@ -356,10 +356,10 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     position: absolute;
                     inset: -2px;
                     border-radius: 14px;
-                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.4), rgba(0, 210, 255, 0.2));
-                    filter: blur(6px);
+                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.6), rgba(0, 210, 255, 0.4));
+                    filter: blur(8px);
                     z-index: -1;
-                    opacity: 0.6;
+                    animation: auroraBreath 4s ease-in-out infinite alternate;
                 }
 
                 .s-logo-name {
@@ -436,10 +436,11 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
 
                 .nav-tab.active {
                     color: #FFFFFF;
-                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.4), rgba(0, 82, 212, 0.2));
-                    border-color: rgba(0, 210, 255, 0.15);
-                    box-shadow: 0 4px 20px rgba(0, 82, 212, 0.25), inset 0 1px 0 rgba(0, 210, 255, 0.1);
-                    font-weight: 600;
+                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.5), rgba(0, 82, 212, 0.25));
+                    border-color: rgba(0, 210, 255, 0.25);
+                    box-shadow: 0 4px 20px rgba(0, 82, 212, 0.35), inset 0 1px 0 rgba(0, 210, 255, 0.2);
+                    font-weight: 700;
+                    letter-spacing: 0.01em;
                 }
 
                 .nav-tab.active::before {
@@ -598,7 +599,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     text-shadow: 0 0 6px rgba(0, 210, 255, 0.5);
                 }
                 .slideUp {
-                    animation: slideUp 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
                 }
 
                 .profile-dropdown {
