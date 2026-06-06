@@ -945,7 +945,7 @@ export default function Home() {
                                 </div>
 
                                 {/* Backup & Restore */}
-                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                <div className="utility-bar-backup" style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                                     {lastSaved && (
                                         <span style={{ color: 'var(--text-tertiary)', fontSize: '.75rem', fontWeight: 500, marginRight: '8px' }}>
                                             Tersimpan: {lastSaved}

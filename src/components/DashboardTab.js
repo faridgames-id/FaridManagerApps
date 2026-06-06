@@ -177,7 +177,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
             </div>
 
             {/* Middle Grid */}
-            <div className="grid-dashboard" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '32px' }}>
+            <div className="grid-dashboard">
                 
                 {/* Left Column: Chart & Financial Stats */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>

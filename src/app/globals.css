@@ -592,7 +592,7 @@ h2 {
     .main-content {
         margin-left: 0;
     }
-    .date-display, .export-btn {
+    .date-display, .export-btn, .utility-bar-backup {
         display: none !important;
     }
     .container {
