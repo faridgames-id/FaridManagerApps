@@ -817,27 +817,16 @@ export default function Home() {
                                     {displaySubtitle}
                                 </div>
 
-                                <div className="welcome-pill">
-                                    <span className="welcome-pill-chevron">&lt;</span>
-                                    <span>📅 {currentDateStr || 'Memuat...'}</span>
-                                    <span className="welcome-pill-chevron">&gt;</span>
-                                </div>
-
-                                <div className="level-card-modern">
-                                    <div className="level-icon">🏗️</div>
-                                    <div className="level-info">
-                                        <div className="level-title">Builder</div>
-                                        <div className="progress-wrapper">
-                                            <div className="progress-bar">
-                                                <div className="progress-fill"></div>
-                                            </div>
-                                            <div className="xp-text">1770 XP</div>
-                                        </div>
+                                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '16px' }}>
+                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('tambah')} title="Tambah Akun">
+                                        <span style={{ color: '#00D2FF', fontSize: '1.2rem' }}>⊕</span> Tambah Akun
                                     </div>
-                                </div>
-
-                                <div className="streak-badge-modern">
-                                    🔥 1 Day Streak
+                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('dashboard')} title="Total Akun Aktif">
+                                        <span style={{ color: '#00E68A', fontSize: '1.1rem' }}>📦</span> {accounts.filter(a => a.status === 'aktif').length} Ready
+                                    </div>
+                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('penjualan')} title="Total Akun Terjual">
+                                        <span style={{ color: '#FFD700', fontSize: '1.1rem' }}>🛒</span> {accounts.filter(a => a.status === 'terjual').length} Terjual
+                                    </div>
                                 </div>
                             </div>
 

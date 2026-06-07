@@ -2079,91 +2079,25 @@ svg {
     max-width: 90%;
 }
 
-.welcome-pill {
+.quick-stat-pill {
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 10px 16px;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    color: #E2E8F0;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-}
-
-.welcome-pill-chevron {
-    color: #64748B;
-    cursor: pointer;
-}
-
-.level-card-modern {
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-    width: fit-content;
-    min-width: 260px;
-}
-
-.level-card-modern .level-icon {
-    font-size: 1.5rem;
-}
-
-.level-card-modern .level-info {
-    flex: 1;
-}
-
-.level-card-modern .level-title {
-    color: #F59E0B;
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-}
-
-.level-card-modern .progress-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.level-card-modern .progress-bar {
-    flex: 1;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.level-card-modern .progress-fill {
-    height: 100%;
-    background: #F59E0B;
-    border-radius: 4px;
-    width: 25%;
-}
-
-.level-card-modern .xp-text {
-    font-size: 0.75rem;
-    color: #94A3B8;
-    font-weight: 600;
-}
-
-.streak-badge-modern {
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 8px 16px;
-    display: inline-flex;
-    align-items: center;
     gap: 8px;
     color: #E2E8F0;
-    font-weight: 600;
     font-size: 0.9rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.quick-stat-pill:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
 }
 
 .mobile-actions-row {
