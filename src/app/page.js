@@ -2,9 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../utils/supabase';
 import dynamic from 'next/dynamic';
-
-const GundamCanvas = dynamic(() => import('../components/GundamCanvas'), { ssr: false });
-
 // Components
 import IntroOverlay from '../components/IntroOverlay';
 import LoginOverlay from '../components/LoginOverlay';
@@ -779,7 +776,6 @@ export default function Home() {
             {introFinished && currentUser && (
                 <>
                     <AnimatedBackground />
-                    <GundamCanvas />
                     <div className="app-wrapper">
                     {/* Sidebar Nav */}
                     <Sidebar 
