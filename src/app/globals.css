@@ -616,19 +616,37 @@ h2 {
     .finance-stats-grid {
         display: flex;
         overflow-x: auto;
-        padding-bottom: 8px;
+        padding-bottom: 12px;
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .finance-stats-grid::-webkit-scrollbar {
+        display: none;
     }
     .finance-stats-grid .finance-mini-card {
-        min-width: 140px;
+        min-width: 130px;
         flex-shrink: 0;
     }
     .ss-stats-grid {
         display: flex;
         overflow-x: auto;
-        padding-bottom: 8px;
+        padding-bottom: 12px;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .ss-stats-grid::-webkit-scrollbar {
+        display: none;
     }
     .ss-stats-grid .ss-stat-col {
-        min-width: 90px;
+        min-width: 85px;
         flex-shrink: 0;
     }
     .header-left h2 {
@@ -645,6 +663,24 @@ h2 {
     }
     .btn-toggle-sidebar {
         margin-right: 8px;
+    }
+    
+    /* Horizontal scroll for Recent Sales */
+    .recent-sales-list {
+        overflow-x: auto;
+        padding-bottom: 12px;
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .recent-sales-list::-webkit-scrollbar {
+        display: none;
+    }
+    .recent-sale-item {
+        min-width: 450px; /* Force horizontal scroll so price and date are not cropped */
     }
 }
 
