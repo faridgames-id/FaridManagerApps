@@ -808,24 +808,82 @@ export default function Home() {
 
                             {/* MODERN WELCOME CARD */}
                             <div className="welcome-card-modern">
+                                <div className="system-online-badge">SYSTEM ONLINE</div>
                                 <div className="greeting-small">Good Morning 👋</div>
-                                <div className="greeting-large">
+                                <div className="greeting-large" style={{ zIndex: 2, position: 'relative' }}>
                                     Welcome Back,<br />
                                     <span className="greeting-name" onClick={openEditInfo} style={{ cursor: 'pointer' }} title="Edit info dashboard">{displayName}</span>
                                 </div>
-                                <div className="greeting-subtitle">
+                                <div className="greeting-subtitle" style={{ zIndex: 2, position: 'relative' }}>
                                     {displaySubtitle}
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '16px' }}>
-                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('tambah')} title="Tambah Akun">
-                                        <span style={{ color: '#00D2FF', fontSize: '1.2rem' }}>⊕</span> Tambah Akun
+                                <div className="sci-fi-stats-row">
+                                    <div className="sci-fi-stat-card" onClick={() => setActiveTab('tambah')}>
+                                        <div className="sci-fi-icon-wrap sci-fi-icon-blue">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                        </div>
+                                        <div className="sci-fi-stat-info">
+                                            <div className="sci-fi-stat-title">Tambah Akun</div>
+                                            <div className="sci-fi-stat-subtitle">Buat akun baru</div>
+                                        </div>
                                     </div>
-                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('dashboard')} title="Total Akun Aktif">
-                                        <span style={{ color: '#00E68A', fontSize: '1.1rem' }}>📦</span> {accounts.filter(a => a.status === 'aktif').length} Ready
+                                    <div className="sci-fi-stat-card" onClick={() => setActiveTab('dashboard')}>
+                                        <div className="sci-fi-icon-wrap sci-fi-icon-gold">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                        </div>
+                                        <div className="sci-fi-stat-info">
+                                            <div className="sci-fi-stat-title">{accounts.filter(a => a.status === 'aktif').length} Ready</div>
+                                            <div className="sci-fi-stat-subtitle">Akun siap digunakan</div>
+                                        </div>
                                     </div>
-                                    <div className="quick-stat-pill" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('penjualan')} title="Total Akun Terjual">
-                                        <span style={{ color: '#FFD700', fontSize: '1.1rem' }}>🛒</span> {accounts.filter(a => a.status === 'terjual').length} Terjual
+                                    <div className="sci-fi-stat-card" onClick={() => setActiveTab('penjualan')}>
+                                        <div className="sci-fi-icon-wrap sci-fi-icon-blue">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                        </div>
+                                        <div className="sci-fi-stat-info">
+                                            <div className="sci-fi-stat-title">{accounts.filter(a => a.status === 'terjual').length} Terjual</div>
+                                            <div className="sci-fi-stat-subtitle">Total transaksi</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="sci-fi-status-bar">
+                                    <div className="sci-fi-status-col">
+                                        <div className="status-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                                        </div>
+                                        <div className="status-info">
+                                            <div className="status-label">Keamanan Akun</div>
+                                            <div className="status-val" style={{ color: '#88A0C0' }}>Terenkripsi & Aman</div>
+                                        </div>
+                                    </div>
+                                    <div className="sci-fi-status-col">
+                                        <div className="status-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                        </div>
+                                        <div className="status-info">
+                                            <div className="status-label">Sistem Status</div>
+                                            <div className="status-val">Semua Sistem Normal <span className="dot-green"></span></div>
+                                        </div>
+                                    </div>
+                                    <div className="sci-fi-status-col">
+                                        <div className="status-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        </div>
+                                        <div className="status-info">
+                                            <div className="status-label">Waktu Server</div>
+                                            <div className="status-val" style={{ color: '#88A0C0' }}>{currentDateStr || 'Memuat...'}</div>
+                                        </div>
+                                    </div>
+                                    <div className="sci-fi-status-col">
+                                        <div className="status-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                        </div>
+                                        <div className="status-info">
+                                            <div className="status-label">Versi Dashboard</div>
+                                            <div className="status-val" style={{ color: '#88A0C0' }}>v2.1.0 Premium</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
