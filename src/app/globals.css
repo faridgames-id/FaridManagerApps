@@ -2028,7 +2028,7 @@ svg {
 }
 
 .welcome-card-modern {
-    background: linear-gradient(90deg, rgba(10, 18, 35, 1) 0%, rgba(10, 18, 35, 0.95) 45%, rgba(10, 18, 35, 0.4) 100%), url('/gundam-bg.png') no-repeat right center;
+    background: radial-gradient(circle at right center, rgba(0, 210, 255, 0.25) 0%, rgba(10, 18, 35, 0.85) 50%, rgba(10, 18, 35, 1) 100%);
     background-size: cover;
     border-radius: 28px;
     padding: 32px 32px 24px 32px;
@@ -2039,7 +2039,7 @@ svg {
     border: 1px solid rgba(0, 150, 255, 0.2);
     display: flex;
     flex-direction: column;
-    min-height: 360px;
+    min-height: 380px;
 }
 
 .welcome-card-modern::before {

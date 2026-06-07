@@ -1,6 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../utils/supabase';
+import dynamic from 'next/dynamic';
+
+const GundamCanvas = dynamic(() => import('../components/GundamCanvas'), { ssr: false });
 
 // Components
 import IntroOverlay from '../components/IntroOverlay';
@@ -808,6 +811,7 @@ export default function Home() {
 
                             {/* MODERN WELCOME CARD */}
                             <div className="welcome-card-modern">
+                                <GundamCanvas />
                                 <div className="system-online-badge">SYSTEM ONLINE</div>
                                 <div className="greeting-small">Good Morning 👋</div>
                                 <div className="greeting-large" style={{ zIndex: 2, position: 'relative' }}>
