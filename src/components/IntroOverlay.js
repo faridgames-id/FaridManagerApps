@@ -64,17 +64,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                 <div className="intro-logo-container">
                     <div className="intro-logo-glow"></div>
                     <div className="intro-logo">
-                        <img 
-                            src="/logo.png" 
-                            alt="FRD Logo" 
-                            style={{
-                                width: '80px',
-                                height: '80px',
-                                objectFit: 'contain',
-                                filter: 'drop-shadow(0 4px 15px rgba(31, 107, 189, 0.6)) drop-shadow(0 0 10px rgba(0, 210, 255, 0.4))',
-                                animation: 'float 3s ease-in-out infinite'
-                            }}
-                        />
+                        <img src="/logo.png" alt="FRD Logo" className="logo-img-file" />
                     </div>
                 </div>
                 <h1 className="intro-title">FARID SHOP GAME</h1>
