@@ -1526,12 +1526,6 @@ table td:not(:last-child) {
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: introFloat 4s ease-in-out infinite;
-}
-
-@keyframes introFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
 }
 
 .intro-logo-glow {
