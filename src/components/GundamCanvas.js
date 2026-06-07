@@ -12,26 +12,24 @@ function GundamModel({ url }) {
 
     useFrame((state, delta) => {
         if (ref.current) {
-            // Calculate target rotation based on pointer position
-            // Mengubah rotasi keseluruhan karena model ini tidak memiliki tulang kepala terpisah (single mesh)
+            // Mengubah rotasi keseluruhan mengikuti cursor
             const targetX = (pointer.x * viewport.width) / 10;
             const targetY = (pointer.y * viewport.height) / 10;
 
-            // Interpolate towards target
-            ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (pointer.x * Math.PI) / 6 - Math.PI / 6, 0.05);
+            ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (pointer.x * Math.PI) / 6 - Math.PI / 8, 0.05);
             ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, -(pointer.y * Math.PI) / 12, 0.05);
         }
     });
 
     return (
-        <Float speed={2} rotationIntensity={0.05} floatIntensity={0.2}>
-            {/* Diperbesar menjadi skala 6 dan digeser ke bawah agar tampak setengah badan */}
+        <Float speed={1.5} rotationIntensity={0.05} floatIntensity={0.1}>
+            {/* Skala diperbesar ekstrim dan diturunkan drastis agar tampak setengah badan raksasa */}
             <primitive 
                 ref={ref} 
                 object={scene} 
-                scale={6.5} 
-                position={[4, -5.5, 0]} 
-                rotation={[0, -Math.PI / 6, 0]} 
+                scale={38} 
+                position={[12, -28, -5]} 
+                rotation={[0, -Math.PI / 8, 0]} 
             />
         </Float>
     );
@@ -39,17 +37,17 @@ function GundamModel({ url }) {
 
 export default function GundamCanvas() {
     return (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>
-            <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ alpha: true, antialias: true }} style={{ pointerEvents: 'auto' }}>
-                <ambientLight intensity={2.0} />
-                <directionalLight position={[10, 10, 10]} intensity={3} color="#ffffff" />
-                <directionalLight position={[-10, 0, -10]} intensity={1.5} color="#00D2FF" />
-                <spotLight position={[0, 15, 10]} intensity={4} angle={0.5} penumbra={1} color="#00E68A" />
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}>
+            <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ alpha: true, antialias: true }} style={{ pointerEvents: 'auto' }}>
+                <ambientLight intensity={2.5} />
+                <directionalLight position={[10, 10, 10]} intensity={4} color="#ffffff" />
+                <directionalLight position={[-10, 0, -10]} intensity={2} color="#00D2FF" />
+                <spotLight position={[5, 15, 10]} intensity={5} angle={0.6} penumbra={1} color="#00E68A" />
                 
                 <Suspense fallback={null}>
                     <GundamModel url="/gundam.glb" />
                     <Environment preset="city" />
-                    <ContactShadows position={[4, -6, 0]} opacity={0.6} scale={20} blur={2.5} far={4} color="#00D2FF" />
+                    <ContactShadows position={[12, -29, -5]} opacity={0.6} scale={40} blur={3} far={10} color="#00D2FF" />
                 </Suspense>
                 
                 <OrbitControls 
