@@ -2028,7 +2028,7 @@ svg {
 }
 
 .welcome-card-modern {
-    background: radial-gradient(circle at right center, rgba(0, 210, 255, 0.25) 0%, rgba(10, 18, 35, 0.85) 50%, rgba(10, 18, 35, 1) 100%);
+    background: linear-gradient(90deg, rgba(10, 18, 35, 1) 0%, rgba(10, 18, 35, 0.85) 50%, rgba(10, 18, 35, 0.1) 100%), url('/gundam-bg.png') no-repeat right center;
     background-size: cover;
     border-radius: 28px;
     padding: 32px 32px 24px 32px;

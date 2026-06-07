@@ -1,28 +1,36 @@
 'use client';
 
 import React, { Suspense, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment, ContactShadows, Float, OrbitControls } from '@react-three/drei';
+import * as THREE from 'three';
 
 function GundamModel({ url }) {
     const { scene } = useGLTF(url);
     const ref = useRef();
+    const { pointer, viewport } = useThree();
 
-    // Auto-rotate slowly
     useFrame((state, delta) => {
         if (ref.current) {
-            ref.current.rotation.y += delta * 0.15;
+            // Calculate target rotation based on pointer position
+            // Mengubah rotasi keseluruhan karena model ini tidak memiliki tulang kepala terpisah (single mesh)
+            const targetX = (pointer.x * viewport.width) / 10;
+            const targetY = (pointer.y * viewport.height) / 10;
+
+            // Interpolate towards target
+            ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (pointer.x * Math.PI) / 6 - Math.PI / 6, 0.05);
+            ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, -(pointer.y * Math.PI) / 12, 0.05);
         }
     });
 
     return (
-        <Float speed={2} rotationIntensity={0.1} floatIntensity={0.3}>
-            {/* Posisi dan scale dapat disesuaikan tergantung ukuran asli GLB-nya */}
+        <Float speed={2} rotationIntensity={0.05} floatIntensity={0.2}>
+            {/* Diperbesar menjadi skala 6 dan digeser ke bawah agar tampak setengah badan */}
             <primitive 
                 ref={ref} 
                 object={scene} 
-                scale={2.5} 
-                position={[3, -2.5, 0]} 
+                scale={6.5} 
+                position={[4, -5.5, 0]} 
                 rotation={[0, -Math.PI / 6, 0]} 
             />
         </Float>
@@ -41,7 +49,7 @@ export default function GundamCanvas() {
                 <Suspense fallback={null}>
                     <GundamModel url="/gundam.glb" />
                     <Environment preset="city" />
-                    <ContactShadows position={[3, -2.8, 0]} opacity={0.6} scale={15} blur={2.5} far={4} color="#00D2FF" />
+                    <ContactShadows position={[4, -6, 0]} opacity={0.6} scale={20} blur={2.5} far={4} color="#00D2FF" />
                 </Suspense>
                 
                 <OrbitControls 
