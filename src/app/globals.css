@@ -1739,10 +1739,10 @@ table td:not(:last-child) {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 40px 16px;
+    padding: 16px;
 }
 
-.modal.show { display: block; animation: fadeIn 0.2s ease; }
+.modal.show { display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
 
 .modal-content {
     background: rgba(14, 22, 38, 0.95);
@@ -1757,7 +1757,7 @@ table td:not(:last-child) {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: relative;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .modal-content::before {
