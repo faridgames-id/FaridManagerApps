@@ -10,6 +10,12 @@ function GundamModel({ url }) {
     const ref = useRef();
     const { pointer, viewport } = useThree();
 
+    // Responsif: sesuaikan posisi dan skala berdasarkan lebar layar (mobile vs desktop)
+    const isMobile = viewport.width < 5;
+    const modelScale = isMobile ? 12 : 22;
+    const posX = isMobile ? 1 : 6;
+    const posY = isMobile ? -5 : -9;
+
     useFrame((state, delta) => {
         if (ref.current) {
             // Mengubah rotasi keseluruhan mengikuti cursor
@@ -26,8 +32,8 @@ function GundamModel({ url }) {
             <primitive 
                 ref={ref} 
                 object={scene} 
-                scale={18} 
-                position={[8, -14, -5]} 
+                scale={modelScale} 
+                position={[posX, posY, -5]} 
                 rotation={[0, -Math.PI / 8, 0]} 
             />
         </Float>
