@@ -774,10 +774,12 @@ export default function Home() {
                 <LoginOverlay onLoginSuccess={(user) => setCurrentUser(user)} initialEmail={autofillEmail} />
             )}
 
+                    {/* Main Work Area */}
             {/* 3. Main Dashboard System */}
             {introFinished && currentUser && (
                 <>
                     <AnimatedBackground />
+                    <GundamCanvas />
                     <div className="app-wrapper">
                     {/* Sidebar Nav */}
                     <Sidebar 
@@ -811,7 +813,6 @@ export default function Home() {
 
                             {/* MODERN WELCOME CARD */}
                             <div className="welcome-card-modern">
-                                <GundamCanvas />
                                 <div className="system-online-badge">SYSTEM ONLINE</div>
                                 <div className="greeting-small">Good Morning 👋</div>
                                 <div className="greeting-large" style={{ zIndex: 2, position: 'relative' }}>

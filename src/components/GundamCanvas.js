@@ -27,8 +27,8 @@ function GundamModel({ url }) {
             <primitive 
                 ref={ref} 
                 object={scene} 
-                scale={38} 
-                position={[12, -28, -5]} 
+                scale={45} 
+                position={[15, -35, -5]} 
                 rotation={[0, -Math.PI / 8, 0]} 
             />
         </Float>
@@ -37,7 +37,7 @@ function GundamModel({ url }) {
 
 export default function GundamCanvas() {
     return (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}>
             <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ alpha: true, antialias: true }} style={{ pointerEvents: 'auto' }}>
                 <ambientLight intensity={2.5} />
                 <directionalLight position={[10, 10, 10]} intensity={4} color="#ffffff" />
@@ -47,7 +47,7 @@ export default function GundamCanvas() {
                 <Suspense fallback={null}>
                     <GundamModel url="/gundam.glb" />
                     <Environment preset="city" />
-                    <ContactShadows position={[12, -29, -5]} opacity={0.6} scale={40} blur={3} far={10} color="#00D2FF" />
+                    <ContactShadows position={[15, -36, -5]} opacity={0.6} scale={50} blur={3} far={10} color="#00D2FF" />
                 </Suspense>
                 
                 <OrbitControls 
