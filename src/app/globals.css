@@ -1700,26 +1700,28 @@ table td:not(:last-child) {
     background: rgba(4, 8, 16, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    justify-content: center;
-    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 40px 16px;
 }
-.modal.show { display: flex; animation: fadeIn 0.2s ease; }
+
+.modal.show { display: block; animation: fadeIn 0.2s ease; }
 
 .modal-content {
     background: rgba(14, 22, 38, 0.95);
     border-radius: var(--r-xl);
     padding: 0;
     max-width: 520px;
-    width: 92%;
-    max-height: 90vh;
-    overflow-y: auto;
+    width: 100%;
+    display: block;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 210, 255, 0.2) inset;
     animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(0, 210, 255, 0.1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: relative;
-    overflow: hidden;
+    margin: 0 auto;
 }
 
 .modal-content::before {
@@ -1730,6 +1732,7 @@ table td:not(:last-child) {
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.4), var(--frd-gold), transparent);
+    z-index: 20;
 }
 
 .modal-header {
@@ -1738,10 +1741,7 @@ table td:not(:last-child) {
     align-items: center;
     padding: 20px 24px;
     border-bottom: 1px solid var(--border-light);
-    position: sticky;
-    top: 0;
     background: rgba(6, 12, 24, 0.9);
-    z-index: 1;
     border-radius: var(--r-xl) var(--r-xl) 0 0;
 }
 
@@ -1777,10 +1777,23 @@ table td:not(:last-child) {
     justify-content: flex-end;
     padding: 14px 24px 20px;
     border-top: 1px solid var(--border-light);
+    background: rgba(6, 12, 24, 0.95);
+    border-radius: 0 0 var(--r-xl) var(--r-xl);
 }
 
-.modal-content > form { padding: 16px 24px 4px; }
-.modal-content .form-group { margin-bottom: 13px; }
+.modal-content > form {
+    display: block;
+    padding: 0;
+}
+
+.modal-content .form-group {
+    margin-bottom: 13px;
+    padding: 0 24px;
+}
+
+.modal-content .form-group:first-child {
+    margin-top: 16px;
+}
 .modal-content .form-group input,
 .modal-content .form-group select,
 .modal-content .form-group textarea {
