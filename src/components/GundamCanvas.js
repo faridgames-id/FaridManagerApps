@@ -23,12 +23,11 @@ function GundamModel({ url }) {
 
     return (
         <Float speed={1.5} rotationIntensity={0.05} floatIntensity={0.1}>
-            {/* Skala diperbesar ekstrim dan diturunkan drastis agar tampak setengah badan raksasa */}
             <primitive 
                 ref={ref} 
                 object={scene} 
-                scale={45} 
-                position={[15, -35, -5]} 
+                scale={18} 
+                position={[8, -14, -5]} 
                 rotation={[0, -Math.PI / 8, 0]} 
             />
         </Float>
@@ -37,7 +36,7 @@ function GundamModel({ url }) {
 
 export default function GundamCanvas() {
     return (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -10, pointerEvents: 'none' }}>
             <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ alpha: true, antialias: true }} style={{ pointerEvents: 'auto' }}>
                 <ambientLight intensity={2.5} />
                 <directionalLight position={[10, 10, 10]} intensity={4} color="#ffffff" />
@@ -47,7 +46,7 @@ export default function GundamCanvas() {
                 <Suspense fallback={null}>
                     <GundamModel url="/gundam.glb" />
                     <Environment preset="city" />
-                    <ContactShadows position={[15, -36, -5]} opacity={0.6} scale={50} blur={3} far={10} color="#00D2FF" />
+                    <ContactShadows position={[8, -15, -5]} opacity={0.6} scale={25} blur={3} far={10} color="#00D2FF" />
                 </Suspense>
                 
                 <OrbitControls 
