@@ -64,22 +64,17 @@ export default function IntroOverlay({ onIntroFinished }) {
                 <div className="intro-logo-container">
                     <div className="intro-logo-glow"></div>
                     <div className="intro-logo">
-                        <div style={{
-                            width: '80px',
-                            height: '80px',
-                            background: '#132842',
-                            borderRadius: '20px',
-                            margin: '0 auto',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '2rem',
-                            fontWeight: 'bold',
-                            boxShadow: '0 4px 15px rgba(31, 107, 189, 0.4), inset 0 0 10px rgba(0, 210, 255, 0.2)',
-                            color: '#F2F7FD',
-                            letterSpacing: '2px',
-                            border: '1px solid rgba(43, 125, 204, 0.3)'
-                        }}>FRD</div>
+                        <img 
+                            src="/logo.png" 
+                            alt="FRD Logo" 
+                            style={{
+                                width: '80px',
+                                height: '80px',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 4px 15px rgba(31, 107, 189, 0.6)) drop-shadow(0 0 10px rgba(0, 210, 255, 0.4))',
+                                animation: 'float 3s ease-in-out infinite'
+                            }}
+                        />
                     </div>
                 </div>
                 <h1 className="intro-title">FARID SHOP GAME</h1>
