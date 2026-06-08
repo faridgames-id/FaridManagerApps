@@ -71,6 +71,7 @@ export default function Home() {
     // Prevent infinite sync loops and race conditions
     const isRemoteUpdate = useRef(false);
     const lastLocalUpdate = useRef(Date.now());
+    const prevForceSync = useRef(0);
 
     // Header UI States
     const [currentDateStr, setCurrentDateStr] = useState('');
@@ -331,6 +332,8 @@ export default function Home() {
             console.error('Supabase load error:', e);
         }
 
+        // Prevent the auto-save from immediately echoing this loaded state (or empty state) back to the cloud
+        isRemoteUpdate.current = true;
         setIsDataLoaded(true); // Permit auto-saving for this user
     };
 
@@ -351,6 +354,17 @@ export default function Home() {
         lastLocalUpdate.current = Date.now();
 
         const saveData = async () => {
+            const isManualSync = forceSyncTrigger > prevForceSync.current;
+            prevForceSync.current = forceSyncTrigger;
+
+            const isTotallyEmpty = accounts.length === 0 && sales.length === 0 && buyerSearchAccounts.length === 0 && keuanganTransactions.length === 0 && wishlistItems.length === 0 && jurnalBisnis.length === 0;
+
+            if (isTotallyEmpty && !isManualSync) {
+                // Mencegah aplikasi secara tidak sengaja menyimpan data kosong ke cloud (misal karena cache terhapus)
+                // Jika user benar-benar ingin menyimpan data kosong, mereka harus menggunakan tombol 'Simpan ke Cloud' secara manual.
+                return;
+            }
+
             const email = currentUser.email;
             setSyncStatus('☁️ Menyimpan ke Cloud...');
             try {
