@@ -1727,9 +1727,7 @@ table td:not(:last-child) {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: rgba(4, 8, 16, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(4, 8, 16, 0.9);
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -1739,7 +1737,7 @@ table td:not(:last-child) {
 .modal.show { display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease; }
 
 .modal-content {
-    background: rgba(14, 22, 38, 0.95);
+    background: rgba(14, 22, 38, 0.98);
     border-radius: var(--r-xl);
     padding: 0;
     max-width: 520px;
@@ -1748,8 +1746,6 @@ table td:not(:last-child) {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 210, 255, 0.2) inset;
     animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(0, 210, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     position: relative;
     margin: auto;
 }
