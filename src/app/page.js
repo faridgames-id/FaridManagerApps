@@ -330,6 +330,8 @@ export default function Home() {
             }
         } catch (e) {
             console.error('Supabase load error:', e);
+            alert('Gagal memuat data dari Cloud. Aplikasi berjalan dalam Mode Offline (Data hanya tersimpan di perangkat ini). Refresh halaman jika internet sudah stabil.');
+            return; // Block auto-save activation!
         }
 
         // Prevent the auto-save from immediately echoing this loaded state (or empty state) back to the cloud
