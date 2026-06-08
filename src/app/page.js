@@ -807,10 +807,11 @@ export default function Home() {
                                 </button>
                             </div>
 
-                            {/* MODERN WELCOME CARD */}
-                            <div className="welcome-card-modern">
-                                <div className="system-online-badge">SYSTEM ONLINE</div>
-                                <div className="greeting-small">Good Morning 👋</div>
+                            {/* MODERN WELCOME CARD - ONLY SHOW ON DASHBOARD */}
+                            {activeTab === 'dashboard' && (
+                                <div className="welcome-card-modern">
+                                    <div className="system-online-badge">SYSTEM ONLINE</div>
+                                    <div className="greeting-small">Good Morning 👋</div>
                                 <div className="greeting-large" style={{ zIndex: 2, position: 'relative' }}>
                                     Welcome Back,<br />
                                     <span className="greeting-name" onClick={openEditInfo} style={{ cursor: 'pointer' }} title="Edit info dashboard">{displayName}</span>
@@ -887,7 +888,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* MOBILE ACTIONS ROW (Search, Notif, Switch - visible only on mobile) */}
                             <div className="mobile-actions-row">
