@@ -68,8 +68,9 @@ export default function Home() {
     const [lastSaved, setLastSaved] = useState('');
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     
-    // Prevent infinite sync loops
+    // Prevent infinite sync loops and race conditions
     const isRemoteUpdate = useRef(false);
+    const lastLocalUpdate = useRef(Date.now());
 
     // Header UI States
     const [currentDateStr, setCurrentDateStr] = useState('');
@@ -346,6 +347,9 @@ export default function Home() {
             return;
         }
 
+        // Record the time of this local modification to prevent immediate remote echos from overwriting newer local state
+        lastLocalUpdate.current = Date.now();
+
         const saveData = async () => {
             const email = currentUser.email;
             setSyncStatus('☁️ Menyimpan ke Cloud...');
@@ -413,6 +417,13 @@ export default function Home() {
                 (payload) => {
                     const data = payload.new;
                     if (data) {
+                        // Ignore remote updates if we made a local change within the last 5 seconds.
+                        // This prevents race conditions where our own save "echo" from Supabase overwrites 
+                        // newer local typing/changes that haven't been saved yet.
+                        if (Date.now() - lastLocalUpdate.current < 5000) {
+                            return;
+                        }
+
                         isRemoteUpdate.current = true;
                         if (data.accounts) setAccounts(data.accounts);
                         if (data.sales) setSales(data.sales);
