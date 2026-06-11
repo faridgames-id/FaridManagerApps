@@ -123,55 +123,63 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
             
             {/* Top KPI Grid */}
             <div className="grid-kpi" style={{ marginBottom: '32px' }}>
-                <div className="s-card kpi-card-v2 stagger-1">
-                    <div className="kpi-icon-v2 bg-blue">
-                        {KpiIcons.users}
-                    </div>
-                    <div className="kpi-content-v2">
-                        <div className="kpi-title-v2">TOTAL AKUN</div>
-                        <div className="kpi-value-v2">{currentAccounts.length.toLocaleString('id-ID')}</div>
-                        <div className="kpi-trend-v2 green">
-                            {KpiIcons.trendingUp} {activeAccounts.length} ready
+                <div className="s-card card-umbrel-orange stagger-1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TOTAL AKUN</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{currentAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
+                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                            {KpiIcons.users}
+                        </div>
+                    </div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {KpiIcons.trendingUp} {activeAccounts.length} ready
                     </div>
                 </div>
 
-                <div className="s-card kpi-card-v2 stagger-2">
-                    <div className="kpi-icon-v2 bg-purple">
-                        {KpiIcons.shoppingBag}
-                    </div>
-                    <div className="kpi-content-v2">
-                        <div className="kpi-title-v2">TERJUAL</div>
-                        <div className="kpi-value-v2">{soldAccounts.length.toLocaleString('id-ID')}</div>
-                        <div className="kpi-trend-v2 green">
-                            {KpiIcons.trendingUp} {cicilanAccounts.length} cicilan
+                <div className="s-card card-umbrel-red stagger-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TERJUAL</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{soldAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
+                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                            {KpiIcons.shoppingBag}
+                        </div>
+                    </div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {KpiIcons.trendingUp} {cicilanAccounts.length} cicilan
                     </div>
                 </div>
 
-                <div className="s-card kpi-card-v2 stagger-3">
-                    <div className="kpi-icon-v2 bg-green">
-                        {KpiIcons.checkCircle}
-                    </div>
-                    <div className="kpi-content-v2">
-                        <div className="kpi-title-v2">SEMUA READY</div>
-                        <div className="kpi-value-v2">{activeAccounts.length.toLocaleString('id-ID')}</div>
-                        <div className="kpi-trend-v2 green">
-                            {KpiIcons.trendingUp} {ffReadyCount} FF
+                <div className="s-card card-umbrel-yellow stagger-3" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>SEMUA READY</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{activeAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
+                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                            {KpiIcons.checkCircle}
+                        </div>
+                    </div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {KpiIcons.trendingUp} {ffReadyCount} FF
                     </div>
                 </div>
 
-                <div className="s-card kpi-card-v2 stagger-4">
-                    <div className="kpi-icon-v2 bg-amber">
-                        {KpiIcons.dollarSign}
-                    </div>
-                    <div className="kpi-content-v2">
-                        <div className="kpi-title-v2">TOTAL PROFIT</div>
-                        <div className="kpi-value-v2">{formatRupiah(totalProfit)}</div>
-                        <div className="kpi-trend-v2 green">
-                            {KpiIcons.trendingUp} Potensi {formatRupiah(potensiPendapatan)}
+                <div className="s-card card-umbrel-purple stagger-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TOTAL PROFIT</div>
+                            <div style={{ fontSize: '2.4rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{formatRupiah(totalProfit)}</div>
                         </div>
+                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                            {KpiIcons.dollarSign}
+                        </div>
+                    </div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {KpiIcons.trendingUp} Potensi {formatRupiah(potensiPendapatan)}
                     </div>
                 </div>
             </div>

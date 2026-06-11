@@ -296,7 +296,9 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
             <style jsx>{`
                 .sidebar {
                     width: var(--sidebar-w);
-                    background: linear-gradient(180deg, #060C18 0%, #0A1222 50%, #070D1A 100%);
+                    background: rgba(10, 10, 10, 0.85);
+                    backdrop-filter: blur(24px);
+                    -webkit-backdrop-filter: blur(24px);
                     display: flex;
                     flex-direction: column;
                     position: fixed;
@@ -304,7 +306,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     left: 0;
                     height: 100vh;
                     z-index: 100;
-                    border-right: 1px solid rgba(0, 210, 255, 0.06);
+                    border-right: 1px solid rgba(255, 255, 255, 0.05);
                     transition: var(--T-smooth);
                     /* overflow: hidden removed to allow toggle button to protrude */
                 }
@@ -435,29 +437,20 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
 
                 .nav-tab.active {
                     color: #FFFFFF;
-                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.5), rgba(0, 82, 212, 0.25));
-                    border-color: rgba(0, 210, 255, 0.25);
-                    box-shadow: 0 4px 20px rgba(0, 82, 212, 0.35), inset 0 1px 0 rgba(0, 210, 255, 0.2);
+                    background: rgba(255, 255, 255, 0.1);
+                    border-color: rgba(255, 255, 255, 0.05);
+                    box-shadow: none;
                     font-weight: 700;
                     letter-spacing: 0.01em;
                 }
 
                 .nav-tab.active::before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 3px;
-                    height: 60%;
-                    border-radius: 0 3px 3px 0;
-                    background: linear-gradient(180deg, #00D2FF, #0052D4);
-                    box-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+                    display: none;
                 }
 
                 .nav-tab.active .nav-icon {
                     opacity: 1;
-                    filter: drop-shadow(0 0 4px rgba(0, 210, 255, 0.4));
+                    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
                 }
 
                 .sidebar-footer {

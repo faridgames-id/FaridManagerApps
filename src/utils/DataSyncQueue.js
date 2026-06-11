@@ -90,11 +90,13 @@ export default class DataSyncQueue {
         if (queueItem.retries >= 3) {
             console.error(`[DataSyncQueue] Sync gagal setelah ${queueItem.retries} percobaan. Data akan tetap di lokal, silakan periksa koneksi Anda.`);
             if (onError) onError(new Error("Maksimal retry tercapai"));
+            // Jangan clear queue di sini agar data tidak hilang,
+            // atau jika ingin me-reset retry bisa di-handle di tempat lain.
             return;
         }
 
         this.isProcessing = true;
-        console.log(`[DataSyncQueue] Memulai proses sync (Retry: ${queueItem.retries})...`);
+        console.log(`[DataSyncQueue] Memulai proses sync versi ${queueItem.snapshot.version} (Retry: ${queueItem.retries})...`);
 
         try {
             // Gunakan Supabase UPSERT dengan data snapshot
@@ -114,22 +116,42 @@ export default class DataSyncQueue {
 
             if (error) throw error;
 
-            console.log("[DataSyncQueue] Berhasil sync ke Cloud! Menghapus antrean.");
+            console.log("[DataSyncQueue] Berhasil sync ke Cloud! Mengecek versi sebelum menghapus antrean.");
             
             // Simpan cache localStorage karena telah tervalidasi ke cloud
             this._saveCache(queueItem.snapshot, this.email);
             
-            this.clearQueue();
+            // Cek apakah ada antrean baru yang masuk saat proses sedang berjalan
+            const currentQueueStr = localStorage.getItem(this.queueKey);
+            if (currentQueueStr) {
+                const currentQueue = JSON.parse(currentQueueStr);
+                if (currentQueue.snapshot.version === queueItem.snapshot.version) {
+                    this.clearQueue();
+                } else {
+                    console.log(`[DataSyncQueue] Antrean baru (versi ${currentQueue.snapshot.version}) ditemukan. Menahan clearQueue.`);
+                }
+            } else {
+                this.clearQueue();
+            }
+
             if (onSuccess) onSuccess();
 
         } catch (e) {
             console.error("[DataSyncQueue] Sync Gagal:", e.message);
             
-            // Increment retries dan terapkan exponential backoff
-            queueItem.retries += 1;
             try {
-                localStorage.setItem(this.queueKey, JSON.stringify(queueItem));
-            } catch(e) {}
+                const currentQueueStr = localStorage.getItem(this.queueKey);
+                if (currentQueueStr) {
+                    const currentQueue = JSON.parse(currentQueueStr);
+                    if (currentQueue.snapshot.version === queueItem.snapshot.version) {
+                        currentQueue.retries += 1;
+                        queueItem.retries = currentQueue.retries;
+                        localStorage.setItem(this.queueKey, JSON.stringify(currentQueue));
+                    } else {
+                        console.log("[DataSyncQueue] Antrean baru ditemukan saat gagal. Retry pada antrean lama dibatalkan.");
+                    }
+                }
+            } catch(err) {}
             
             if (onError) onError(e);
 
