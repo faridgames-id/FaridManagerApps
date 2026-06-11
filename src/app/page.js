@@ -72,6 +72,7 @@ export default function Home() {
     const isRemoteUpdate = useRef(false);
     const lastLocalUpdate = useRef(Date.now());
     const prevForceSync = useRef(0);
+    const loadedUserId = useRef(null);
 
     // Header UI States
     const [currentDateStr, setCurrentDateStr] = useState('');
@@ -193,30 +194,41 @@ export default function Home() {
         checkHashForSession();
         window.addEventListener('hashchange', checkHashForSession);
 
+        const handleSession = async (session) => {
+            if (session) {
+                if (loadedUserId.current !== session.user.id) {
+                    loadedUserId.current = session.user.id;
+                    setIsDataLoaded(false); // Pause auto-save & show loading
+                    setCurrentUser(session.user);
+                    const provider = session.user.app_metadata?.provider || 'email';
+                    saveUserToSavedList(session.user, provider);
+                    await loadUserData(session.user);
+                } else {
+                    setCurrentUser(session.user);
+                }
+            } else {
+                if (loadedUserId.current !== null) {
+                    loadedUserId.current = null;
+                    setIsDataLoaded(false);
+                    setCurrentUser(null);
+                    handleResetState();
+                } else {
+                    setIsDataLoaded(true);
+                }
+            }
+        };
+
         // Fetch session on mount
         supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                setCurrentUser(session.user);
-                const provider = session.user.app_metadata?.provider || 'email';
-                saveUserToSavedList(session.user, provider);
-                loadUserData(session.user);
-            } else {
-                setIsDataLoaded(true);
-            }
+            handleSession(session);
         });
 
         // Listen for changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (session) {
-                setIsDataLoaded(false); // Pause auto-save while loading new user data
-                setCurrentUser(session.user);
-                const provider = session.user.app_metadata?.provider || 'email';
-                saveUserToSavedList(session.user, provider);
-                await loadUserData(session.user);
-            } else {
-                setIsDataLoaded(false);
-                setCurrentUser(null);
-                handleResetState();
+            if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+                handleSession(session);
+            } else if (event === 'SIGNED_OUT') {
+                handleSession(null);
             }
         });
 
@@ -294,38 +306,49 @@ export default function Home() {
                 .maybeSingle();
 
             if (data) {
-                // Supabase is the source of truth, override local namespaced cache
-                try {
-                    if (data.accounts) {
-                        setAccounts(data.accounts);
-                        localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(data.accounts));
+                const cloudTime = new Date(data.updated_at || 0).getTime();
+                const localTime = new Date(localLast || 0).getTime();
+
+                // Jika data lokal lebih baru (karena gagal save ke cloud sebelumnya), jangan timpa!
+                // Beri toleransi 5 detik untuk perbedaan waktu eksekusi.
+                if (localTime > cloudTime + 5000) {
+                    console.log("Data lokal lebih baru dari cloud. Melewati overwrite dari cloud dan menjadwalkan sync ulang.");
+                    // Jadwalkan sync ulang agar data lokal di-push ke cloud
+                    setTimeout(() => setForceSyncTrigger(prev => prev + 1), 2000);
+                } else {
+                    // Supabase is the source of truth, override local namespaced cache
+                    try {
+                        if (data.accounts) {
+                            setAccounts(data.accounts);
+                            localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(data.accounts));
+                        }
+                        if (data.sales) {
+                            setSales(data.sales);
+                            localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(data.sales));
+                        }
+                        if (data.buyer_search) {
+                            setBuyerSearchAccounts(data.buyer_search);
+                            localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(data.buyer_search));
+                        }
+                        if (data.keuangan) {
+                            setKeuanganTransactions(data.keuangan);
+                            localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(data.keuangan));
+                        }
+                        if (data.wishlist) {
+                            setWishlistItems(data.wishlist);
+                            localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(data.wishlist));
+                        }
+                        if (data.jurnal) {
+                            setJurnalBisnis(data.jurnal);
+                            localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(data.jurnal));
+                        }
+                        
+                        const lastSavedTime = data.updated_at || new Date().toISOString();
+                        localStorage.setItem(`ffml_${email}_lastSaved`, lastSavedTime);
+                        setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
+                    } catch (e) {
+                        console.error("Local storage write blocked", e);
                     }
-                    if (data.sales) {
-                        setSales(data.sales);
-                        localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(data.sales));
-                    }
-                    if (data.buyer_search) {
-                        setBuyerSearchAccounts(data.buyer_search);
-                        localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(data.buyer_search));
-                    }
-                    if (data.keuangan) {
-                        setKeuanganTransactions(data.keuangan);
-                        localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(data.keuangan));
-                    }
-                    if (data.wishlist) {
-                        setWishlistItems(data.wishlist);
-                        localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(data.wishlist));
-                    }
-                    if (data.jurnal) {
-                        setJurnalBisnis(data.jurnal);
-                        localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(data.jurnal));
-                    }
-                    
-                    const lastSavedTime = data.updated_at || new Date().toISOString();
-                    localStorage.setItem(`ffml_${email}_lastSaved`, lastSavedTime);
-                    setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
-                } catch (e) {
-                    console.error("Local storage write blocked", e);
                 }
             }
         } catch (e) {
@@ -798,9 +821,17 @@ export default function Home() {
                 <LoginOverlay onLoginSuccess={(user) => setCurrentUser(user)} initialEmail={autofillEmail} />
             )}
 
-                    {/* Main Work Area */}
+            {/* Main Work Area */}
             {/* 3. Main Dashboard System */}
-            {introFinished && currentUser && (
+            {introFinished && currentUser && !isDataLoaded && (
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#0a0f1d', color: 'white', zIndex: 9999, position: 'relative' }}>
+                    <div style={{ width: '40px', height: '40px', border: '3px solid rgba(255,255,255,0.1)', borderTop: '3px solid #3b82f6', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                    <h3 style={{ marginTop: '20px', fontFamily: 'var(--font-sans)', fontWeight: 500, color: '#94a3b8', fontSize: '1rem' }}>Menyinkronkan data...</h3>
+                    <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+                </div>
+            )}
+
+            {introFinished && currentUser && isDataLoaded && (
                 <>
                     <AnimatedBackground />
                     <div className="app-wrapper">
