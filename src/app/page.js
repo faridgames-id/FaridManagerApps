@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../utils/supabase';
 import dynamic from 'next/dynamic';
+import DataSyncQueue from '../utils/DataSyncQueue';
+
 // Components
 import IntroOverlay from '../components/IntroOverlay';
 import LoginOverlay from '../components/LoginOverlay';
@@ -73,6 +75,7 @@ export default function Home() {
     const lastLocalUpdate = useRef(Date.now());
     const prevForceSync = useRef(0);
     const loadedUserId = useRef(null);
+    const syncQueueRef = useRef(null);
 
     // Header UI States
     const [currentDateStr, setCurrentDateStr] = useState('');
@@ -261,43 +264,9 @@ export default function Home() {
     // Load function from localStorage (Namespaced) and remote Supabase
     const loadUserData = async (user) => {
         const email = user.email;
-        
-        // 1. Fast Load from Namespaced LocalStorage
-        let localAcc, localSales, localBuyer, localKeu, localWish, localJur, localLast;
-        try {
-            localAcc = localStorage.getItem(`ffml_${email}_accounts`);
-            localSales = localStorage.getItem(`ffml_${email}_sales`);
-            localBuyer = localStorage.getItem(`ffml_${email}_buyer_search`);
-            localKeu = localStorage.getItem(`ffml_${email}_keuangan`);
-            localWish = localStorage.getItem(`ffml_${email}_wishlist`);
-            localJur = localStorage.getItem(`ffml_${email}_jurnal`);
-            localLast = localStorage.getItem(`ffml_${email}_lastSaved`);
-        } catch (e) {
-            console.error("Local storage read blocked");
-        }
+        syncQueueRef.current = new DataSyncQueue(email);
 
-        if (localAcc) setAccounts(JSON.parse(localAcc));
-        else setAccounts([]);
-
-        if (localSales) setSales(JSON.parse(localSales));
-        else setSales([]);
-
-        if (localBuyer) setBuyerSearchAccounts(JSON.parse(localBuyer));
-        else setBuyerSearchAccounts([]);
-
-        if (localKeu) setKeuanganTransactions(JSON.parse(localKeu));
-        else setKeuanganTransactions([]);
-
-        if (localWish) setWishlistItems(JSON.parse(localWish));
-        else setWishlistItems([]);
-
-        if (localJur) setJurnalBisnis(JSON.parse(localJur));
-        else setJurnalBisnis([]);
-
-        if (localLast) setLastSaved(new Date(localLast).toLocaleTimeString('id-ID'));
-        else setLastSaved('');
-
-        // 2. Load latest cloud data from Supabase
+        // 1. Prioritaskan Load dari Cloud (Supabase as Source of Truth)
         try {
             const { data, error } = await supabase
                 .from('user_app_data')
@@ -306,55 +275,80 @@ export default function Home() {
                 .maybeSingle();
 
             if (data) {
-                const cloudTime = new Date(data.updated_at || 0).getTime();
-                const localTime = new Date(localLast || 0).getTime();
-
-                // Jika data lokal lebih baru (karena gagal save ke cloud sebelumnya), jangan timpa!
-                // Beri toleransi 5 detik untuk perbedaan waktu eksekusi.
-                if (localTime > cloudTime + 5000) {
-                    console.log("Data lokal lebih baru dari cloud. Melewati overwrite dari cloud dan menjadwalkan sync ulang.");
-                    // Jadwalkan sync ulang agar data lokal di-push ke cloud
-                    setTimeout(() => setForceSyncTrigger(prev => prev + 1), 2000);
-                } else {
-                    // Supabase is the source of truth, override local namespaced cache
-                    try {
-                        if (data.accounts) {
-                            setAccounts(data.accounts);
-                            localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(data.accounts));
-                        }
-                        if (data.sales) {
-                            setSales(data.sales);
-                            localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(data.sales));
-                        }
-                        if (data.buyer_search) {
-                            setBuyerSearchAccounts(data.buyer_search);
-                            localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(data.buyer_search));
-                        }
-                        if (data.keuangan) {
-                            setKeuanganTransactions(data.keuangan);
-                            localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(data.keuangan));
-                        }
-                        if (data.wishlist) {
-                            setWishlistItems(data.wishlist);
-                            localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(data.wishlist));
-                        }
-                        if (data.jurnal) {
-                            setJurnalBisnis(data.jurnal);
-                            localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(data.jurnal));
-                        }
-                        
-                        const lastSavedTime = data.updated_at || new Date().toISOString();
-                        localStorage.setItem(`ffml_${email}_lastSaved`, lastSavedTime);
-                        setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
-                    } catch (e) {
-                        console.error("Local storage write blocked", e);
+                // Version checking
+                let localVersion = 0;
+                try {
+                    const localQueueStr = localStorage.getItem(`ffml_${email}_sync_queue`);
+                    if (localQueueStr) {
+                        const localQueue = JSON.parse(localQueueStr);
+                        localVersion = localQueue.snapshot?.version || 0;
                     }
+                } catch(e) {}
+
+                const cloudVersion = data.version || 0;
+
+                // Jangan menimpa jika lokal memiliki antrean (queue) yang versinya lebih baru
+                if (localVersion > cloudVersion) {
+                    console.log(`[Load] Local version (${localVersion}) is newer than Cloud (${cloudVersion}). Menyiapkan sinkronisasi...`);
+                    // Muat dari antrean lokal
+                    try {
+                        const localQueueStr = localStorage.getItem(`ffml_${email}_sync_queue`);
+                        const localQueue = JSON.parse(localQueueStr);
+                        const snap = localQueue.snapshot;
+                        if (snap.accounts) setAccounts(snap.accounts);
+                        if (snap.sales) setSales(snap.sales);
+                        if (snap.buyer_search) setBuyerSearchAccounts(snap.buyer_search);
+                        if (snap.keuangan) setKeuanganTransactions(snap.keuangan);
+                        if (snap.wishlist) setWishlistItems(snap.wishlist);
+                        if (snap.jurnal) setJurnalBisnis(snap.jurnal);
+                    } catch(e) {}
+                    
+                    setForceSyncTrigger(prev => prev + 1);
+                } else {
+                    console.log(`[Load] Loaded from Cloud (Version: ${cloudVersion})`);
+                    if (data.accounts) setAccounts(data.accounts);
+                    if (data.sales) setSales(data.sales);
+                    if (data.buyer_search) setBuyerSearchAccounts(data.buyer_search);
+                    if (data.keuangan) setKeuanganTransactions(data.keuangan);
+                    if (data.wishlist) setWishlistItems(data.wishlist);
+                    if (data.jurnal) setJurnalBisnis(data.jurnal);
+                    
+                    // Clear obsolete queue
+                    syncQueueRef.current.clearQueue();
+
+                    // Caching ke LocalStorage
+                    syncQueueRef.current._saveCache(data, email);
+                    
+                    const lastSavedTime = data.updated_at || new Date().toISOString();
+                    setLastSaved(new Date(lastSavedTime).toLocaleTimeString('id-ID'));
                 }
+            } else {
+                console.log("[Load] No cloud data found. Initiating from empty state.");
+                setAccounts([]); setSales([]); setBuyerSearchAccounts([]); setKeuanganTransactions([]); setWishlistItems([]); setJurnalBisnis([]);
             }
         } catch (e) {
             console.error('Supabase load error:', e);
-            alert('Gagal memuat data dari Cloud. Aplikasi berjalan dalam Mode Offline (Data hanya tersimpan di perangkat ini). Refresh halaman jika internet sudah stabil.');
-            return; // Block auto-save activation!
+            console.log("[Load] Offline / Fetch Failed. Falling back to LocalStorage cache...");
+            
+            // 2. Fallback Load dari Namespaced LocalStorage
+            let localAcc, localSales, localBuyer, localKeu, localWish, localJur, localLast;
+            try {
+                localAcc = localStorage.getItem(`ffml_${email}_accounts`);
+                localSales = localStorage.getItem(`ffml_${email}_sales`);
+                localBuyer = localStorage.getItem(`ffml_${email}_buyer_search`);
+                localKeu = localStorage.getItem(`ffml_${email}_keuangan`);
+                localWish = localStorage.getItem(`ffml_${email}_wishlist`);
+                localJur = localStorage.getItem(`ffml_${email}_jurnal`);
+                localLast = localStorage.getItem(`ffml_${email}_lastSaved`);
+            } catch (err) {}
+
+            if (localAcc) setAccounts(JSON.parse(localAcc)); else setAccounts([]);
+            if (localSales) setSales(JSON.parse(localSales)); else setSales([]);
+            if (localBuyer) setBuyerSearchAccounts(JSON.parse(localBuyer)); else setBuyerSearchAccounts([]);
+            if (localKeu) setKeuanganTransactions(JSON.parse(localKeu)); else setKeuanganTransactions([]);
+            if (localWish) setWishlistItems(JSON.parse(localWish)); else setWishlistItems([]);
+            if (localJur) setJurnalBisnis(JSON.parse(localJur)); else setJurnalBisnis([]);
+            if (localLast) setLastSaved(new Date(localLast).toLocaleTimeString('id-ID')); else setLastSaved('');
         }
 
         // Prevent the auto-save from immediately echoing this loaded state (or empty state) back to the cloud
@@ -362,12 +356,48 @@ export default function Home() {
         setIsDataLoaded(true); // Permit auto-saving for this user
     };
 
-    // 3. Debounced Auto Save to Namespaced LocalStorage and Supabase
+    // 3. Queue Periodic Check & BeforeUnload
+    useEffect(() => {
+        if (!currentUser || !isDataLoaded) return;
+
+        // Periodic check every 5 seconds
+        const intervalId = setInterval(() => {
+            if (syncQueueRef.current && syncQueueRef.current.hasPending()) {
+                setSyncStatus('☁️ Menyinkronkan...');
+                syncQueueRef.current.processQueue(
+                    () => {
+                        setSyncStatus('✅ Tersimpan ke Cloud');
+                        setTimeout(() => setSyncStatus(''), 4000);
+                        setLastSaved(new Date().toLocaleTimeString('id-ID'));
+                    },
+                    (e) => {
+                        setSyncStatus(`❌ Gagal: ${e.message}`);
+                        setTimeout(() => setSyncStatus(''), 8000);
+                    }
+                );
+            }
+        }, 5000);
+
+        // Before Unload: Cegah data loss
+        const handleBeforeUnload = (e) => {
+            if (syncQueueRef.current && syncQueueRef.current.hasPending()) {
+                e.preventDefault();
+                e.returnValue = 'Data sedang disinkronisasi ke cloud. Yakin ingin keluar?';
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            clearInterval(intervalId);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [currentUser, isDataLoaded]);
+
+    // 4. State Tracker: Push ke Queue jika state berubah secara lokal
     useEffect(() => {
         // Block save calls if data loading is in progress or no active session exists
-        if (!isDataLoaded || !currentUser) {
-            return;
-        }
+        if (!isDataLoaded || !currentUser || !syncQueueRef.current) return;
 
         // Prevent saving back to cloud if the state change came from a remote sync
         if (isRemoteUpdate.current) {
@@ -375,68 +405,22 @@ export default function Home() {
             return;
         }
 
-        // Record the time of this local modification to prevent immediate remote echos from overwriting newer local state
         lastLocalUpdate.current = Date.now();
+        const isManualSync = forceSyncTrigger > prevForceSync.current;
+        prevForceSync.current = forceSyncTrigger;
 
-        const saveData = async () => {
-            const isManualSync = forceSyncTrigger > prevForceSync.current;
-            prevForceSync.current = forceSyncTrigger;
+        const isTotallyEmpty = accounts.length === 0 && sales.length === 0 && buyerSearchAccounts.length === 0 && keuanganTransactions.length === 0 && wishlistItems.length === 0 && jurnalBisnis.length === 0;
 
-            const isTotallyEmpty = accounts.length === 0 && sales.length === 0 && buyerSearchAccounts.length === 0 && keuanganTransactions.length === 0 && wishlistItems.length === 0 && jurnalBisnis.length === 0;
+        if (isTotallyEmpty && !isManualSync) {
+            return;
+        }
 
-            if (isTotallyEmpty && !isManualSync) {
-                // Mencegah aplikasi secara tidak sengaja menyimpan data kosong ke cloud (misal karena cache terhapus)
-                // Jika user benar-benar ingin menyimpan data kosong, mereka harus menggunakan tombol 'Simpan ke Cloud' secara manual.
-                return;
-            }
+        // Buat snapshot dan letakkan di Queue
+        const snapshot = { accounts, sales, buyer_search: buyerSearchAccounts, keuangan: keuanganTransactions, wishlist: wishlistItems, jurnal: jurnalBisnis };
+        syncQueueRef.current.enqueue(snapshot, currentUser.id);
+        
+        setSyncStatus('📝 Data dalam antrean...');
 
-            const email = currentUser.email;
-            setSyncStatus('☁️ Menyimpan ke Cloud...');
-            try {
-                localStorage.setItem(`ffml_${email}_accounts`, JSON.stringify(accounts));
-                localStorage.setItem(`ffml_${email}_sales`, JSON.stringify(sales));
-                localStorage.setItem(`ffml_${email}_buyer_search`, JSON.stringify(buyerSearchAccounts));
-                localStorage.setItem(`ffml_${email}_keuangan`, JSON.stringify(keuanganTransactions));
-                localStorage.setItem(`ffml_${email}_wishlist`, JSON.stringify(wishlistItems));
-                localStorage.setItem(`ffml_${email}_jurnal`, JSON.stringify(jurnalBisnis));
-                localStorage.setItem(`ffml_${email}_lastSaved`, new Date().toISOString());
-                setLastSaved(new Date().toLocaleTimeString('id-ID'));
-            } catch (e) {
-                console.error('Local Storage save error:', e);
-            }
-
-            try {
-                const { error } = await supabase
-                    .from('user_app_data')
-                    .upsert({
-                        id: currentUser.id,
-                        accounts: accounts,
-                        sales: sales,
-                        buyer_search: buyerSearchAccounts,
-                        keuangan: keuanganTransactions,
-                        wishlist: wishlistItems,
-                        jurnal: jurnalBisnis,
-                        updated_at: new Date().toISOString()
-                    });
-                
-                if (error) throw error;
-                
-                setSyncStatus('✅ Tersimpan ke Cloud');
-                setTimeout(() => setSyncStatus(''), 4000);
-            } catch (e) {
-                const errDetail = typeof e === 'object' ? JSON.stringify(e) : String(e);
-                console.error('Supabase Sync error:', errDetail, e);
-                setSyncStatus(`❌ Gagal: ${e.message || errDetail}`);
-                // Revert status to default after 8 seconds so user has time to read
-                setTimeout(() => setSyncStatus(''), 8000);
-            }
-        };
-
-        const debouncer = setTimeout(() => {
-            saveData();
-        }, 600);
-
-        return () => clearTimeout(debouncer);
     }, [accounts, sales, buyerSearchAccounts, keuanganTransactions, wishlistItems, jurnalBisnis, currentUser, isDataLoaded, forceSyncTrigger]);
 
     // 4. Realtime Sync Listener (Supabase)
