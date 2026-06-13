@@ -110,7 +110,6 @@ export default class DataSyncQueue {
                     keuangan: queueItem.snapshot.keuangan || [],
                     wishlist: queueItem.snapshot.wishlist || [],
                     jurnal: queueItem.snapshot.jurnal || [],
-                    version: queueItem.snapshot.version || 1, // field baru untuk version checking
                     updated_at: new Date().toISOString()
                 });
 
