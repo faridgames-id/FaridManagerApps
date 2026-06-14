@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Copy, Calendar, Trash2 } from 'lucide-react';
+import { Copy, Calendar, Trash2, Edit } from 'lucide-react';
 
 export default function StockTab({ 
     game, 

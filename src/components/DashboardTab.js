@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useMemo } from 'react';
-import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3 } from 'lucide-react';
+import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3, ChevronDown } from 'lucide-react';
 
 const KpiIcons = {
     users: <Users size={24} />,
