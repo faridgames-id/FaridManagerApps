@@ -142,7 +142,7 @@ export default function StockTab({
         setKeteranganCustom('');
         setDevice('');
 
-        alert(`✅ Akun ${game.toUpperCase()} berhasil disimpan!`);
+        alert(`✅ Akun ${(game || '').toUpperCase()} berhasil disimpan!`);
     };
 
     // Open Edit Modal
@@ -489,7 +489,7 @@ export default function StockTab({
                         </div>
 
                         <button type="submit" className="btn btn-primary" style={{ marginTop: "15px" }}>
-                            💾 Simpan Akun {game.toUpperCase()}
+                            💾 Simpan Akun {(game || '').toUpperCase()}
                         </button>
                     </form>
                 </div>
@@ -697,7 +697,7 @@ export default function StockTab({
                 <div className="modal show">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3><Edit width="16" height="16" /> Edit Data Akun {game.toUpperCase()}</h3>
+                            <h3><Edit width="16" height="16" /> Edit Data Akun {(game || '').toUpperCase()}</h3>
                             <button className="modal-close" onClick={() => setEditingAccount(null)}>×</button>
                         </div>
                         <form onSubmit={handleEditSubmit}>
@@ -812,7 +812,7 @@ export default function StockTab({
                 <div className="modal show">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3>💰 Jual Akun {game.toUpperCase()}</h3>
+                            <h3>💰 Jual Akun {(game || '').toUpperCase()}</h3>
                             <button className="modal-close" onClick={() => setSellingAccount(null)}>×</button>
                         </div>
                         <form onSubmit={handleSellSubmit}>

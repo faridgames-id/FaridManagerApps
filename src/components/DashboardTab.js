@@ -370,7 +370,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                                             {sale.game === 'ff' ? 'FF' : 'ML'}
                                         </div>
                                         <div className="rs-info">
-                                            <div className="rs-name">{sale.name || `Akun ${sale.game.toUpperCase()}`}</div>
+                                            <div className="rs-name">{sale.name || `Akun ${sale.game ? sale.game.toUpperCase() : ''}`}</div>
                                             <div className="rs-order">Order ID: {sale.id || '#000'}</div>
                                         </div>
                                     </div>

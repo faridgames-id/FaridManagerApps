@@ -18,7 +18,7 @@ const Icons = {
 // Get initials from email
 const getInitials = (email) => {
     if (!email) return '?';
-    return email.charAt(0).toUpperCase();
+    return (email || '').charAt(0).toUpperCase();
 };
 
 const GoogleIcon = () => (
@@ -84,8 +84,9 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
 
     // Get display name from email
     const getDisplayName = (email) => {
-        if (!email) return 'Pengguna';
-        return email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        if (typeof email !== 'string' || !email) return 'User';
+        if (email === 'farid@ffml.com') return 'Farid Owner';
+        return (email || '').split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     };
 
     const currentEmail = currentUser?.email || '';

@@ -424,7 +424,7 @@ export default function StatsTab({
                                                     {a.spek}
                                                 </div>
                                                 <div style={{ color: '#94a3b8', fontSize: '0.7rem' }}>
-                                                    {a.game.toUpperCase()} - {a.sellDate}
+                                                    {(a.game || '').toUpperCase()} - {a.sellDate}
                                                 </div>
                                             </div>
                                             <div style={{ color: '#10b981', fontWeight: 700, fontSize: '0.85rem' }}>
