@@ -383,8 +383,8 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
                 
                 .nav-tab:hover .nav-icon {
-                    color: var(--accent-indigo);
-                    opacity: 0.8;
+                    color: var(--accent-gold);
+                    opacity: 0.9;
                 }
 
                 .nav-icon {
@@ -392,7 +392,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     align-items: center;
                     justify-content: center;
                     opacity: 0.5;
-                    transition: opacity 150ms;
+                    transition: all 150ms ease;
                 }
 
                 .nav-label {
@@ -401,15 +401,16 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
 
                 .nav-tab.active {
                     color: var(--text-primary);
-                    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 100%);
+                    background: linear-gradient(90deg, rgba(234, 179, 8, 0.1) 0%, rgba(59, 130, 246, 0.02) 100%);
                     font-weight: 600;
-                    box-shadow: inset 3px 0 0 var(--accent-indigo);
+                    box-shadow: inset 3px 0 0 var(--accent-gold);
                     border-radius: 0 8px 8px 0;
                 }
 
                 .nav-tab.active .nav-icon {
                     opacity: 1;
-                    color: var(--accent-indigo);
+                    color: var(--accent-gold);
+                    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.4));
                 }
 
                 .sidebar-footer {

@@ -7,52 +7,50 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-    /* Surfaces */
-    --bg-body:       #09090b;
-    --bg-surface:    #0f0f12;
-    --bg-card:       #111114;
-    --bg-elevated:   #18181b;
-    --bg-hover:      rgba(255, 255, 255, 0.04);
-    --bg-active:     rgba(255, 255, 255, 0.06);
-    --bg-input:      #18181b;
+    /* Surfaces: Deep Navy Blue Theme */
+    --bg-body:       #020617; /* Slate 950 - deeper navy */
+    --bg-surface:    #0f172a; /* Slate 900 */
+    --bg-card:       #0f172a;
+    --bg-elevated:   #1e293b; /* Slate 800 */
+    --bg-hover:      rgba(255, 255, 255, 0.05);
+    --bg-active:     rgba(255, 255, 255, 0.08);
+    --bg-input:      #1e293b;
 
-    /* Text */
-    --text-primary:   #fafafa;
-    --text-secondary: #a1a1aa;
-    --text-tertiary:  #71717a;
-    --text-muted:     #52525b;
-    --text-inverse:   #09090b;
+    /* Text: Pristine White & Blues */
+    --text-primary:   #ffffff;
+    --text-secondary: #94a3b8; /* Slate 400 */
+    --text-tertiary:  #64748b; /* Slate 500 */
+    --text-muted:     #475569; /* Slate 600 */
+    --text-inverse:   #0f172a;
 
-    /* Accent Colors */
+    /* Accent Colors: Royal Blue, Gold, and Emerald */
     --accent-blue:    #3b82f6;
-    --accent-blue-subtle: rgba(59, 130, 246, 0.12);
-    --accent-green:   #22c55e;
-    --accent-green-subtle: rgba(34, 197, 94, 0.12);
-    --accent-purple:  #a855f7;
-    --accent-purple-subtle: rgba(168, 85, 247, 0.12);
-    --accent-amber:   #f59e0b;
-    --accent-amber-subtle: rgba(245, 158, 11, 0.12);
+    --accent-blue-subtle: rgba(59, 130, 246, 0.15);
+    --accent-gold:    #eab308; /* Yellow 500 */
+    --accent-gold-subtle: rgba(234, 179, 8, 0.15);
+    --accent-green:   #10b981; /* Emerald 500 */
+    --accent-green-subtle: rgba(16, 185, 129, 0.15);
     --accent-red:     #ef4444;
-    --accent-red-subtle: rgba(239, 68, 68, 0.12);
-    --accent-cyan:    #06b6d4;
+    --accent-red-subtle: rgba(239, 68, 68, 0.15);
     --accent-indigo:  #6366f1;
-    --accent-indigo-subtle: rgba(99, 102, 241, 0.12);
+    --accent-indigo-subtle: rgba(99, 102, 241, 0.15);
 
     /* Borders */
-    --border-subtle:  rgba(255, 255, 255, 0.06);
-    --border-default: rgba(255, 255, 255, 0.1);
-    --border-strong:  rgba(255, 255, 255, 0.15);
+    --border-subtle:  rgba(255, 255, 255, 0.08);
+    --border-default: rgba(255, 255, 255, 0.12);
+    --border-strong:  rgba(255, 255, 255, 0.2);
     --border-focus:   var(--accent-blue);
 
-    /* Glows */
-    --glow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 2px 10px rgba(0, 0, 0, 0.2);
-    --glow-strong: 0 0 0 1px rgba(99, 102, 241, 0.2), 0 4px 20px rgba(99, 102, 241, 0.15);
+    /* Glows - Premium Soft Glows */
+    --glow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 14px rgba(0, 0, 0, 0.3);
+    --glow-strong: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 8px 30px rgba(59, 130, 246, 0.25);
+    --glow-gold: 0 0 0 1px rgba(234, 179, 8, 0.3), 0 8px 30px rgba(234, 179, 8, 0.25);
 
-    /* Shadows */
-    --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.5);
-    --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.6);
+    /* Shadows - Deep layered shadows */
+    --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md:   0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-lg:   0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-xl:   0 20px 40px rgba(0, 0, 0, 0.6);
 
     /* Radius */
     --r-xs:  4px;
@@ -1411,7 +1409,10 @@ table td:not(:last-child) {
     .finance-stats-grid {
         display: flex;
         overflow-x: auto;
-        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 16px;
         margin-left: -20px;
         margin-right: -20px;
         padding-left: 20px;
@@ -1420,13 +1421,15 @@ table td:not(:last-child) {
     }
     .finance-stats-grid::-webkit-scrollbar { display: none; }
     .finance-stats-grid .finance-mini-card {
-        min-width: 120px;
-        flex-shrink: 0;
+        min-width: unset;
+        flex: 0 0 85%;
+        scroll-snap-align: center;
     }
     .ss-stats-grid {
         display: flex;
         overflow-x: auto;
-        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 16px;
         margin-left: -16px;
         margin-right: -16px;
         padding-left: 16px;
@@ -1435,21 +1438,43 @@ table td:not(:last-child) {
     }
     .ss-stats-grid::-webkit-scrollbar { display: none; }
     .ss-stats-grid .ss-stat-col {
-        min-width: 80px;
-        flex-shrink: 0;
+        min-width: unset;
+        flex: 0 0 45%;
+        scroll-snap-align: start;
     }
     .recent-sales-list {
+        display: flex;
         overflow-x: auto;
-        padding-bottom: 8px;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 16px;
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
         scrollbar-width: none;
     }
     .recent-sales-list::-webkit-scrollbar { display: none; }
     .recent-sale-item {
-        min-width: 420px;
+        min-width: unset;
+        flex: 0 0 88%;
+        scroll-snap-align: center;
+        margin-right: 12px;
+    }
+    .stock-table-wrapper, .data-table-wrapper, .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -20px;
+        padding: 0 20px 20px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    .stock-table th, .data-table th,
+    .stock-table td, .data-table td,
+    .modern-table th, .modern-table td {
+        white-space: nowrap; /* NEVER wrap/squash text on premium tables */
+        padding: 12px 16px;
+        font-size: 0.85rem;
     }
 }
 
@@ -1466,13 +1491,6 @@ table td:not(:last-child) {
     }
     .container {
         padding: 14px 10px;
-    }
-    .stock-table th, .data-table th,
-    .stock-table td, .data-table td {
-        white-space: normal;
-        word-break: break-word;
-        padding: 8px 6px;
-        font-size: 0.7rem;
     }
 }
 

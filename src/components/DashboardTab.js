@@ -219,18 +219,18 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                                 {fillPath && <path d={fillPath} fill="url(#fill-gradient)" opacity="0.15" />}
                                 <defs>
                                     <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
-                                        <stop offset="0%" stopColor="#3b82f6" />
-                                        <stop offset="100%" stopColor="#60a5fa" />
+                                        <stop offset="0%" stopColor="var(--accent-blue)" />
+                                        <stop offset="100%" stopColor="var(--accent-gold)" />
                                     </linearGradient>
                                     <linearGradient id="fill-gradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stopColor="#3b82f6" />
-                                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                                        <stop offset="0%" stopColor="var(--accent-gold)" />
+                                        <stop offset="100%" stopColor="var(--accent-blue)" stopOpacity="0" />
                                     </linearGradient>
                                 </defs>
                                 
                                 {/* Points */}
                                 {chartPoints.map((p, i) => (
-                                    <circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1.5" style={{ transition: 'all 0.2s ease' }} />
+                                    <circle key={i} cx={p.x} cy={p.y} r="3.5" fill="var(--accent-gold)" stroke="var(--bg-card)" strokeWidth="1.5" style={{ transition: 'all 0.2s ease' }} />
                                 ))}
                                 
                                 {/* Tooltip on last point if exists */}
@@ -238,9 +238,9 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                                     const last = chartPoints[chartPoints.length - 1];
                                     return (
                                         <g transform={`translate(${last.x > 500 ? last.x - 110 : last.x}, ${last.y - 40})`} style={{ transition: 'transform 0.3s ease' }}>
-                                            <rect x="-10" y="-15" width="120" height="42" rx="8" fill="#18181b" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                                            <text x="5" y="0" fill="white" fontSize="11" fontWeight="bold">{formatRupiah(last.value)}</text>
-                                            <text x="5" y="16" fill="#94a3b8" fontSize="10">{last.label}</text>
+                                            <rect x="-10" y="-15" width="120" height="42" rx="8" fill="var(--bg-elevated)" stroke="var(--border-strong)" strokeWidth="1" />
+                                            <text x="5" y="0" fill="var(--text-primary)" fontSize="11" fontWeight="bold">{formatRupiah(last.value)}</text>
+                                            <text x="5" y="16" fill="var(--text-secondary)" fontSize="10">{last.label}</text>
                                         </g>
                                     );
                                 })()}
