@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { AlertTriangle, Star, DollarSign, CheckCircle, ExternalLink, Trash2 } from 'lucide-react';
 
 export default function WishlistTab({
     wishlistItems = [],
@@ -20,7 +21,7 @@ export default function WishlistTab({
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!itemName.trim()) {
-            alert('⚠️ Nama barang harus diisi!');
+            alert('Nama barang harus diisi!');
             return;
         }
 
@@ -47,7 +48,7 @@ export default function WishlistTab({
         setSource('');
         setNotes('');
 
-        alert('✅ Wishlist barang berhasil ditambahkan!');
+        alert('Wishlist barang berhasil ditambahkan!');
     };
 
     // Calculate Summary Stats
@@ -68,7 +69,7 @@ export default function WishlistTab({
 
     const statusBadge = (s) => {
         if (s === 'planning') return <span style={{ background: '#3b82f6', color: 'var(--text-primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 }}>📋 Rencana</span>;
-        if (s === 'saved') return <span style={{ background: '#f59e0b', color: 'var(--text-primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 }}>💰 Dana Siap</span>;
+        if (s === 'saved') return <span style={{ background: '#f59e0b', color: 'var(--text-primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 }}><Coins width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Dana Siap</span>;
         if (s === 'ordered') return <span style={{ background: '#8b5cf6', color: 'var(--text-primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 }}>🛒 Dipesan</span>;
         return <span style={{ background: '#10b981', color: 'var(--text-primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 600 }}>✅ Terima</span>;
     };
@@ -174,7 +175,7 @@ export default function WishlistTab({
                                 <label>Status Pembelian</label>
                                 <select value={status} onChange={(e) => setStatus(e.target.value)}>
                                     <option value="planning">📋 Rencana</option>
-                                    <option value="saved">💰 Dana Tersimpan</option>
+                                    <option value="saved"><Coins width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Dana Tersimpan</option>
                                     <option value="ordered">🛒 Sudah Pesan</option>
                                     <option value="received">✅ Sudah Terima</option>
                                 </select>
@@ -198,7 +199,7 @@ export default function WishlistTab({
                         <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: '#ef4444' }}>{highPriorityItems}</div>
                     </div>
                     <div className="card" style={{ background: 'rgba(20, 30, 50, 0.6)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700 }}>💰 Total Estimasi</h3>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700 }}><Coins width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Total Estimasi</h3>
                         <div className="amount" style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>{formatRupiah(totalBudget)}</div>
                     </div>
                     <div className="card" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>
@@ -251,7 +252,7 @@ export default function WishlistTab({
                                             <td>
                                                 {item.source && item.source !== '-' ? (
                                                     <a href={item.source.startsWith('http') ? item.source : `https://${item.source}`} target="_blank" rel="noopener noreferrer" style={{ color: '#3498db', textDecoration: 'underline' }}>
-                                                        🔗 Link
+                                                        <Link width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Link
                                                     </a>
                                                 ) : (
                                                     '-'
@@ -270,7 +271,7 @@ export default function WishlistTab({
                                                     }}
                                                     title="Hapus"
                                                 >
-                                                    🗑️
+                                                    <Trash2 width="14" height="14" />
                                                 </button>
                                             </td>
                                         </tr>

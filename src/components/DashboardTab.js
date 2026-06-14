@@ -1,19 +1,19 @@
 'use client';
 import React, { useState, useMemo } from 'react';
+import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3 } from 'lucide-react';
 
-// SVG Icons for KPI Cards
 const KpiIcons = {
-    users: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>,
-    shoppingBag: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>,
-    checkCircle: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
-    dollarSign: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>,
-    trendingUp: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
-    ff: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
-    ml: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>,
-    wallet: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path></svg>,
-    cart: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>,
-    chartBar: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>,
-    moneyBag: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+    users: <Users size={24} />,
+    shoppingBag: <ShoppingBag size={24} />,
+    checkCircle: <CheckCircle size={24} />,
+    dollarSign: <DollarSign size={24} />,
+    trendingUp: <TrendingUp size={14} />,
+    ff: <Package size={16} />,
+    ml: <Circle size={16} />,
+    wallet: <Wallet size={24} />,
+    cart: <ShoppingCart size={24} />,
+    chartBar: <BarChart3 size={24} />,
+    moneyBag: <DollarSign size={24} />
 };
 
 export default function DashboardTab({ accounts, sales, formatRupiah, activeFilterMonth, activeFilterYear, onNavigate }) {
@@ -121,78 +121,77 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
     return (
         <div id="dashboard" className="tab-content active" style={{ display: 'block' }}>
             
-            {/* Top KPI Grid */}
-            <div className="grid-kpi" style={{ marginBottom: '32px' }}>
-                <div className="s-card card-umbrel-orange stagger-1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+            {/* Modern KPI Grid */}
+            <div className="grid-kpi" style={{ marginBottom: '32px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+                <div className="premium-card stagger-1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
                         <div>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TOTAL AKUN</div>
-                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{currentAccounts.length.toLocaleString('id-ID')}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TOTAL AKUN</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '8px' }}>{currentAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
-                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--accent-indigo-subtle)', color: 'var(--accent-indigo)', padding: '12px', borderRadius: '16px', boxShadow: 'inset 0 0 0 1px rgba(99, 102, 241, 0.2)' }}>
                             {KpiIcons.users}
                         </div>
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        {KpiIcons.trendingUp} {activeAccounts.length} ready
+                    <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ color: 'var(--accent-indigo)', display: 'flex', alignItems: 'center' }}>{KpiIcons.trendingUp}</span> {activeAccounts.length} ready
                     </div>
                 </div>
 
-                <div className="s-card card-umbrel-red stagger-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                <div className="premium-card stagger-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
                         <div>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TERJUAL</div>
-                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{soldAccounts.length.toLocaleString('id-ID')}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TERJUAL</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '8px' }}>{soldAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
-                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--accent-red-subtle)', color: 'var(--accent-red)', padding: '12px', borderRadius: '16px', boxShadow: 'inset 0 0 0 1px rgba(239, 68, 68, 0.2)' }}>
                             {KpiIcons.shoppingBag}
                         </div>
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        {KpiIcons.trendingUp} {cicilanAccounts.length} cicilan
+                    <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ color: 'var(--accent-red)', display: 'flex', alignItems: 'center' }}>{KpiIcons.trendingUp}</span> {cicilanAccounts.length} cicilan
                     </div>
                 </div>
 
-                <div className="s-card card-umbrel-yellow stagger-3" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                <div className="premium-card stagger-3" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
                         <div>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>SEMUA READY</div>
-                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{activeAccounts.length.toLocaleString('id-ID')}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>SEMUA READY</div>
+                            <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '8px' }}>{activeAccounts.length.toLocaleString('id-ID')}</div>
                         </div>
-                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--accent-amber-subtle)', color: 'var(--accent-amber)', padding: '12px', borderRadius: '16px', boxShadow: 'inset 0 0 0 1px rgba(245, 158, 11, 0.2)' }}>
                             {KpiIcons.checkCircle}
                         </div>
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        {KpiIcons.trendingUp} {ffReadyCount} FF
+                    <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ color: 'var(--accent-amber)', display: 'flex', alignItems: 'center' }}>{KpiIcons.trendingUp}</span> {ffReadyCount} FF
                     </div>
                 </div>
 
-                <div className="s-card card-umbrel-purple stagger-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
+                <div className="premium-card stagger-4" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '28px' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
                         <div>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.9 }}>TOTAL PROFIT</div>
-                            <div style={{ fontSize: '2.4rem', fontWeight: '800', lineHeight: 1.1, marginTop: '8px' }}>{formatRupiah(totalProfit)}</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TOTAL PROFIT</div>
+                            <div style={{ fontSize: '2.4rem', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '8px' }}>{formatRupiah(totalProfit)}</div>
                         </div>
-                        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '16px' }}>
+                        <div style={{ background: 'var(--accent-green-subtle)', color: 'var(--accent-green)', padding: '12px', borderRadius: '16px', boxShadow: 'inset 0 0 0 1px rgba(34, 197, 94, 0.2)' }}>
                             {KpiIcons.dollarSign}
                         </div>
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: '600', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        {KpiIcons.trendingUp} Potensi {formatRupiah(potensiPendapatan)}
+                    <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ color: 'var(--accent-green)', display: 'flex', alignItems: 'center' }}>{KpiIcons.trendingUp}</span> Potensi {formatRupiah(potensiPendapatan)}
                     </div>
                 </div>
             </div>
 
-            {/* Middle Grid */}
-            <div className="grid-dashboard">
+            {/* Modern Grid Layout */}
+            <div className="grid-dashboard" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', margin: '32px 0' }}>
                 
-                {/* Left Column: Chart & Financial Stats */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                    {/* Dynamic Sales Chart */}
-                    <div className="s-card stagger-3" style={{ minHeight: '340px', flex: 1, padding: '24px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Grafik Penjualan</h3>
+                {/* Modern Card: Sales Chart */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <div className="premium-card stagger-3" style={{ minHeight: '380px', padding: '28px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
+                            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '0.5px' }}>📈 Grafik Penjualan</h3>
                             <div style={{ position: 'relative' }}>
                                 <select 
                                     className="s-btn s-btn-secondary" 
@@ -204,35 +203,34 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                                     <option value={14}>14 Hari Terakhir</option>
                                     <option value={30}>30 Hari Terakhir</option>
                                 </select>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                <ChevronDown width="14" height="14" style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
                             </div>
                         </div>
                         
-                        <div style={{ position: 'relative', height: '240px', width: '100%', borderBottom: '1px solid var(--border-light)', display: 'flex', alignItems: 'flex-end', paddingTop: '20px' }}>
+                        <div style={{ position: 'relative', height: '240px', width: '100%', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'flex-end', paddingTop: '20px' }}>
                             {/* Grid lines */}
-                            <div style={{ position: 'absolute', top: '20px', width: '100%', borderTop: '1px dashed var(--border-light)', zIndex: 0 }}></div>
-                            <div style={{ position: 'absolute', top: '90px', width: '100%', borderTop: '1px dashed var(--border-light)', zIndex: 0 }}></div>
-                            <div style={{ position: 'absolute', top: '160px', width: '100%', borderTop: '1px dashed var(--border-light)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', top: '20px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', top: '90px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', top: '160px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
                             
                             {/* Actual Line Chart SVG */}
                             <svg viewBox="0 0 600 240" preserveAspectRatio="none" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1, overflow: 'visible' }}>
-                                {linePath && <path d={linePath} fill="none" stroke="url(#line-gradient)" strokeWidth="3" />}
-                                {fillPath && <path d={fillPath} fill="url(#fill-gradient)" opacity="0.25" />}
+                                {linePath && <path d={linePath} fill="none" stroke="url(#line-gradient)" strokeWidth="2" />}
+                                {fillPath && <path d={fillPath} fill="url(#fill-gradient)" opacity="0.15" />}
                                 <defs>
                                     <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
-                                        <stop offset="0%" stopColor="#0052D4" />
-                                        <stop offset="50%" stopColor="#00D2FF" />
-                                        <stop offset="100%" stopColor="#FFD700" />
+                                        <stop offset="0%" stopColor="#3b82f6" />
+                                        <stop offset="100%" stopColor="#60a5fa" />
                                     </linearGradient>
                                     <linearGradient id="fill-gradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stopColor="#00D2FF" />
-                                        <stop offset="100%" stopColor="#0052D4" stopOpacity="0" />
+                                        <stop offset="0%" stopColor="#3b82f6" />
+                                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
                                     </linearGradient>
                                 </defs>
                                 
                                 {/* Points */}
                                 {chartPoints.map((p, i) => (
-                                    <circle key={i} cx={p.x} cy={p.y} r="4" fill="#00D2FF" stroke="#0052D4" strokeWidth="1.5" style={{ transition: 'all 0.3s ease', filter: 'drop-shadow(0 0 4px rgba(0, 210, 255, 0.5))' }} />
+                                    <circle key={i} cx={p.x} cy={p.y} r="3.5" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1.5" style={{ transition: 'all 0.2s ease' }} />
                                 ))}
                                 
                                 {/* Tooltip on last point if exists */}
@@ -240,7 +238,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                                     const last = chartPoints[chartPoints.length - 1];
                                     return (
                                         <g transform={`translate(${last.x > 500 ? last.x - 110 : last.x}, ${last.y - 40})`} style={{ transition: 'transform 0.3s ease' }}>
-                                            <rect x="-10" y="-15" width="120" height="42" rx="8" fill="#0A1428" stroke="rgba(0,210,255,0.2)" strokeWidth="1" />
+                                            <rect x="-10" y="-15" width="120" height="42" rx="8" fill="#18181b" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
                                             <text x="5" y="0" fill="white" fontSize="11" fontWeight="bold">{formatRupiah(last.value)}</text>
                                             <text x="5" y="16" fill="#94a3b8" fontSize="10">{last.label}</text>
                                         </g>
@@ -257,8 +255,8 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     </div>
 
                     {/* Statistik Keuangan (4 Mini Cards) */}
-                    <div className="s-card stagger-1" style={{ padding: '24px' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '20px' }}>Statistik Keuangan</h3>
+                    <div className="premium-card stagger-1" style={{ padding: '24px' }}>
+                        <h3 style={{ fontSize: '0.95rem', fontWeight: 600, marginBottom: '16px' }}>Statistik Keuangan</h3>
                         <div className="finance-stats-grid">
                             <div className="finance-mini-card">
                                 <div className="f-icon text-blue">{KpiIcons.wallet}</div>
@@ -285,13 +283,13 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                 </div>
 
                 {/* Right Column: Account Stock Summary & Recent Sales */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     
-                    {/* Account Stock Summary */}
-                    <div className="s-card stagger-4" style={{ flex: 1, padding: '24px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Ringkasan Stok Akun</h3>
-                            <button onClick={() => onNavigate && onNavigate('pencarian')} className="s-btn s-btn-secondary" style={{ padding: '6px 12px', fontSize: '0.8rem' }}>Lihat Semua</button>
+                    {/* Modern Card: Account Stock Summary */}
+                    <div className="premium-card stagger-4" style={{ flex: 1, padding: '28px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.5px', background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Ringkasan Stok Akun</h3>
+                            <button onClick={() => onNavigate && onNavigate('pencarian')} className="s-btn s-btn-secondary" style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 600, borderRadius: '10px', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)' }}>Lihat Semua</button>
                         </div>
 
                         <div className="stock-summary-list">
@@ -358,9 +356,9 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     </div>
 
                     {/* Recent Sales List */}
-                    <div className="s-card stagger-2" style={{ flex: 1, padding: '24px' }}>
+                    <div className="premium-card stagger-2" style={{ flex: 1, padding: '24px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Penjualan Terbaru</h3>
+                            <h3 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Penjualan Terbaru</h3>
                             <button onClick={() => onNavigate && onNavigate('penjualan')} className="s-btn s-btn-secondary" style={{ padding: '6px 12px', fontSize: '0.8rem' }}>Lihat Semua</button>
                         </div>
 

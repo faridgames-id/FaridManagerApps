@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Gamepad2, Calendar, Plus, Save, X, DollarSign, TrendingUp, Trash2, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export default function CalendarTab({
     accounts = [],
@@ -124,11 +125,11 @@ export default function CalendarTab({
         e.preventDefault();
         const parsedJumlah = parseRupiah(jumlah);
         if (!tanggal) {
-            alert('⚠️ Pilih tanggal terlebih dahulu!');
+            alert('Pilih tanggal terlebih dahulu!');
             return;
         }
         if (!parsedJumlah || parsedJumlah <= 0) {
-            alert('⚠️ Jumlah harus lebih dari 0!');
+            alert('Jumlah harus lebih dari 0!');
             return;
         }
 
@@ -145,7 +146,7 @@ export default function CalendarTab({
         setKategori('');
         setKeterangan('');
         setIsFormVisible(false);
-        alert('✅ Transaksi berhasil ditambahkan!');
+        alert('Transaksi berhasil ditambahkan!');
     };
 
     const handleDelete = (id) => {
@@ -227,7 +228,7 @@ export default function CalendarTab({
                     <div>
                         {dayProfitOtomatis !== 0 && (
                             <div style={{ fontSize: '0.7rem', color: dayProfitOtomatis >= 0 ? '#10B981' : '#EF4444', fontWeight: 'bold' }}>
-                                🎮 {dayProfitOtomatis >= 0 ? '+' : ''}{formatRupiah(dayProfitOtomatis)}
+                                <Gamepad className="inline-block mr-1" style={{ verticalAlign: 'middle' }} />{dayProfitOtomatis >= 0 ? '+' : ''}{formatRupiah(dayProfitOtomatis)}
                             </div>
                         )}
                         {dayPemasukan > 0 && (
@@ -329,11 +330,11 @@ export default function CalendarTab({
                 {/* Summary Cards */}
                 <div className="summary-cards" style={{ marginBottom: '25px' }}>
                     <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>💰 Total Pemasukan</h3>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}><DollarSign className="inline-block mr-1" style={{ verticalAlign: 'middle' }} /> Total Pemasukan</h3>
                         <div className="amount" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPemasukan)}</div>
                     </div>
                     <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>💸 Total Pengeluaran</h3>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}><ArrowDown className="inline-block mr-1" style={{ verticalAlign: 'middle' }} /> Total Pengeluaran</h3>
                         <div className="amount" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPengeluaran)}</div>
                     </div>
                     <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>

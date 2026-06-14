@@ -18,8 +18,8 @@ export default function IntroOverlay({ onIntroFinished }) {
                     setHide(true);
                     setTimeout(() => {
                         onIntroFinished();
-                    }, 800); // match CSS fade-out duration
-                }, 500);
+                    }, 600);
+                }, 400);
             } else {
                 if (currentProgress > 80) setStatusText('Menyiapkan Dashboard...');
                 else if (currentProgress > 50) setStatusText('Sinkronisasi Database...');
@@ -43,56 +43,119 @@ export default function IntroOverlay({ onIntroFinished }) {
                 position: 'fixed',
                 inset: 0,
                 zIndex: 10000,
-                background: 'radial-gradient(circle at center, #0b1535 0%, #030818 100%)',
+                background: 'linear-gradient(180deg, #09090b 0%, #18181b 100%)',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                transition: 'opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
+                transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
                 opacity: hide ? 0 : 1,
+                transform: hide ? 'scale(1.05)' : 'scale(1)',
                 pointerEvents: hide ? 'none' : 'all',
-                overflow: 'hidden'
             }}
         >
-            <div className="intro-bg-glow"></div>
-            <div className="intro-particles">
-                <span className="intro-bubble"></span>
-                <span className="intro-bubble"></span>
-                <span className="intro-bubble"></span>
-                <span className="intro-bubble"></span>
-            </div>
-            <div className="intro-card">
-                <div className="intro-logo-container">
-                    <div className="intro-logo-glow"></div>
-                    <div className="intro-logo">
-                        <img src="/logo.png" alt="FRD Logo" className="logo-img-file" />
+            <div style={{
+                textAlign: 'center',
+                animation: 'slideUp 0.8s var(--ease-spring-smooth)',
+            }}>
+                <div style={{
+                    width: '80px',
+                    height: '80px',
+                    margin: '0 auto 24px',
+                    position: 'relative',
+                    borderRadius: '20px',
+                    padding: '2px',
+                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0) 100%)',
+                    boxShadow: 'var(--glow-strong)'
+                }}>
+                    <div style={{
+                        width: '100%',
+                        height: '100%',
+                        background: '#09090b',
+                        borderRadius: '18px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden'
+                    }}>
+                        <img src="/logo.png" alt="FRD Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', animation: 'pulse 2s infinite ease-in-out' }} />
                     </div>
                 </div>
-                <h1 className="intro-title">FARID SHOP GAME</h1>
-                <p className="intro-subtitle">Sistem Manajemen Akun FF & ML<br />
+                
+                <h1 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 800,
+                    letterSpacing: '-0.03em',
+                    color: 'var(--text-primary)',
+                    marginBottom: '8px'
+                }}>FARID SHOP GAME</h1>
+                <p style={{
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.9rem',
+                    lineHeight: 1.5,
+                    marginBottom: '32px'
+                }}>
+                    Sistem Manajemen Akun Premium<br />
                     <span style={{
-                        color: '#00d2ff',
-                        fontWeight: '800',
-                        textTransform: 'uppercase',
-                        letterSpacing: '1px',
-                        fontSize: '11px',
+                        color: 'var(--accent-indigo)',
+                        fontWeight: 600,
+                        fontSize: '0.75rem',
                         marginTop: '12px',
                         display: 'inline-block',
-                        animation: 'floatTagline 3s ease-in-out infinite'
-                    }}>Jual beli akun paling kece #1 se universe</span>
+                        letterSpacing: '0.04em',
+                        textTransform: 'uppercase'
+                    }}>Jual Beli Akun #1 se-Universe</span>
                 </p>
                 
-                <div className="intro-loading-wrapper">
-                    <div className="intro-progress-track">
-                        <div 
-                            id="introProgressFill" 
-                            className="intro-progress-fill"
-                            style={{ width: `${progress}%` }}
-                        ></div>
+                <div style={{ width: '240px', margin: '0 auto' }}>
+                    <div style={{
+                        height: '4px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        borderRadius: '99px',
+                        overflow: 'hidden',
+                        marginBottom: '12px',
+                        position: 'relative'
+                    }}>
+                        <div style={{
+                            width: `${progress}%`,
+                            height: '100%',
+                            background: 'linear-gradient(90deg, var(--accent-indigo) 0%, #8b5cf6 100%)',
+                            borderRadius: '99px',
+                            transition: 'width 0.2s ease-out',
+                            position: 'relative'
+                        }}>
+                            <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+                                animation: 'shimmer 1.5s infinite linear'
+                            }}></div>
+                        </div>
                     </div>
-                    <p id="introStatusText" className="intro-status-text">{statusText}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem', fontWeight: 500 }}>{statusText}</p>
+                        <p style={{ color: 'var(--text-primary)', fontSize: '0.75rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{Math.round(progress)}%</p>
+                    </div>
                 </div>
                 
-                <button className="intro-skip-btn" onClick={handleSkip}>Lewati</button>
+                <button 
+                    onClick={handleSkip}
+                    style={{
+                        marginTop: '40px',
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'var(--text-tertiary)',
+                        fontSize: '0.8rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        padding: '8px 16px',
+                        transition: 'color 0.2s'
+                    }}
+                    onMouseOver={(e) => e.target.style.color = 'var(--text-primary)'}
+                    onMouseOut={(e) => e.target.style.color = 'var(--text-tertiary)'}
+                >Lewati</button>
             </div>
         </div>
     );

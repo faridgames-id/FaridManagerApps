@@ -42,4 +42,7 @@ next-env.d.ts
 
 /dist-desktop
 /dist-desktop-2
+/dist-desktop-3
+/extracted_app
+/installer-temp
 /android

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { DollarSign, CreditCard, Trash2 } from 'lucide-react';
 
 export default function SalesTab({
     sales = [],
@@ -11,9 +12,17 @@ export default function SalesTab({
     return (
         <div id="penjualan" className="tab-content active" style={{ display: 'block' }}>
             <div className="content">
-                <h2 style={{ color: 'var(--text-primary)', marginBottom: '20px' }}>💰 Riwayat Penjualan</h2>
-                <div className="table-responsive">
-                    <table className="stock-table">
+                <div className="section-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+                    <h2 style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <DollarSign style={{ color: 'var(--accent-green)' }} className="icon-inline" />
+                        Riwayat Penjualan
+                    </h2>
+                    <div className="table-meta" style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        {sortedSales.length} transaksi
+                    </div>
+                </div>
+                <div className="table-wrapper">
+                    <table className="modern-table">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -50,7 +59,7 @@ export default function SalesTab({
                                         <td>{s.buyerName || s.buyer || '-'}</td>
                                         <td>
                                             <span className={`badge ${s.paymentType === 'cicilan' ? 'badge-cicilan' : 'badge-aktif'}`}>
-                                                {s.paymentType === 'cicilan' ? `💳 Cicilan` : '✅ Cash'}
+                                                {s.paymentType === 'cicilan' ? <><CreditCard className="icon-inline" /> Cicilan</> : 'Cash'}
                                             </span>
                                         </td>
                                         <td>
@@ -60,7 +69,7 @@ export default function SalesTab({
                                                 onClick={() => onDeleteSale(s.id)}
                                                 title="Hapus"
                                             >
-                                                🗑️
+                                                <Trash2 className="icon-inline" />
                                             </button>
                                         </td>
                                     </tr>

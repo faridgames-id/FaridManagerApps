@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Search, TrendingUp, Smartphone, CheckCircle, XCircle, CreditCard } from 'lucide-react';
 
 export default function SearchTab({ accounts, formatRupiah, onUpdateAccount, onDeleteAccount, globalKeyword }) {
     const [game, setGame] = useState('all'); // 'all', 'ff', 'ml'
@@ -62,7 +63,7 @@ export default function SearchTab({ accounts, formatRupiah, onUpdateAccount, onD
         <div id="pencarian" className="tab-content active" style={{ display: 'block' }}>
             <div className="content">
                 <div className="form-section">
-                    <h2>🔍 Pencarian Akun & Transaksi Global</h2>
+                    <h2><Search width="20" height="20" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} /> Pencarian Akun & Transaksi Global</h2>
                     <form onSubmit={handleSearch}>
                         <div className="form-row">
                             <div className="form-group">
@@ -93,7 +94,7 @@ export default function SearchTab({ accounts, formatRupiah, onUpdateAccount, onD
                             </div>
                         </div>
                         <button type="submit" className="btn btn-primary" style={{ marginTop: "15px" }}>
-                            🔍 Mulai Pencarian
+                            <Search width="16" height="16" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Mulai Pencarian
                         </button>
                     </form>
                 </div>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Calendar, DollarSign, FileText, CheckCircle, XCircle, CreditCard } from 'lucide-react';
 
 export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMonth, globalFilterYear }) {
     let year = new Date().getFullYear();
@@ -102,17 +103,17 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                     <div>
                         {dayCount > 0 && (
                             <div style={{ fontSize: '0.75rem', color: '#00D2FF', fontWeight: 800 }}>
-                                📥 {dayCount} akun
+                                {dayCount} akun
                             </div>
                         )}
                         {dayFF > 0 && (
                             <div style={{ fontSize: '0.7rem', color: '#FFFFFF', fontWeight: 700 }}>
-                                🔶 FF: {dayFF}
+                                FF: {dayFF}
                             </div>
                         )}
                         {dayML > 0 && (
                             <div style={{ fontSize: '0.7rem', color: '#00D2FF', fontWeight: 700 }}>
-                                🔵 ML: {dayML}
+                                ML: {dayML}
                             </div>
                         )}
                     </div>
@@ -128,7 +129,7 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
     return (
         <div id="akun-masuk" className="tab-content active" style={{ display: 'block' }}>
             <div className="content">
-                <h2 style={{ color: 'var(--text-primary)', marginBottom: '20px' }}>📅 Kalender Akun Masuk Harian</h2>
+                <h2 style={{ color: 'var(--text-primary)', marginBottom: '20px' }}><Calendar width={20} height={20} style={{ display: 'inline', marginRight: '8px' }} />Kalender Akun Masuk Harian</h2>
 
 
                 {/* Summary Cards — pola sama dengan CalendarTab */}

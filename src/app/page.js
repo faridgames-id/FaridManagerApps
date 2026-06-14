@@ -930,7 +930,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                            </div>
+                        )}
 
                             {/* MOBILE ACTIONS ROW (Search, Notif, Switch - visible only on mobile) */}
                             <div className="mobile-actions-row">

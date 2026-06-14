@@ -1,18 +1,18 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import { LayoutDashboard, Package, Circle, Search, Inbox, Calendar, BarChart3, ShoppingCart, Star, BookOpen } from 'lucide-react';
 
-// SVG Icons for Sidebar
 const Icons = {
-    dashboard: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>,
-    ff: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
-    ml: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>,
-    search: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
-    inbox: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>,
-    calendar: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
-    stats: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
-    sales: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>,
-    star: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-    journal: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
+    dashboard: <LayoutDashboard size={18} />,
+    ff: <Package size={18} />,
+    ml: <Circle size={18} />,
+    search: <Search size={18} />,
+    inbox: <Inbox size={18} />,
+    calendar: <Calendar size={18} />,
+    stats: <BarChart3 size={18} />,
+    sales: <ShoppingCart size={18} />,
+    star: <Star size={18} />,
+    journal: <BookOpen size={18} />,
 };
 
 // Get initials from email
@@ -32,12 +32,12 @@ const GoogleIcon = () => (
 
 const AvatarCircle = ({ email, avatarUrl, provider, size = 34 }) => {
     const initials = getInitials(email);
-    const colors = ['#0052D4', '#7C3AED', '#059669', '#D97706', '#DC2626'];
+    const colors = ['#3b82f6', '#a855f7', '#22c55e', '#f59e0b', '#ef4444'];
     const colorIdx = email ? email.charCodeAt(0) % colors.length : 0;
 
     if (avatarUrl) {
         return (
-            <div style={{ width: size, height: size, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
+            <div style={{ width: size, height: size, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
                 <img src={avatarUrl} alt={email} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { e.target.style.display = 'none'; }} />
             </div>
         );
@@ -45,10 +45,9 @@ const AvatarCircle = ({ email, avatarUrl, provider, size = 34 }) => {
     return (
         <div style={{
             width: size, height: size, borderRadius: '50%', flexShrink: 0,
-            background: `linear-gradient(135deg, ${colors[colorIdx]}, ${colors[(colorIdx+1) % colors.length]})`,
+            background: colors[colorIdx],
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: size > 36 ? '1rem' : '0.82rem', fontWeight: 700, color: '#FFFFFF',
-            boxShadow: `0 4px 12px ${colors[colorIdx]}55`
+            fontSize: size > 36 ? '0.9rem' : '0.75rem', fontWeight: 600, color: '#fff',
         }}>
             {initials}
         </div>
@@ -107,9 +106,9 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
             <div className={`sidebar ${!isOpen ? 'closed' : 'mobile-open'}`}>
             
             {/* Logo Area */}
-            <div className="s-logo" style={{ position: 'relative' }}>
+            <div className="s-logo">
                 <div className="s-logo-icon">
-                    <img src="/logo.png" alt="FRD Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '6px' }} />
+                    <img src="/logo.png" alt="FRD Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} />
                 </div>
                 <div className="s-logo-text">
                     <div className="s-logo-name">FARID SHOP GAME</div>
@@ -119,6 +118,9 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
             
             {/* Navigation */}
             <div className="nav-tabs">
+                <div style={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-tertiary)', padding: '8px 12px 4px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    Menu Utama
+                </div>
                 {menuItems.map((item) => (
                     <button 
                         key={item.id}
@@ -132,9 +134,6 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     >
                         <span className="nav-icon">{item.icon}</span>
                         <span className="nav-label">{item.label}</span>
-                        {item.id === 'stok-ff' || item.id === 'stok-ml' || item.id === 'pencarian' ? (
-                            <svg className="nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        ) : null}
                     </button>
                 ))}
             </div>
@@ -142,50 +141,48 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
             {/* Bottom Profile Area */}
             <div className="sidebar-footer" ref={dropdownRef} style={{ position: 'relative' }}>
                 {isProfileOpen && (
-                    <div className="profile-dropdown slideUp" style={{
+                    <div className="profile-dropdown" style={{
                         position: 'absolute',
-                        bottom: '84px',
-                        left: '12px',
-                        width: 'calc(100% - 24px)',
-                        background: 'rgba(8, 14, 28, 0.97)',
-                        border: '1px solid rgba(0, 210, 255, 0.1)',
-                        borderRadius: '14px',
-                        padding: '10px',
-                        boxShadow: '0 -16px 40px rgba(0,0,0,0.6), 0 0 1px rgba(0,210,255,0.15)',
+                        bottom: '76px',
+                        left: '10px',
+                        width: 'calc(100% - 20px)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-default)',
+                        borderRadius: '12px',
+                        padding: '8px',
+                        boxShadow: 'var(--shadow-xl)',
                         zIndex: 110,
-                        backdropFilter: 'blur(20px)',
                     }}>
                         {/* Section title */}
-                        <div style={{ fontSize: '0.68rem', color: 'rgba(0,210,255,0.5)', padding: '4px 8px 10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                        <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', padding: '4px 8px 8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                             Akun Google Tertaut
                         </div>
 
                         {/* Current active account */}
                         <div style={{
                             display: 'flex', alignItems: 'center', gap: '10px',
-                            padding: '10px 10px',
-                            borderRadius: '10px',
-                            background: 'rgba(0, 82, 212, 0.15)',
-                            border: '1px solid rgba(0, 210, 255, 0.12)',
+                            padding: '8px 10px',
+                            borderRadius: '8px',
+                            background: 'var(--accent-blue-subtle)',
                             marginBottom: '4px',
                         }}>
-                            <AvatarCircle email={currentEmail} avatarUrl={currentAvatar} provider={currentProvider} size={36} />
+                            <AvatarCircle email={currentEmail} avatarUrl={currentAvatar} provider={currentProvider} size={34} />
                             <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#FFFFFF', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                     {currentName}
                                 </div>
-                                <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                                <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '1px' }}>
                                     {currentProvider === 'google' && <GoogleIcon />}
                                     {currentEmail}
                                 </div>
                             </div>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
 
                         {/* Other saved accounts */}
                         {otherUsers.length > 0 && (
                             <>
-                                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', padding: '8px 8px 4px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+                                <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', padding: '6px 8px 4px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>
                                     Akun Lain
                                 </div>
                                 {otherUsers.map(u => (
@@ -194,51 +191,51 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                                         onClick={() => { onSwitchAccount && onSwitchAccount(u); setIsProfileOpen(false); }}
                                         style={{
                                             display: 'flex', alignItems: 'center', gap: '10px',
-                                            width: '100%', padding: '9px 10px',
+                                            width: '100%', padding: '8px 10px',
                                             background: 'transparent',
-                                            border: '1px solid transparent',
-                                            borderRadius: '10px', cursor: 'pointer',
-                                            transition: 'all 0.2s',
+                                            border: 'none',
+                                            borderRadius: '8px', cursor: 'pointer',
+                                            transition: 'background 150ms',
                                             marginBottom: '2px',
                                             textAlign: 'left',
                                         }}
-                                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,82,212,0.1)'; e.currentTarget.style.borderColor = 'rgba(0,210,255,0.08)'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; }}
+                                        onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-hover)'}
+                                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                                     >
-                                        <AvatarCircle email={u.email} avatarUrl={u.avatarUrl} provider={u.provider} size={34} />
+                                        <AvatarCircle email={u.email} avatarUrl={u.avatarUrl} provider={u.provider} size={32} />
                                         <div style={{ flex: 1, minWidth: 0 }}>
-                                            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'rgba(255,255,255,0.85)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                            <div style={{ fontSize: '0.78rem', fontWeight: 500, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                                 {getDisplayName(u.email)}
                                             </div>
-                                            <div style={{ fontSize: '0.67rem', color: 'rgba(255,255,255,0.35)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                            <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '1px' }}>
                                                 {u.provider === 'google' && <GoogleIcon />}
                                                 {u.email}
                                             </div>
                                         </div>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                                     </button>
                                 ))}
                             </>
                         )}
 
                         {/* Add account */}
-                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '8px 0' }} />
+                        <div style={{ height: '1px', background: 'var(--border-subtle)', margin: '6px 0' }} />
                         <button
                             onClick={() => { onAddNewAccount && onAddNewAccount(); setIsProfileOpen(false); }}
                             style={{
                                 display: 'flex', alignItems: 'center', gap: '10px',
-                                width: '100%', padding: '9px 10px',
-                                background: 'transparent', border: '1px dashed rgba(0,210,255,0.15)',
-                                borderRadius: '10px', cursor: 'pointer',
-                                color: 'rgba(0,210,255,0.6)',
-                                fontSize: '0.8rem', fontWeight: 600,
-                                transition: 'all 0.2s', marginBottom: '4px',
+                                width: '100%', padding: '8px 10px',
+                                background: 'transparent', border: '1px dashed var(--border-default)',
+                                borderRadius: '8px', cursor: 'pointer',
+                                color: 'var(--text-tertiary)',
+                                fontSize: '0.78rem', fontWeight: 500,
+                                transition: 'all 150ms', marginBottom: '4px',
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,82,212,0.08)'; e.currentTarget.style.borderColor = 'rgba(0,210,255,0.25)'; e.currentTarget.style.color = '#00D2FF'; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(0,210,255,0.15)'; e.currentTarget.style.color = 'rgba(0,210,255,0.6)'; }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.color = 'var(--text-primary)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-tertiary)'; }}
                         >
-                            <div style={{ width: 34, height: 34, borderRadius: '50%', border: '1px dashed rgba(0,210,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <div style={{ width: 32, height: 32, borderRadius: '50%', border: '1px dashed var(--border-default)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </div>
                             Tambah Akun Google
                         </button>
@@ -248,17 +245,17 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                             onClick={() => { onLogout && onLogout(); setIsProfileOpen(false); }}
                             style={{
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                                width: '100%', padding: '10px',
-                                background: 'rgba(255,77,106,0.06)', border: '1px solid rgba(255,77,106,0.12)',
-                                borderRadius: '10px', cursor: 'pointer',
-                                color: '#FF4D6A',
-                                fontSize: '0.82rem', fontWeight: 700,
-                                transition: 'all 0.2s',
+                                width: '100%', padding: '8px',
+                                background: 'var(--accent-red-subtle)', border: 'none',
+                                borderRadius: '8px', cursor: 'pointer',
+                                color: 'var(--accent-red)',
+                                fontSize: '0.78rem', fontWeight: 600,
+                                transition: 'all 150ms',
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,77,106,0.14)'; }}
-                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,77,106,0.06)'; }}
+                            onMouseEnter={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'}
+                            onMouseLeave={e => e.currentTarget.style.background = 'var(--accent-red-subtle)'}
                         >
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                             Logout
                         </button>
                     </div>
@@ -269,7 +266,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                         {currentAvatar ? (
                             <img src={currentAvatar} alt={currentName} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} onError={e => e.target.style.display='none'} />
                         ) : (
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                         )}
                         <div className="online-dot"></div>
                     </div>
@@ -287,7 +284,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                             {currentProvider === 'google' ? 'Google Account' : 'Email Account'}
                         </div>
                     </div>
-                    <svg className="profile-chevron" style={{ transform: isProfileOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <svg className="profile-chevron" style={{ transform: isProfileOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </div>
             </div>
 
@@ -296,9 +293,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
             <style jsx>{`
                 .sidebar {
                     width: var(--sidebar-w);
-                    background: rgba(10, 10, 10, 0.85);
-                    backdrop-filter: blur(24px);
-                    -webkit-backdrop-filter: blur(24px);
+                    background: var(--bg-surface);
                     display: flex;
                     flex-direction: column;
                     position: fixed;
@@ -306,301 +301,187 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     left: 0;
                     height: 100vh;
                     z-index: 100;
-                    border-right: 1px solid rgba(255, 255, 255, 0.05);
-                    transition: var(--T-smooth);
-                    /* overflow: hidden removed to allow toggle button to protrude */
+                    border-right: 1px solid var(--border-subtle);
+                    transition: transform var(--T-slow);
                 }
 
-                .sidebar::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 1px;
-                    height: 100%;
-                    background: linear-gradient(180deg, transparent, rgba(0, 210, 255, 0.15), rgba(255, 215, 0, 0.1), transparent);
-                    z-index: 1;
+                .sidebar.closed {
+                    transform: translateX(-100%);
                 }
 
                 .s-logo {
-                    padding: 28px 24px;
+                    padding: 20px 18px;
                     display: flex;
                     align-items: center;
-                    gap: 14px;
-                    position: relative;
-                }
-
-                .s-logo::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    left: 24px;
-                    right: 24px;
-                    height: 1px;
-                    background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.15), transparent);
+                    gap: 12px;
+                    border-bottom: 1px solid var(--border-subtle);
                 }
 
                 .s-logo-icon {
-                    width: 40px;
-                    height: 40px;
+                    width: 36px;
+                    height: 36px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 12px;
+                    border-radius: 10px;
                     overflow: hidden;
-                    box-shadow: 0 4px 15px rgba(0, 82, 212, 0.3);
-                    position: relative;
-                }
-
-                .s-logo-icon::after {
-                    content: '';
-                    position: absolute;
-                    inset: -2px;
-                    border-radius: 14px;
-                    background: linear-gradient(135deg, rgba(0, 82, 212, 0.6), rgba(0, 210, 255, 0.4));
-                    filter: blur(8px);
-                    z-index: -1;
-                    animation: auroraBreath 4s ease-in-out infinite alternate;
+                    flex-shrink: 0;
                 }
 
                 .s-logo-name {
-                    font-size: 1rem;
-                    font-weight: 800;
-                    background: linear-gradient(135deg, #FFFFFF 0%, #00D2FF 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    letter-spacing: 0.03em;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    letter-spacing: 0.02em;
                     line-height: 1.2;
                 }
 
                 .s-logo-sub {
-                    font-size: 0.72rem;
-                    color: rgba(0, 210, 255, 0.5);
-                    margin-top: 2px;
+                    font-size: 0.65rem;
+                    color: var(--text-muted);
+                    margin-top: 1px;
                     text-transform: uppercase;
-                    letter-spacing: 0.08em;
-                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    font-weight: 500;
                 }
 
                 .nav-tabs {
                     flex: 1;
-                    padding: 16px 14px 0;
+                    padding: 12px 10px 0;
                     display: flex;
                     flex-direction: column;
-                    gap: 3px;
+                    gap: 1px;
                     overflow-y: auto;
                 }
 
                 .nav-tabs::-webkit-scrollbar { width: 3px; }
                 .nav-tabs::-webkit-scrollbar-track { background: transparent; }
-                .nav-tabs::-webkit-scrollbar-thumb { background: rgba(0, 210, 255, 0.2); border-radius: 10px; }
+                .nav-tabs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
 
                 .nav-tab {
                     display: flex;
                     align-items: center;
-                    gap: 12px;
-                    padding: 11px 16px;
-                    border-radius: 10px;
+                    gap: 10px;
+                    padding: 9px 12px;
+                    border-radius: 8px;
                     background: transparent;
-                    color: rgba(255, 255, 255, 0.4);
-                    border: 1px solid transparent;
+                    color: var(--text-tertiary);
+                    border: none;
                     cursor: pointer;
-                    font-size: 0.88rem;
+                    font-size: 0.82rem;
                     font-weight: 500;
                     text-align: left;
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    transition: all 150ms ease;
                     position: relative;
+                    overflow: hidden;
                 }
 
                 .nav-tab:hover {
-                    color: rgba(255, 255, 255, 0.85);
-                    background: rgba(0, 82, 212, 0.08);
-                    border-color: rgba(0, 82, 212, 0.1);
+                    color: var(--text-primary);
+                    background: var(--bg-hover);
+                }
+                
+                .nav-tab:hover .nav-icon {
+                    color: var(--accent-indigo);
+                    opacity: 0.8;
                 }
 
                 .nav-icon {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    opacity: 0.6;
-                    transition: opacity 0.3s, filter 0.3s;
+                    opacity: 0.5;
+                    transition: opacity 150ms;
                 }
 
                 .nav-label {
                     flex: 1;
                 }
 
-                .nav-chevron {
-                    opacity: 0.3;
-                }
-
                 .nav-tab.active {
-                    color: #FFFFFF;
-                    background: rgba(255, 255, 255, 0.1);
-                    border-color: rgba(255, 255, 255, 0.05);
-                    box-shadow: none;
-                    font-weight: 700;
-                    letter-spacing: 0.01em;
-                }
-
-                .nav-tab.active::before {
-                    display: none;
+                    color: var(--text-primary);
+                    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 100%);
+                    font-weight: 600;
+                    box-shadow: inset 3px 0 0 var(--accent-indigo);
+                    border-radius: 0 8px 8px 0;
                 }
 
                 .nav-tab.active .nav-icon {
                     opacity: 1;
-                    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+                    color: var(--accent-indigo);
                 }
 
                 .sidebar-footer {
-                    padding: 20px 14px;
-                    border-top: 1px solid rgba(0, 210, 255, 0.06);
-                    position: relative;
-                }
-
-                .sidebar-footer::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 14px;
-                    right: 14px;
-                    height: 1px;
-                    background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.1), transparent);
+                    padding: 12px 10px;
+                    border-top: 1px solid var(--border-subtle);
                 }
 
                 .profile-badge {
                     display: flex;
                     align-items: center;
-                    gap: 12px;
-                    padding: 12px;
-                    border-radius: 12px;
+                    gap: 10px;
+                    padding: 10px;
+                    border-radius: 8px;
                     cursor: pointer;
-                    transition: all 0.3s;
-                    border: 1px solid transparent;
+                    transition: background 150ms;
+                    border: none;
+                    background: transparent;
                 }
 
                 .profile-badge:hover {
-                    background: rgba(0, 82, 212, 0.08);
-                    border-color: rgba(0, 82, 212, 0.1);
+                    background: var(--bg-hover);
                 }
 
                 .profile-avatar {
-                    width: 38px;
-                    height: 38px;
+                    width: 34px;
+                    height: 34px;
                     border-radius: 50%;
-                    background: linear-gradient(135deg, #0052D4, #00D2FF);
-                    color: #FFFFFF;
+                    background: var(--accent-blue);
+                    color: #fff;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     position: relative;
-                    box-shadow: 0 4px 12px rgba(0, 82, 212, 0.3);
+                    flex-shrink: 0;
                 }
 
                 .online-dot {
                     position: absolute;
                     bottom: 0;
                     right: 0;
-                    width: 10px;
-                    height: 10px;
-                    background: #00E68A;
-                    border: 2px solid #060C18;
+                    width: 8px;
+                    height: 8px;
+                    background: var(--accent-green);
+                    border: 2px solid var(--bg-surface);
                     border-radius: 50%;
-                    box-shadow: 0 0 6px rgba(0, 230, 138, 0.5);
                 }
 
                 .profile-info {
                     flex: 1;
+                    min-width: 0;
                 }
 
                 .profile-name {
-                    font-size: 0.85rem;
-                    font-weight: 700;
-                    color: #FFFFFF;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 .profile-role {
-                    font-size: 0.72rem;
-                    color: #00D2FF;
-                    margin-top: 2px;
-                    font-weight: 600;
+                    font-size: 0.68rem;
+                    color: var(--text-muted);
+                    margin-top: 1px;
+                    font-weight: 500;
                 }
 
                 .profile-chevron {
-                    color: rgba(255, 255, 255, 0.3);
+                    color: var(--text-muted);
+                    flex-shrink: 0;
                 }
 
-                .account-switch-btn {
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    gap: 12px;
-                    padding: 10px;
-                    background: transparent;
-                    border: none;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    text-align: left;
-                    color: rgba(255, 255, 255, 0.8);
-                    transition: all 0.2s;
-                }
-                .account-switch-btn:hover {
-                    background: rgba(0, 82, 212, 0.08);
-                }
-                .account-switch-btn.active {
-                    background: rgba(0, 82, 212, 0.12);
-                    border: 1px solid rgba(0, 210, 255, 0.1);
-                }
-                .account-switch-btn.text-danger {
-                    color: #FF4D6A;
-                    justify-content: center;
-                    font-weight: 600;
-                    padding: 12px;
-                }
-                .account-switch-btn.text-danger:hover {
-                    background: rgba(255, 77, 106, 0.1);
-                }
-                .acc-avatar {
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #0052D4, #002D72);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 0.8rem;
-                    font-weight: bold;
-                    color: #FFFFFF;
-                }
-                .acc-info {
-                    flex: 1;
-                }
-                .acc-name {
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    color: #FFFFFF;
-                }
-                .acc-role {
-                    font-size: 0.7rem;
-                    color: rgba(255, 255, 255, 0.4);
-                }
-                .acc-check {
-                    color: #00D2FF;
-                    font-weight: bold;
-                    text-shadow: 0 0 6px rgba(0, 210, 255, 0.5);
-                }
-                .slideUp {
-                    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                }
-
-                .profile-dropdown {
-                    background: rgba(10, 16, 28, 0.95) !important;
-                    backdrop-filter: blur(20px) !important;
-                    border: 1px solid rgba(0, 210, 255, 0.1) !important;
-                    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 210, 255, 0.2) !important;
-                }
-                
                 .sidebar-overlay {
                     display: none;
                 }
@@ -610,13 +491,12 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                         display: block;
                         position: fixed;
                         inset: 0;
-                        background: rgba(0, 0, 0, 0.6);
+                        background: rgba(0, 0, 0, 0.5);
                         backdrop-filter: blur(4px);
-                        -webkit-backdrop-filter: blur(4px);
                         z-index: 90;
                         opacity: 0;
                         pointer-events: none;
-                        transition: opacity 0.3s ease;
+                        transition: opacity 200ms ease;
                     }
                     .sidebar-overlay.show {
                         opacity: 1;

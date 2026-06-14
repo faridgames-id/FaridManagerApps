@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Copy, Calendar, Trash2 } from 'lucide-react';
 
 export default function StockTab({ 
     game, 
@@ -264,7 +265,7 @@ export default function StockTab({
         const newBuyDate = `${year}-${String(month + 1).padStart(2, '0')}-${day}`;
         onUpdateAccount(movingAccount.id, { buyDate: newBuyDate });
         setMovingAccount(null);
-        alert('📅 Bulan masuk stok berhasil dipindahkan!');
+        alert('<Calendar width="16" height="16" /> Bulan masuk stok berhasil dipindahkan!');
     };
 
     // Open Edit Sell Price Modal
@@ -329,7 +330,7 @@ export default function StockTab({
             <div className="content">
                 {/* Form Tambah Akun */}
                 <div className="form-section" style={{ marginBottom: '30px' }}>
-                    <h2>➕ Tambah Akun {game === 'ff' ? 'Free Fire' : 'Mobile Legends'}</h2>
+                    <h2><Plus width="20" height="20" /> Tambah Akun {game === 'ff' ? 'Free Fire' : 'Mobile Legends'}</h2>
                     <form onSubmit={handleAddSubmit}>
                         <div className="form-row">
                             <div className="form-group">
@@ -551,21 +552,21 @@ export default function StockTab({
                                             <td><span style={{ color: 'var(--text-secondary)', fontWeight: 'bold' }}>📱 {a.device}</span></td>
                                             <td>{a.buyDate}</td>
                                             <td style={{ whiteSpace: 'nowrap' }}>
-                                                <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit">✏️</button>
+                                                <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit"><Edit width="16" height="16" /></button>
                                                 <button className="btn btn-success btn-icon" onClick={() => openSell(a)} title="Jual" style={{ marginLeft: '3px' }}>💰</button>
                                                 <button className="btn btn-warning btn-icon" onClick={() => handleMarkAsCicilan(a)} title="Cicilan" style={{ marginLeft: '3px' }}>💳</button>
-                                                <button className="btn btn-icon" onClick={() => openMove(a)} style={{ background: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)', color: '#fff', marginLeft: '3px', border: 'none', boxShadow: '0 2px 6px rgba(139,92,246,0.5)' }} title="Pindah Bulan">📅</button>
+                                                <button className="btn btn-icon" onClick={() => openMove(a)} style={{ background: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)', color: '#fff', marginLeft: '3px', border: 'none', boxShadow: '0 2px 6px rgba(139,92,246,0.5)' }} title="Pindah Bulan"><Calendar width="16" height="16" /></button>
                                                 {game === 'ff' && (
                                                     <button className="btn btn-icon" onClick={() => handleCopyFormat(a, 'FF')} style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)', color: '#fff', marginLeft: '3px', boxShadow: '0 2px 6px rgba(59,130,246,0.5)', border: 'none' }} title="Copy Format FF">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                                        <Copy width="16" height="16" />
                                                     </button>
                                                 )}
                                                 {game === 'ml' && (
                                                     <button className="btn btn-icon" onClick={() => handleCopyFormat(a, 'ML')} style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', color: '#fff', marginLeft: '3px', boxShadow: '0 2px 6px rgba(16,185,129,0.5)', border: 'none' }} title="Copy Format ML">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                                        <Copy width="16" height="16" />
                                                     </button>
                                                 )}
-                                                <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}>🗑️</button>
+                                                <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}><Trash2 width="16" height="16" /></button>
                                             </td>
                                         </tr>
                                     ))
@@ -618,9 +619,9 @@ export default function StockTab({
                                                 <td><span style={{ color: 'var(--text-secondary)', fontWeight: 'bold' }}>📱 {a.device}</span></td>
                                                 <td>{a.sellDate || a.buyDate}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit">✏️</button>
+                                                    <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit"><Edit width="16" height="16" /></button>
                                                     <button className="btn btn-warning btn-icon" onClick={() => openEditSellPrice(a)} title="Edit Harga Jual" style={{ marginLeft: '3px' }}>💰</button>
-                                                    <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}>🗑️</button>
+                                                    <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}><Trash2 width="16" height="16" /></button>
                                                 </td>
                                             </tr>
                                         );
@@ -676,10 +677,10 @@ export default function StockTab({
                                                 <td><span style={{ color: 'var(--text-secondary)', fontWeight: 'bold' }}>📱 {a.device}</span></td>
                                                 <td>{a.buyDate}</td>
                                                 <td style={{ whiteSpace: 'nowrap' }}>
-                                                    <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit Akun">✏️</button>
+                                                    <button className="btn btn-primary btn-icon" onClick={() => openEdit(a)} title="Edit Akun"><Edit width="16" height="16" /></button>
                                                     <button className="btn btn-warning btn-icon" onClick={() => openPay(a)} title="Bayar Cicilan" style={{ marginLeft: '3px' }}>💵</button>
                                                     <button className="btn btn-success btn-icon" onClick={() => handleMarkAsPaid(a)} title="Tandai Lunas" style={{ marginLeft: '3px' }}>✅</button>
-                                                    <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}>🗑️</button>
+                                                    <button className="btn btn-danger btn-icon" onClick={() => { if(confirm('Hapus akun ini?')) onDeleteAccount(a.id); }} title="Hapus" style={{ marginLeft: '3px' }}><Trash2 width="16" height="16" /></button>
                                                 </td>
                                             </tr>
                                         );
@@ -696,7 +697,7 @@ export default function StockTab({
                 <div className="modal show">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3>✏️ Edit Data Akun {game.toUpperCase()}</h3>
+                            <h3><Edit width="16" height="16" /> Edit Data Akun {game.toUpperCase()}</h3>
                             <button className="modal-close" onClick={() => setEditingAccount(null)}>×</button>
                         </div>
                         <form onSubmit={handleEditSubmit}>
@@ -901,7 +902,7 @@ export default function StockTab({
                 <div className="modal show">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3>📅 Pindahkan ke Bulan Lain</h3>
+                            <h3><Calendar width="16" height="16" /> Pindahkan ke Bulan Lain</h3>
                             <button className="modal-close" onClick={() => setMovingAccount(null)}>×</button>
                         </div>
                         <form onSubmit={handleMoveSubmit}>
