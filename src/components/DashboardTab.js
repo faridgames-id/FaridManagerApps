@@ -128,7 +128,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     <div className="bento-glow-blue"></div>
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                         <div>
-                            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #fff 0%, #a5b4fc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #fff 0%, #38BDF8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                 Farid Shop Game
                             </h2>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px', fontWeight: 500 }}>Premium Account Marketplace</p>
@@ -150,13 +150,13 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                 <div className="bento-card stagger-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Profit Bersih</div>
-                        <div style={{ background: 'var(--accent-green-subtle)', color: 'var(--accent-green)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(34, 197, 94, 0.2)' }}>
+                        <div style={{ background: 'var(--accent-blue-subtle)', color: 'var(--accent-blue)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(56, 189, 248, 0.2)' }}>
                             {KpiIcons.dollarSign}
                         </div>
                     </div>
                     <div>
                         <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '16px' }}>{formatRupiah(totalProfit)}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--accent-green)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
                             {KpiIcons.trendingUp} +Potensi {formatRupiah(potensiPendapatan)}
                         </div>
                     </div>
@@ -167,14 +167,14 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     <div className="bento-glow-gold"></div>
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Akun Ready</div>
-                        <div style={{ background: 'var(--accent-amber-subtle)', color: 'var(--accent-amber)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(245, 158, 11, 0.2)' }}>
+                        <div style={{ background: 'var(--accent-indigo-subtle)', color: 'var(--accent-indigo)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(139, 92, 246, 0.2)' }}>
                             {KpiIcons.checkCircle}
                         </div>
                     </div>
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '16px' }}>{activeAccounts.length}</div>
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 500 }}>
-                            <span style={{ color: 'var(--accent-amber)' }}>•</span> {ffReadyCount} FF &nbsp;
+                            <span style={{ color: 'var(--accent-indigo)' }}>•</span> {ffReadyCount} FF &nbsp;
                             <span style={{ color: 'var(--accent-blue)' }}>•</span> {mlReadyCount} ML
                         </div>
                     </div>
@@ -245,11 +245,10 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     </div>
                 </div>
 
-                {/* RECENT SALES BENTO (Wide & Tall) */}
-                <div className="bento-card bento-wide bento-tall stagger-5" style={{ padding: '24px 0' }}>
+                {/* RECENT SALES BENTO (Span 1, Tall) */}
+                <div className="bento-card bento-tall stagger-5" style={{ padding: '24px 0', gridColumn: 'span 1' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', padding: '0 24px' }}>
-                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>Penjualan Terbaru</h3>
-                        <button onClick={() => onNavigate && onNavigate('penjualan')} className="s-btn s-btn-secondary" style={{ padding: '6px 12px', fontSize: '0.8rem' }}>Lihat Semua</button>
+                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>Terbaru</h3>
                     </div>
 
                     <div className="recent-sales-list sales-list-horizontal" style={{ flex: 1, padding: '0 24px' }}>
@@ -274,6 +273,27 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                         )) : (
                             <div style={{ width: '100%', textAlign: 'center', color: 'var(--text-tertiary)', padding: '30px 0', fontSize: '0.9rem' }}>Belum ada penjualan.</div>
                         )}
+                    </div>
+                </div>
+
+                {/* PERFORMA BISNIS BENTO (Span 1, Tall) - 6th Panel */}
+                <div className="bento-card bento-tall stagger-6" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>Performa Bisnis</h3>
+                    
+                    <div style={{ background: 'var(--bg-elevated)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Modal</div>
+                        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
+                    </div>
+
+                    <div style={{ background: 'var(--bg-elevated)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Terjual (Omzet)</div>
+                        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
+                    </div>
+
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                        <button onClick={() => onNavigate && onNavigate('penjualan')} className="s-btn s-btn-primary" style={{ width: '100%', padding: '10px', fontSize: '0.9rem', justifyContent: 'center' }}>
+                            Laporan Lengkap
+                        </button>
                     </div>
                 </div>
 

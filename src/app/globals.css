@@ -7,28 +7,29 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-    /* Surfaces: Deep Dark Blue Theme (Inspired by Finlo Flash / Chattery Echo) */
-    --bg-body:       #0d1117; /* Very deep dark */
-    --bg-surface:    #161b22; /* Slightly lighter card background */
-    --bg-card:       #161b22;
-    --bg-elevated:   #21262d; /* Lighter surface for hovers/popups */
-    --bg-hover:      rgba(255, 255, 255, 0.05);
-    --bg-active:     rgba(255, 255, 255, 0.08);
-    --bg-input:      #21262d;
+    /* Surfaces: Dark Charcoal & Blue Saphire Theme */
+    --bg-body:       #0F172A; /* Charcoal Dark Gray */
+    --bg-surface:    #1E293B; /* Slightly lighter card background */
+    --bg-card:       #1E293B;
+    --bg-elevated:   #334155; /* Lighter surface for hovers/popups */
+    --bg-hover:      rgba(56, 189, 248, 0.08); /* Sky blue hover */
+    --bg-active:     rgba(56, 189, 248, 0.12);
+    --bg-input:      #1E293B;
 
-    /* Text: Pristine White & Blues */
-    --text-primary:   #ffffff;
-    --text-secondary: #8b949e; /* Soft gray-blue */
-    --text-tertiary:  #6e7681;
-    --text-muted:     #484f58;
-    --text-inverse:   #0d1117;
+    /* Text: Misty Gray & Putih */
+    --text-primary:   #FFFFFF;
+    --text-secondary: #ECEFF1; /* Misty Gray */
+    --text-tertiary:  #94A3B8;
+    --text-muted:     #64748B;
+    --text-inverse:   #0F172A;
 
-    /* Accent Colors: Premium Blues and Cyans (No Gold) */
-    --accent-blue:    #3b82f6; /* Bright Blue */
-    --accent-blue-subtle: rgba(59, 130, 246, 0.15);
-    --accent-gold:    #0ea5e9; /* Replaced Gold with Cyan/Sky Blue for backward compatibility with class names */
-    --accent-gold-subtle: rgba(14, 165, 233, 0.15);
-    --accent-green:   #10b981; /* Emerald 500 */
+    /* Accent Colors: Midnight Blue & Sky Blue */
+    --accent-blue:    #38BDF8; /* Sky Blue for active/highlight */
+    --accent-blue-subtle: rgba(56, 189, 248, 0.15);
+    --accent-midnight: #191970; /* Midnight Blue */
+    --accent-gold:    #87CEEB; /* Mapped to Sky Blue alternative */
+    --accent-gold-subtle: rgba(135, 206, 235, 0.15);
+    --accent-green:   #10b981; 
     --accent-green-subtle: rgba(16, 185, 129, 0.15);
     --accent-red:     #ef4444;
     --accent-red-subtle: rgba(239, 68, 68, 0.15);
@@ -36,21 +37,21 @@
     --accent-indigo-subtle: rgba(139, 92, 246, 0.15);
 
     /* Borders */
-    --border-subtle:  rgba(255, 255, 255, 0.08);
-    --border-default: rgba(255, 255, 255, 0.12);
-    --border-strong:  rgba(255, 255, 255, 0.2);
+    --border-subtle:  rgba(56, 189, 248, 0.1); /* Subtle sky blue border */
+    --border-default: rgba(56, 189, 248, 0.2);
+    --border-strong:  rgba(56, 189, 248, 0.35);
     --border-focus:   var(--accent-blue);
 
-    /* Glows - Premium Soft Glows */
-    --glow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 14px rgba(0, 0, 0, 0.3);
-    --glow-strong: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 8px 30px rgba(59, 130, 246, 0.25);
-    --glow-gold: 0 0 0 1px rgba(14, 165, 233, 0.3), 0 8px 30px rgba(14, 165, 233, 0.25); /* Now Cyan */
+    /* Glows - Premium Soft Glows with Sky/Midnight */
+    --glow-subtle: 0 0 0 1px rgba(25, 25, 112, 0.2), 0 4px 14px rgba(25, 25, 112, 0.4);
+    --glow-strong: 0 0 0 1px rgba(56, 189, 248, 0.3), 0 8px 30px rgba(56, 189, 248, 0.25);
+    --glow-gold: 0 0 0 1px rgba(56, 189, 248, 0.3), 0 8px 30px rgba(56, 189, 248, 0.25);
 
-    /* Shadows - Deep layered shadows */
-    --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-md:   0 4px 14px rgba(0, 0, 0, 0.4);
-    --shadow-lg:   0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-xl:   0 20px 40px rgba(0, 0, 0, 0.6);
+    /* Shadows - Deep layered blue shadows */
+    --shadow-sm:   0 1px 3px rgba(15, 23, 42, 0.8);
+    --shadow-md:   0 4px 14px rgba(15, 23, 42, 0.8);
+    --shadow-lg:   0 10px 30px rgba(25, 25, 112, 0.4);
+    --shadow-xl:   0 20px 40px rgba(25, 25, 112, 0.6);
 
     /* Radius */
     --r-xs:  4px;
@@ -227,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .premium-card {
-    background: linear-gradient(180deg, rgba(24, 24, 27, 0.8) 0%, rgba(15, 15, 18, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
     border: 1px solid var(--border-subtle);
     border-radius: var(--r-xl);
     box-shadow: var(--glow-subtle);
@@ -367,7 +368,7 @@ h1, h2, h3, h4, h5, h6 {
     right: -50px;
     width: 250px;
     height: 250px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -377,7 +378,7 @@ h1, h2, h3, h4, h5, h6 {
     left: -50px;
     width: 250px;
     height: 250px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%); /* Changed to cyan glow */
+    background: radial-gradient(circle, rgba(25, 25, 112, 0.4) 0%, transparent 70%); /* Midnight Blue glow */
     border-radius: 50%;
     pointer-events: none;
 }
