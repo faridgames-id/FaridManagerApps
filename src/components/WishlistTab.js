@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { AlertTriangle, Star, DollarSign, CheckCircle, ExternalLink, Trash2 } from 'lucide-react';
+import { AlertTriangle, Star, DollarSign, CheckCircle, ExternalLink, Trash2, Coins, Link } from 'lucide-react';
 
 export default function WishlistTab({
     wishlistItems = [],
