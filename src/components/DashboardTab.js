@@ -211,18 +211,18 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                             {fillPath && <path d={fillPath} fill="url(#fill-gradient)" opacity="0.15" />}
                             <defs>
                                 <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stopColor="var(--accent-blue)" />
-                                    <stop offset="100%" stopColor="var(--accent-gold)" />
+                                    <stop offset="0%" stopColor="var(--text-primary)" />
+                                    <stop offset="100%" stopColor="var(--accent-blue)" />
                                 </linearGradient>
                                 <linearGradient id="fill-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="var(--accent-gold)" />
+                                    <stop offset="0%" stopColor="var(--accent-blue)" />
                                     <stop offset="100%" stopColor="var(--accent-blue)" stopOpacity="0" />
                                 </linearGradient>
                             </defs>
                             
                             {/* Points */}
                             {chartPoints.map((p, i) => (
-                                <circle key={i} cx={p.x} cy={p.y} r="4" fill="var(--accent-gold)" stroke="var(--bg-card)" strokeWidth="2" style={{ transition: 'all 0.2s ease' }} />
+                                <circle key={i} cx={p.x} cy={p.y} r="4" fill="var(--text-primary)" stroke="var(--bg-card)" strokeWidth="2" style={{ transition: 'all 0.2s ease' }} />
                             ))}
                             
                             {/* Tooltip on last point if exists */}

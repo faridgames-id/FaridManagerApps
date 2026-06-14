@@ -7,33 +7,33 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-    /* Surfaces: Deep Navy Blue Theme */
-    --bg-body:       #020617; /* Slate 950 - deeper navy */
-    --bg-surface:    #0f172a; /* Slate 900 */
-    --bg-card:       #0f172a;
-    --bg-elevated:   #1e293b; /* Slate 800 */
+    /* Surfaces: Deep Dark Blue Theme (Inspired by Finlo Flash / Chattery Echo) */
+    --bg-body:       #0d1117; /* Very deep dark */
+    --bg-surface:    #161b22; /* Slightly lighter card background */
+    --bg-card:       #161b22;
+    --bg-elevated:   #21262d; /* Lighter surface for hovers/popups */
     --bg-hover:      rgba(255, 255, 255, 0.05);
     --bg-active:     rgba(255, 255, 255, 0.08);
-    --bg-input:      #1e293b;
+    --bg-input:      #21262d;
 
     /* Text: Pristine White & Blues */
     --text-primary:   #ffffff;
-    --text-secondary: #94a3b8; /* Slate 400 */
-    --text-tertiary:  #64748b; /* Slate 500 */
-    --text-muted:     #475569; /* Slate 600 */
-    --text-inverse:   #0f172a;
+    --text-secondary: #8b949e; /* Soft gray-blue */
+    --text-tertiary:  #6e7681;
+    --text-muted:     #484f58;
+    --text-inverse:   #0d1117;
 
-    /* Accent Colors: Royal Blue, Gold, and Emerald */
-    --accent-blue:    #3b82f6;
+    /* Accent Colors: Premium Blues and Cyans (No Gold) */
+    --accent-blue:    #3b82f6; /* Bright Blue */
     --accent-blue-subtle: rgba(59, 130, 246, 0.15);
-    --accent-gold:    #eab308; /* Yellow 500 */
-    --accent-gold-subtle: rgba(234, 179, 8, 0.15);
+    --accent-gold:    #0ea5e9; /* Replaced Gold with Cyan/Sky Blue for backward compatibility with class names */
+    --accent-gold-subtle: rgba(14, 165, 233, 0.15);
     --accent-green:   #10b981; /* Emerald 500 */
     --accent-green-subtle: rgba(16, 185, 129, 0.15);
     --accent-red:     #ef4444;
     --accent-red-subtle: rgba(239, 68, 68, 0.15);
-    --accent-indigo:  #6366f1;
-    --accent-indigo-subtle: rgba(99, 102, 241, 0.15);
+    --accent-indigo:  #8b5cf6;
+    --accent-indigo-subtle: rgba(139, 92, 246, 0.15);
 
     /* Borders */
     --border-subtle:  rgba(255, 255, 255, 0.08);
@@ -44,7 +44,7 @@
     /* Glows - Premium Soft Glows */
     --glow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 14px rgba(0, 0, 0, 0.3);
     --glow-strong: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 8px 30px rgba(59, 130, 246, 0.25);
-    --glow-gold: 0 0 0 1px rgba(234, 179, 8, 0.3), 0 8px 30px rgba(234, 179, 8, 0.25);
+    --glow-gold: 0 0 0 1px rgba(14, 165, 233, 0.3), 0 8px 30px rgba(14, 165, 233, 0.25); /* Now Cyan */
 
     /* Shadows - Deep layered shadows */
     --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
@@ -73,8 +73,8 @@
     --T-slow:   400ms var(--ease-out);
 
     /* Font */
-    --font: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-display: var(--font-display), 'Plus Jakarta Sans', var(--font), sans-serif;
+    --font: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: var(--font-poppins), 'Poppins', var(--font), sans-serif;
 }
 
 /* ── ANIMATIONS ── */
@@ -365,8 +365,8 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: -50px;
     right: -50px;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
@@ -377,7 +377,7 @@ h1, h2, h3, h4, h5, h6 {
     left: -50px;
     width: 250px;
     height: 250px;
-    background: radial-gradient(circle, rgba(234, 179, 8, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%); /* Changed to cyan glow */
     border-radius: 50%;
     pointer-events: none;
 }
