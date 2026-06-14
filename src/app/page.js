@@ -851,7 +851,14 @@ export default function Home() {
 
                             {/* MODERN PREMIUM HEADER (Replaces old massive welcome card) */}
                             {activeTab === 'dashboard' && (
-                                <>
+                                <div style={{ 
+                                    border: '1px solid var(--border-subtle)', 
+                                    borderRadius: '16px', 
+                                    padding: '24px', 
+                                    background: 'var(--bg-surface)', 
+                                    marginBottom: '32px',
+                                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.2)'
+                                }}>
                                     <div className="premium-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                                         <div>
                                             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -898,7 +905,7 @@ export default function Home() {
                                             </div>
                                         </div>
                                     </div>
-                                </>
+                                </div>
                             )}
 
 
