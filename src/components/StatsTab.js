@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import AiInsightCard from './AiInsightCard';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -293,6 +294,7 @@ export default function StatsTab({
 
     return (
         <div id="statistik" className="tab-content active" style={{ display: 'block' }}>
+            <AiInsightCard title="AI Business Intel" insight="Proyeksi margin keuntungan tinggi untuk minggu depan. Disarankan untuk memprioritaskan penjualan akun kategori sultan." />
             <div className="content">
                 <style dangerouslySetInnerHTML={{
                     __html: `

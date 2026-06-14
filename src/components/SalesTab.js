@@ -22,7 +22,7 @@ export default function SalesTab({
                     </div>
                 </div>
                 <div className="table-wrapper">
-                    <table className="modern-table">
+                    <table className="stock-table">
                         <thead>
                             <tr>
                                 <th>No</th>

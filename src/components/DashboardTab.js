@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3, ChevronDown } from 'lucide-react';
+import AiInsightCard from './AiInsightCard';
 
 const KpiIcons = {
     users: <Users size={24} />,
@@ -120,7 +121,7 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
 
     return (
         <div id="dashboard" className="tab-content active" style={{ display: 'block' }}>
-            
+            <AiInsightCard title="AI Prediction" insight="Puncak penjualan diperkirakan terjadi pada akhir pekan ini berdasarkan riwayat bulanan. Siapkan stok akun Sultan." />
             <div className="bento-grid">
                 
                 {/* HERO BENTO (Wide) */}

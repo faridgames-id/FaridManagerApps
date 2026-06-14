@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Copy, Calendar, Trash2, Edit, Plus } from 'lucide-react';
+import AiInsightCard from './AiInsightCard';
 
 export default function StockTab({ 
     game, 
@@ -327,6 +328,7 @@ export default function StockTab({
 
     return (
         <div id={`stok-${game}`} className="tab-content active" style={{ display: 'block' }}>
+            <AiInsightCard title="AI Balance Check" insight={`Stok akun ${game.toUpperCase()} terpantau optimal. Rekomendasi: perbanyak stok akun sultan jika profitabilitas terus meningkat.`} />
             <div className="content">
                 {/* Form Tambah Akun */}
                 <div className="form-section" style={{ marginBottom: '30px' }}>

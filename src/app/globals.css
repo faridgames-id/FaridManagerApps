@@ -7,51 +7,51 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-    /* Surfaces: Dark Charcoal & Blue Saphire Theme */
-    --bg-body:       #0F172A; /* Charcoal Dark Gray */
-    --bg-surface:    #1E293B; /* Slightly lighter card background */
-    --bg-card:       #1E293B;
-    --bg-elevated:   #334155; /* Lighter surface for hovers/popups */
-    --bg-hover:      rgba(56, 189, 248, 0.08); /* Sky blue hover */
-    --bg-active:     rgba(56, 189, 248, 0.12);
-    --bg-input:      #1E293B;
+    /* Surfaces: Semi-Gray Black Background */
+    --bg-body:       #111111; /* Hitam semi abu-abu */
+    --bg-surface:    #1A1A1A; /* Slightly lighter surface */
+    --bg-card:       #1A1A1A;
+    --bg-elevated:   #222222; /* Elevated surface */
+    --bg-hover:      rgba(25, 25, 112, 0.15); /* Midnight blue hover */
+    --bg-active:     rgba(25, 25, 112, 0.25);
+    --bg-input:      #1A1A1A;
 
-    /* Text: Misty Gray & Putih */
-    --text-primary:   #FFFFFF;
-    --text-secondary: #ECEFF1; /* Misty Gray */
-    --text-tertiary:  #94A3B8;
-    --text-muted:     #64748B;
-    --text-inverse:   #0F172A;
+    /* Text: Mist Gray (#ECEFF1) */
+    --text-primary:   #ECEFF1; /* Mist Gray */
+    --text-secondary: rgba(236, 239, 241, 0.7); /* Mist Gray muted */
+    --text-tertiary:  rgba(236, 239, 241, 0.5);
+    --text-muted:     rgba(236, 239, 241, 0.3);
+    --text-inverse:   #111111;
 
-    /* Accent Colors: Midnight Blue & Sky Blue */
-    --accent-blue:    #38BDF8; /* Sky Blue for active/highlight */
-    --accent-blue-subtle: rgba(56, 189, 248, 0.15);
+    /* Accent Colors: ONLY Midnight Blue (#191970) */
+    --accent-blue:    #191970; /* Midnight Blue */
+    --accent-blue-subtle: rgba(25, 25, 112, 0.15);
     --accent-midnight: #191970; /* Midnight Blue */
-    --accent-gold:    #87CEEB; /* Mapped to Sky Blue alternative */
-    --accent-gold-subtle: rgba(135, 206, 235, 0.15);
-    --accent-green:   #10b981; 
-    --accent-green-subtle: rgba(16, 185, 129, 0.15);
-    --accent-red:     #ef4444;
-    --accent-red-subtle: rgba(239, 68, 68, 0.15);
-    --accent-indigo:  #8b5cf6;
-    --accent-indigo-subtle: rgba(139, 92, 246, 0.15);
+    --accent-gold:    #191970; /* Overriding all other colors to Midnight Blue */
+    --accent-gold-subtle: rgba(25, 25, 112, 0.15);
+    --accent-green:   #191970; 
+    --accent-green-subtle: rgba(25, 25, 112, 0.15);
+    --accent-red:     #191970;
+    --accent-red-subtle: rgba(25, 25, 112, 0.15);
+    --accent-indigo:  #191970;
+    --accent-indigo-subtle: rgba(25, 25, 112, 0.15);
 
-    /* Borders */
-    --border-subtle:  rgba(56, 189, 248, 0.1); /* Subtle sky blue border */
-    --border-default: rgba(56, 189, 248, 0.2);
-    --border-strong:  rgba(56, 189, 248, 0.35);
-    --border-focus:   var(--accent-blue);
+    /* Borders: Mist Gray subtle borders */
+    --border-subtle:  rgba(236, 239, 241, 0.08);
+    --border-default: rgba(236, 239, 241, 0.15);
+    --border-strong:  rgba(236, 239, 241, 0.3);
+    --border-focus:   var(--accent-midnight);
 
-    /* Glows - Premium Soft Glows with Sky/Midnight */
-    --glow-subtle: 0 0 0 1px rgba(25, 25, 112, 0.2), 0 4px 14px rgba(25, 25, 112, 0.4);
-    --glow-strong: 0 0 0 1px rgba(56, 189, 248, 0.3), 0 8px 30px rgba(56, 189, 248, 0.25);
-    --glow-gold: 0 0 0 1px rgba(56, 189, 248, 0.3), 0 8px 30px rgba(56, 189, 248, 0.25);
+    /* Glows - Premium Soft Glows with Midnight Blue */
+    --glow-subtle: 0 0 0 1px rgba(25, 25, 112, 0.2), 0 4px 14px rgba(25, 25, 112, 0.3);
+    --glow-strong: 0 0 0 1px rgba(25, 25, 112, 0.3), 0 8px 30px rgba(25, 25, 112, 0.4);
+    --glow-gold:   0 0 0 1px rgba(25, 25, 112, 0.3), 0 8px 30px rgba(25, 25, 112, 0.4);
 
-    /* Shadows - Deep layered blue shadows */
-    --shadow-sm:   0 1px 3px rgba(15, 23, 42, 0.8);
-    --shadow-md:   0 4px 14px rgba(15, 23, 42, 0.8);
-    --shadow-lg:   0 10px 30px rgba(25, 25, 112, 0.4);
-    --shadow-xl:   0 20px 40px rgba(25, 25, 112, 0.6);
+    /* Shadows */
+    --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md:   0 4px 14px rgba(0, 0, 0, 0.5);
+    --shadow-lg:   0 10px 30px rgba(25, 25, 112, 0.2);
+    --shadow-xl:   0 20px 40px rgba(25, 25, 112, 0.4);
 
     /* Radius */
     --r-xs:  4px;
@@ -73,9 +73,9 @@
     --T-normal: 250ms var(--ease-out);
     --T-slow:   400ms var(--ease-out);
 
-    /* Font */
-    --font: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-display: var(--font-poppins), 'Poppins', var(--font), sans-serif;
+    /* Font: Outfit */
+    --font: var(--font-outfit), 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: var(--font-outfit), 'Outfit', var(--font), sans-serif;
 }
 
 /* ── ANIMATIONS ── */
