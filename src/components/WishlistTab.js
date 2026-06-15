@@ -188,28 +188,27 @@ export default function WishlistTab({
                     </form>
                 </div>
 
-                {/* Summary Cards */}
                 <div className="summary-cards" style={{ marginBottom: '30px' }}>
-                    <div className="card" style={{ background: 'rgba(20, 30, 50, 0.6)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700 }}>📦 Total Item</h3>
-                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800 }}>{totalItems}</div>
+                    <div className="card" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)' }}>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>📦 Total Item</h3>
+                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{totalItems}</div>
                     </div>
-                    <div className="card" style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: '#ef4444' }}>🔴 Prioritas Tinggi</h3>
-                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: '#ef4444' }}>{highPriorityItems}</div>
+                    <div className="card" style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--accent-red)' }}>🔴 Prioritas Tinggi</h3>
+                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-red)' }}>{highPriorityItems}</div>
                     </div>
-                    <div className="card" style={{ background: 'rgba(20, 30, 50, 0.6)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700 }}><Coins width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Total Estimasi</h3>
-                        <div className="amount" style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>{formatRupiah(totalBudget)}</div>
+                    <div className="card" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)' }}>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}><Coins width="14" height="14" style={{ marginRight: '4px', verticalAlign: 'middle' }} />Total Estimasi</h3>
+                        <div className="amount" style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{formatRupiah(totalBudget)}</div>
                     </div>
-                    <div className="card" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: '#10b981' }}>✅ Sudah Terima</h3>
-                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: '#10b981' }}>{receivedItems}</div>
+                    <div className="card" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--accent-green)' }}>✅ Sudah Terima</h3>
+                        <div className="amount" style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-green)' }}>{receivedItems}</div>
                     </div>
                 </div>
 
                 {/* Wishlist Table */}
-                <div style={{ background: 'var(--surface)', padding: '30px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-subtle)' }}>
                     <h2 style={{ color: 'var(--text-primary)', margin: '0 0 20px 0', fontSize: '1.3rem', display: 'flex', alignPageItems: 'center', gap: '10px' }}>
                         ⭐ Wishlist Equipment Bisnis
                     </h2>

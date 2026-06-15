@@ -311,7 +311,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
 
                 .s-logo {
-                    padding: 20px 18px;
+                    padding: 24px 20px;
                     display: flex;
                     align-items: center;
                     gap: 12px;
@@ -327,54 +327,55 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     border-radius: 10px;
                     overflow: hidden;
                     flex-shrink: 0;
+                    background: var(--bg-elevated);
                 }
 
                 .s-logo-name {
-                    font-size: 0.85rem;
+                    font-size: 0.9rem;
+                    font-family: var(--font-display);
                     font-weight: 700;
                     color: var(--text-primary);
-                    letter-spacing: 0.02em;
+                    letter-spacing: -0.02em;
                     line-height: 1.2;
                 }
 
                 .s-logo-sub {
                     font-size: 0.65rem;
                     color: var(--text-muted);
-                    margin-top: 1px;
+                    margin-top: 2px;
                     text-transform: uppercase;
-                    letter-spacing: 0.06em;
-                    font-weight: 500;
+                    letter-spacing: 0.08em;
+                    font-weight: 600;
                 }
 
                 .nav-tabs {
                     flex: 1;
-                    padding: 12px 10px 0;
+                    padding: 16px 12px 0;
                     display: flex;
                     flex-direction: column;
-                    gap: 1px;
+                    gap: 4px;
                     overflow-y: auto;
                 }
 
-                .nav-tabs::-webkit-scrollbar { width: 3px; }
+                .nav-tabs::-webkit-scrollbar { width: 4px; }
                 .nav-tabs::-webkit-scrollbar-track { background: transparent; }
-                .nav-tabs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+                .nav-tabs::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 99px; }
 
                 .nav-tab {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
-                    padding: 9px 12px;
-                    border-radius: 8px;
+                    gap: 12px;
+                    padding: 10px 14px;
+                    border-radius: var(--r-md);
                     background: transparent;
-                    color: var(--text-tertiary);
+                    color: var(--text-secondary);
                     border: none;
                     cursor: pointer;
-                    font-size: 0.82rem;
+                    font-size: 0.85rem;
                     font-weight: 500;
                     text-align: left;
-                    transition: all 150ms ease;
+                    transition: all 200ms var(--ease-out);
                     position: relative;
-                    overflow: hidden;
                 }
 
                 .nav-tab:hover {
@@ -383,16 +384,15 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
                 
                 .nav-tab:hover .nav-icon {
-                    color: var(--accent-gold);
-                    opacity: 0.9;
+                    color: var(--accent-blue);
                 }
 
                 .nav-icon {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    opacity: 0.5;
-                    transition: all 150ms ease;
+                    color: var(--text-tertiary);
+                    transition: all 200ms var(--ease-out);
                 }
 
                 .nav-label {
@@ -400,21 +400,17 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
 
                 .nav-tab.active {
-                    color: var(--text-primary);
-                    background: linear-gradient(90deg, rgba(234, 179, 8, 0.1) 0%, rgba(59, 130, 246, 0.02) 100%);
+                    color: var(--accent-blue);
+                    background: var(--accent-blue-subtle);
                     font-weight: 600;
-                    box-shadow: inset 3px 0 0 var(--accent-gold);
-                    border-radius: 0 8px 8px 0;
                 }
 
                 .nav-tab.active .nav-icon {
-                    opacity: 1;
-                    color: var(--accent-gold);
-                    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.4));
+                    color: var(--accent-blue);
                 }
 
                 .sidebar-footer {
-                    padding: 12px 10px;
+                    padding: 16px 14px;
                     border-top: 1px solid var(--border-subtle);
                 }
 
@@ -422,21 +418,22 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     display: flex;
                     align-items: center;
                     gap: 10px;
-                    padding: 10px;
-                    border-radius: 8px;
+                    padding: 10px 12px;
+                    border-radius: var(--r-md);
                     cursor: pointer;
                     transition: background 150ms;
-                    border: none;
+                    border: 1px solid transparent;
                     background: transparent;
                 }
 
                 .profile-badge:hover {
-                    background: var(--bg-hover);
+                    background: var(--bg-elevated);
+                    border-color: var(--border-subtle);
                 }
 
                 .profile-avatar {
-                    width: 34px;
-                    height: 34px;
+                    width: 36px;
+                    height: 36px;
                     border-radius: 50%;
                     background: var(--accent-blue);
                     color: #fff;
@@ -451,8 +448,8 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     position: absolute;
                     bottom: 0;
                     right: 0;
-                    width: 8px;
-                    height: 8px;
+                    width: 10px;
+                    height: 10px;
                     background: var(--accent-green);
                     border: 2px solid var(--bg-surface);
                     border-radius: 50%;
@@ -464,7 +461,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
 
                 .profile-name {
-                    font-size: 0.8rem;
+                    font-size: 0.85rem;
                     font-weight: 600;
                     color: var(--text-primary);
                     overflow: hidden;
@@ -473,9 +470,9 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                 }
 
                 .profile-role {
-                    font-size: 0.68rem;
+                    font-size: 0.7rem;
                     color: var(--text-muted);
-                    margin-top: 1px;
+                    margin-top: 2px;
                     font-weight: 500;
                 }
 
@@ -490,22 +487,93 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
 
                 @media (max-width: 768px) {
                     .sidebar-overlay {
-                        display: block;
-                        position: fixed;
-                        inset: 0;
-                        background: rgba(0, 0, 0, 0.5);
-                        backdrop-filter: blur(4px);
-                        z-index: 90;
-                        opacity: 0;
-                        pointer-events: none;
-                        transition: opacity 200ms ease;
+                        display: none !important;
                     }
-                    .sidebar-overlay.show {
-                        opacity: 1;
-                        pointer-events: all;
-                    }
+                    
+                    /* Mobile Bottom Navigation - Floating Glassy Bar */
                     .sidebar {
-                        z-index: 100;
+                        flex-direction: row;
+                        top: auto;
+                        bottom: 24px;
+                        left: 16px;
+                        width: calc(100% - 32px);
+                        height: 72px;
+                        border-right: none;
+                        border: 1px solid rgba(255, 255, 255, 0.4);
+                        border-radius: var(--r-xl);
+                        transform: none !important;
+                        background: rgba(255, 255, 255, 0.7);
+                        backdrop-filter: blur(24px) saturate(180%);
+                        -webkit-backdrop-filter: blur(24px) saturate(180%);
+                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+                        z-index: 1000;
+                        padding-bottom: 0; 
+                    }
+                    
+                    .s-logo, .sidebar-footer {
+                        display: none;
+                    }
+                    
+                    .nav-tabs {
+                        flex-direction: row;
+                        padding: 0 8px;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+                        overflow-x: auto;
+                        overflow-y: hidden;
+                        -webkit-overflow-scrolling: touch;
+                        scrollbar-width: none;
+                    }
+                    .nav-tabs::-webkit-scrollbar {
+                        display: none;
+                    }
+                    
+                    .nav-tabs > div:first-child {
+                        display: none;
+                    }
+                    
+                    .nav-tab {
+                        flex-direction: column;
+                        padding: 8px;
+                        gap: 4px;
+                        border-radius: var(--r-md);
+                        min-width: 64px;
+                        justify-content: center;
+                    }
+                    
+                    .nav-icon {
+                        margin: 0;
+                        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    }
+                    
+                    .nav-label {
+                        font-size: 0.6rem;
+                        text-align: center;
+                        flex: none;
+                        white-space: nowrap;
+                        font-weight: 600;
+                        opacity: 0.8;
+                    }
+                    
+                    .nav-tab.active {
+                        background: transparent;
+                        color: var(--accent-blue);
+                    }
+                    
+                    .nav-tab.active .nav-icon {
+                        color: #ffffff;
+                        background: var(--accent-blue);
+                        padding: 8px 16px;
+                        border-radius: var(--r-full);
+                        margin-bottom: -2px;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px var(--accent-blue-subtle);
+                    }
+                    
+                    .nav-tab.active .nav-label {
+                        opacity: 1;
+                        color: var(--accent-blue);
                     }
                 }
             `}</style>

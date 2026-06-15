@@ -21,7 +21,7 @@ export default function SalesTab({
                         {sortedSales.length} transaksi
                     </div>
                 </div>
-                <div className="table-wrapper">
+                <div className="table-responsive">
                     <table className="stock-table">
                         <thead>
                             <tr>

@@ -63,7 +63,7 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
         // Empty cells
         for (let i = 0; i < firstDay; i++) {
             cells.push(
-                <div key={`empty-${i}`} style={{ background: 'var(--c-50)', padding: '10px', minHeight: '100px', border: '1px solid rgba(255,255,255,0.03)' }} />
+                <div key={`empty-${i}`} style={{ background: 'var(--bg-hover)', padding: '10px', minHeight: '100px', border: '1px solid var(--border-subtle)' }} />
             );
         }
 
@@ -77,8 +77,8 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
             const hasAccounts = dayCount > 0;
             const isToday = dateStr === new Date().toISOString().split('T')[0];
 
-            let bgColor = 'rgba(15, 23, 42, 0.4)';
-            if (hasAccounts) bgColor = 'rgba(0, 82, 212, 0.18)';
+            let bgColor = 'var(--bg-elevated)';
+            if (hasAccounts) bgColor = 'rgba(56, 189, 248, 0.1)';
 
             cells.push(
                 <div
@@ -87,32 +87,32 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                         background: bgColor,
                         padding: '10px',
                         minHeight: '100px',
-                        border: isToday ? '1px solid rgba(0, 210, 255, 0.5)' : '1px solid rgba(255, 255, 255, 0.05)',
+                        border: isToday ? '1px solid var(--accent-blue)' : '1px solid var(--border-subtle)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         cursor: hasAccounts ? 'pointer' : 'default',
                         transition: 'background 0.2s',
                     }}
-                    onMouseEnter={e => { if (hasAccounts) e.currentTarget.style.background = 'rgba(0, 82, 212, 0.30)'; }}
+                    onMouseEnter={e => { if (hasAccounts) e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = bgColor; }}
                 >
-                    <div style={{ fontWeight: 'bold', fontSize: '0.9rem', color: isToday ? '#00D2FF' : 'var(--text-primary)', textShadow: isToday ? '0 0 10px rgba(0,210,255,0.6)' : 'none' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '0.9rem', color: isToday ? 'var(--accent-blue)' : 'var(--text-primary)', textShadow: 'none' }}>
                         {day}
                     </div>
                     <div>
                         {dayCount > 0 && (
-                            <div style={{ fontSize: '0.75rem', color: '#00D2FF', fontWeight: 800 }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--accent-blue)', fontWeight: 800 }}>
                                 {dayCount} akun
                             </div>
                         )}
                         {dayFF > 0 && (
-                            <div style={{ fontSize: '0.7rem', color: '#FFFFFF', fontWeight: 700 }}>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700 }}>
                                 FF: {dayFF}
                             </div>
                         )}
                         {dayML > 0 && (
-                            <div style={{ fontSize: '0.7rem', color: '#00D2FF', fontWeight: 700 }}>
+                            <div style={{ fontSize: '0.7rem', color: 'var(--accent-blue)', fontWeight: 700 }}>
                                 ML: {dayML}
                             </div>
                         )}
@@ -153,8 +153,8 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                 </div>
 
                 {/* Calendar Grid — sama persis layout CalendarTab */}
-                <div style={{ background: 'var(--surface)', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', overflow: 'hidden', marginBottom: '25px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px', background: 'rgba(255, 255, 255, 0.05)' }}>
+                <div style={{ background: 'var(--bg-surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-subtle)', overflow: 'hidden', marginBottom: '25px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px', background: 'var(--border-subtle)' }}>
                         {renderCalendarGrid()}
                     </div>
                 </div>
@@ -194,15 +194,15 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                                         return (
                                             <tr key={a.id}>
                                                 <td>{i + 1}</td>
-                                                <td style={{ fontWeight: 600, color: '#00D2FF' }}>{a.buyDate}</td>
+                                                <td style={{ fontWeight: 600, color: 'var(--accent-blue)' }}>{a.buyDate}</td>
                                                 <td style={{ color: 'var(--text-secondary)' }}>{dayName}</td>
                                                 <td>
                                                     <span
                                                         className="badge"
                                                         style={{
-                                                            background: a.game === 'ff' ? 'rgba(255,215,0,0.15)' : 'rgba(0,82,212,0.2)',
-                                                            color: a.game === 'ff' ? '#FFD700' : '#00D2FF',
-                                                            border: `1px solid ${a.game === 'ff' ? 'rgba(255,215,0,0.25)' : 'rgba(0,210,255,0.2)'}`,
+                                                            background: a.game === 'ff' ? 'var(--accent-gold-subtle)' : 'var(--accent-blue-subtle)',
+                                                            color: a.game === 'ff' ? 'var(--accent-gold)' : 'var(--accent-blue)',
+                                                            border: 'none',
                                                             padding: '4px 10px',
                                                             borderRadius: '12px',
                                                             fontSize: '0.85rem'
@@ -215,7 +215,7 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                                                     {a.spek || '-'}
                                                 </td>
                                                 <td style={{ color: 'var(--text-secondary)' }}>{a.rank || '-'}</td>
-                                                <td style={{ fontWeight: 700, color: '#FFD700' }}>{formatRupiah(a.buyPrice || 0)}</td>
+                                                <td style={{ fontWeight: 700, color: 'var(--accent-gold)' }}>{formatRupiah(a.buyPrice || 0)}</td>
                                                 <td>
                                                     <span
                                                         className="badge"

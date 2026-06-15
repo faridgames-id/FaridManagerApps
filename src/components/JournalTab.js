@@ -59,7 +59,7 @@ export default function JournalTab({
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                     required
-                                    style={{ width: '100%', padding: '14px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'var(--text-primary)' }}
+                                    style={{ width: '100%', padding: '14px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '12px', color: 'var(--text-primary)' }}
                                 />
                             </div>
                             <div className="form-group" style={{ flex: '1 1 200px' }}>
@@ -67,7 +67,7 @@ export default function JournalTab({
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
-                                    style={{ width: '100%', padding: '14px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'var(--text-primary)' }}
+                                    style={{ width: '100%', padding: '14px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '12px', color: 'var(--text-primary)' }}
                                 >
                                     <option value="umum">📝 Umum / Catatan Harian</option>
                                     <option value="target">🎯 Rencana / Target Penjualan</option>
@@ -85,7 +85,7 @@ export default function JournalTab({
                                 rows="4"
                                 placeholder="Tulis catatan, evaluasi, atau target bisnismu di sini..."
                                 required
-                                style={{ width: '100%', padding: '14px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', color: 'var(--text-primary)', fontFamily: 'inherit', resize: 'vertical' }}
+                                style={{ width: '100%', padding: '14px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '12px', color: 'var(--text-primary)', fontFamily: 'inherit', resize: 'vertical' }}
                             />
                         </div>
 
@@ -102,7 +102,7 @@ export default function JournalTab({
                     </h2>
                     
                     {jurnalBisnis.length === 0 ? (
-                        <div style={{ color: '#94a3b8', textAlign: 'center', padding: '40px 20px', fontStyle: 'italic', background: 'var(--c-50)', borderRadius: '12px', border: '1px dashed rgba(255,255,255,0.05)' }}>
+                        <div style={{ color: '#94a3b8', textAlign: 'center', padding: '40px 20px', fontStyle: 'italic', background: 'var(--bg-hover)', borderRadius: 'var(--r-lg)', border: '1px dashed var(--border-subtle)' }}>
                             Belum ada catatan jurnal bisnis. Mulai tulis perjalanan bisnismu!
                         </div>
                     ) : (
@@ -120,8 +120,8 @@ export default function JournalTab({
                                             position: 'relative',
                                             padding: '20px',
                                             background: 'var(--bg-surface)',
-                                            border: '1px solid rgba(255,255,255,0.05)',
-                                            borderRadius: '12px',
+                                            border: '1px solid var(--border-subtle)',
+                                            borderRadius: 'var(--r-lg)',
                                             transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                                         }}
                                     >
@@ -135,13 +135,13 @@ export default function JournalTab({
                                                 height: '16px',
                                                 borderRadius: '50%',
                                                 background: conf.color,
-                                                boxShadow: `0 0 10px ${conf.color}, 0 0 0 4px rgba(15, 23, 42, 1)`
+                                                boxShadow: `0 0 10px ${conf.color}, 0 0 0 4px var(--bg-surface)`
                                             }}
                                         />
 
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: conf.bg, display: 'flex', alignItems: 'center', justify: 'center', fontSize: '1.2rem' }}>
+                                                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: conf.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
                                                     {conf.icon}
                                                 </div>
                                                 <div>
@@ -172,7 +172,7 @@ export default function JournalTab({
                                                 Hapus
                                             </button>
                                         </div>
-                                        <div style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.6', whiteSpace: 'pre-wrap', marginTop: '15px', paddingLeft: '50px' }}>
+                                        <div style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6', whiteSpace: 'pre-wrap', marginTop: '15px', paddingLeft: '50px' }}>
                                             {j.content}
                                         </div>
                                     </div>

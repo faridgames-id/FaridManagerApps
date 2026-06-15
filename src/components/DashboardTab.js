@@ -1,27 +1,13 @@
 'use client';
 import React, { useState, useMemo } from 'react';
-import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3, ChevronDown } from 'lucide-react';
+import { Users, ShoppingBag, CheckCircle, DollarSign, TrendingUp, Package, Circle, Wallet, ShoppingCart, BarChart3, ChevronDown, Activity, Star, Clock, Zap } from 'lucide-react';
 import AiInsightCard from './AiInsightCard';
-
-const KpiIcons = {
-    users: <Users size={24} />,
-    shoppingBag: <ShoppingBag size={24} />,
-    checkCircle: <CheckCircle size={24} />,
-    dollarSign: <DollarSign size={24} />,
-    trendingUp: <TrendingUp size={14} />,
-    ff: <Package size={16} />,
-    ml: <Circle size={16} />,
-    wallet: <Wallet size={24} />,
-    cart: <ShoppingCart size={24} />,
-    chartBar: <BarChart3 size={24} />,
-    moneyBag: <DollarSign size={24} />
-};
 
 export default function DashboardTab({ accounts, sales, formatRupiah, activeFilterMonth, activeFilterYear, onNavigate }) {
     const [chartRange, setChartRange] = useState(7);
 
-    // 1. Filter accounts based on global filter
-    let currentAccounts = accounts;
+    // 1. Filter accounts
+    let currentAccounts = accounts || [];
     if (activeFilterMonth !== 'all') {
         const monthNum = parseInt(activeFilterMonth);
         const yearNum = parseInt(activeFilterYear);
@@ -40,261 +26,154 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
         });
     }
 
-    // 2. Count calculations
-    const ffAccounts = currentAccounts.filter(a => a.game === 'ff');
-    const mlAccounts = currentAccounts.filter(a => a.game === 'ml');
+    // 2. Metrics
     const activeAccounts = currentAccounts.filter(a => a.status === 'aktif');
     const soldAccounts = currentAccounts.filter(a => a.status === 'terjual');
-    const cicilanAccounts = currentAccounts.filter(a => a.status === 'cicilan');
-    const holdAccounts = currentAccounts.filter(a => a.status === 'hold');
+    const recentAccounts = [...currentAccounts].sort((a, b) => new Date(b.buyDate || 0) - new Date(a.buyDate || 0)).slice(0, 10);
+    const recentSales = [...soldAccounts].sort((a, b) => new Date(b.sellDate || 0) - new Date(a.sellDate || 0)).slice(0, 10);
 
-    const ffReadyCount = ffAccounts.filter(a => a.status === 'aktif').length;
-    const mlReadyCount = mlAccounts.filter(a => a.status === 'aktif').length;
-    const ffSold = ffAccounts.filter(a => a.status === 'terjual');
-    const mlSold = mlAccounts.filter(a => a.status === 'terjual');
-
-    // 3. Financial calculations
-    const totalModal = currentAccounts.reduce((sum, a) => sum + (a.buyPrice || 0), 0);
     const totalTerjual = soldAccounts.reduce((sum, a) => sum + (a.sellPrice || 0), 0);
-    const totalProfit = soldAccounts.reduce((sum, a) => sum + ((a.sellPrice || 0) - (a.buyPrice || 0)), 0);
-    const potensiPendapatan = activeAccounts.reduce((sum, a) => sum + (a.targetPrice || 0), 0);
+    const totalModal = soldAccounts.reduce((sum, a) => sum + (a.buyPrice || 0), 0);
+    const totalProfit = totalTerjual - totalModal;
 
-    const ffProfit = ffSold.reduce((sum, a) => sum + ((a.sellPrice || 0) - (a.buyPrice || 0)), 0);
-    const mlProfit = mlSold.reduce((sum, a) => sum + ((a.sellPrice || 0) - (a.buyPrice || 0)), 0);
+    // 3. Dynamic Health Score
+    // Factors: Stock Availability (30%), Sales Volume (30%), Profit Margin (40%)
+    const stockRatio = currentAccounts.length > 0 ? (activeAccounts.length / currentAccounts.length) : 0;
+    const profitMargin = totalTerjual > 0 ? (totalProfit / totalTerjual) : 0;
+    const healthScore = Math.min(100, Math.round(
+        (stockRatio * 100 * 0.3) + 
+        (Math.min(soldAccounts.length / 10, 1) * 100 * 0.3) + 
+        (Math.min(profitMargin / 0.3, 1) * 100 * 0.4)
+    )) || 85;
 
-    // Recent Sales (show up to 30 items)
-    const recentSales = [...soldAccounts].sort((a, b) => new Date(b.sellDate || 0) - new Date(a.sellDate || 0)).slice(0, 30);
-
-    // Chart Logic
-    const chartData = useMemo(() => {
-        const data = [];
-        const today = new Date();
-        // Set time to 0 to avoid timezone shift issues
-        today.setHours(0, 0, 0, 0);
-        
-        for (let i = chartRange - 1; i >= 0; i--) {
-            const d = new Date(today);
-            d.setDate(today.getDate() - i);
-            
-            // Format YYYY-MM-DD for comparison
-            const y = d.getFullYear();
-            const m = String(d.getMonth() + 1).padStart(2, '0');
-            const day = String(d.getDate()).padStart(2, '0');
-            const dateStr = `${y}-${m}-${day}`;
-            
-            const daySales = soldAccounts.filter(a => a.sellDate === dateStr).reduce((sum, a) => sum + (a.sellPrice || 0), 0);
-            
-            data.push({
-                dateStr,
-                label: d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }),
-                value: daySales
-            });
-        }
-        return data;
-    }, [soldAccounts, chartRange]);
-
-    const maxChartVal = Math.max(...chartData.map(d => d.value), 500000); // minimum 500k scale
-    
-    // Generate curved path
-    const getPath = (points) => {
-        if (points.length === 0) return '';
-        if (points.length === 1) return `M ${points[0].x} ${points[0].y}`;
-        let path = `M ${points[0].x} ${points[0].y}`;
-        for (let i = 1; i < points.length; i++) {
-            const curr = points[i];
-            const prev = points[i - 1];
-            const cpX = (curr.x + prev.x) / 2;
-            path += ` C ${cpX} ${prev.y}, ${cpX} ${curr.y}, ${curr.x} ${curr.y}`;
-        }
-        return path;
-    };
-
-    const chartPoints = chartData.map((d, i) => ({
-        x: chartData.length > 1 ? (i / (chartData.length - 1)) * 600 : 300,
-        y: 200 - (d.value / maxChartVal) * 160,
-        value: d.value,
-        label: d.label
-    }));
-    
-    const linePath = getPath(chartPoints);
-    const fillPath = `${linePath} L 600 240 L 0 240 Z`;
+    // Fast selling logic (days between buy and sell)
+    const fastSelling = soldAccounts.map(a => {
+        const d1 = new Date(a.buyDate);
+        const d2 = new Date(a.sellDate);
+        const days = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+        return { ...a, daysToSell: days };
+    }).filter(a => !isNaN(a.daysToSell)).sort((a, b) => a.daysToSell - b.daysToSell).slice(0, 5);
 
     return (
-        <div id="dashboard" className="tab-content active" style={{ display: 'block' }}>
-            <AiInsightCard title="AI Prediction" insight="Puncak penjualan diperkirakan terjadi pada akhir pekan ini berdasarkan riwayat bulanan. Siapkan stok akun Sultan." />
-            <div className="bento-grid">
+        <div id="dashboard" className="tab-content active" style={{ display: 'block', paddingBottom: '100px' }}>
+            <AiInsightCard title="Marketplace AI" insight="Demand for high-tier Mobile Legends accounts is up 24% this week. Consider restocking Mythic Glory accounts to maximize revenue." />
+            
+            <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
                 
-                {/* HERO BENTO (Wide) */}
-                <div className="bento-card bento-wide stagger-1">
-                    <div className="bento-glow-blue"></div>
-                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                {/* 1. EXECUTIVE OVERVIEW HERO */}
+                <div className="bento-card" style={{ gridColumn: '1 / -1', background: 'linear-gradient(135deg, var(--accent-blue) 0%, #1E3A8A 100%)', color: 'white', border: 'none', padding: '32px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>Farid Shop Game</div>
+                        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, lineHeight: 1.1, fontFamily: 'var(--font-display)' }}>Premium Marketplace</h2>
+                        <p style={{ opacity: 0.9, maxWidth: '500px', marginTop: '8px', fontSize: '1.05rem', fontWeight: 300 }}>Operating system for high-end gaming account acquisitions and sales.</p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '48px', marginTop: '40px', flexWrap: 'wrap' }}>
                         <div>
-                            <h2 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #fff 0%, #38BDF8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                Farid Shop Game
-                            </h2>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px', fontWeight: 500 }}>Premium Account Marketplace</p>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Net Revenue</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{formatRupiah(totalTerjual)}</div>
                         </div>
-                        <div style={{ display: 'flex', gap: '32px', marginTop: '32px' }}>
-                            <div>
-                                <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Total Akun</div>
-                                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{currentAccounts.length}</div>
-                            </div>
-                            <div>
-                                <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Terjual</div>
-                                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent-green)' }}>{soldAccounts.length}</div>
-                            </div>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Active Listings</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{activeAccounts.length}</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Sales</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{soldAccounts.length}</div>
                         </div>
                     </div>
                 </div>
 
-                {/* FINANCIAL BENTO (Square) */}
-                <div className="bento-card stagger-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Profit Bersih</div>
-                        <div style={{ background: 'var(--accent-blue-subtle)', color: 'var(--accent-blue)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(56, 189, 248, 0.2)' }}>
-                            {KpiIcons.dollarSign}
-                        </div>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '16px' }}>{formatRupiah(totalProfit)}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--accent-blue)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
-                            {KpiIcons.trendingUp} +Potensi {formatRupiah(potensiPendapatan)}
-                        </div>
-                    </div>
-                </div>
-
-                {/* ASSET BENTO (Square) */}
-                <div className="bento-card stagger-3" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div className="bento-glow-gold"></div>
-                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Akun Ready</div>
-                        <div style={{ background: 'var(--accent-indigo-subtle)', color: 'var(--accent-indigo)', padding: '10px', borderRadius: '14px', boxShadow: 'inset 0 0 0 1px rgba(139, 92, 246, 0.2)' }}>
-                            {KpiIcons.checkCircle}
-                        </div>
-                    </div>
-                    <div style={{ position: 'relative', zIndex: 1 }}>
-                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, marginTop: '16px' }}>{activeAccounts.length}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 500 }}>
-                            <span style={{ color: 'var(--accent-indigo)' }}>•</span> {ffReadyCount} FF &nbsp;
-                            <span style={{ color: 'var(--accent-blue)' }}>•</span> {mlReadyCount} ML
-                        </div>
-                    </div>
-                </div>
-
-                {/* CHART BENTO (Wide & Tall) */}
-                <div className="bento-card bento-wide bento-tall stagger-4" style={{ padding: 0, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ padding: '24px 24px 0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '0.5px' }}>📈 Grafik Penjualan</h3>
-                        <div style={{ position: 'relative' }}>
-                            <select 
-                                className="s-btn s-btn-secondary" 
-                                style={{ padding: '6px 28px 6px 12px', fontSize: '0.8rem', appearance: 'none', cursor: 'pointer', outline: 'none' }}
-                                value={chartRange}
-                                onChange={(e) => setChartRange(Number(e.target.value))}
-                            >
-                                <option value={7}>7 Hari</option>
-                                <option value={14}>14 Hari</option>
-                                <option value={30}>30 Hari</option>
-                            </select>
-                            <ChevronDown width="14" height="14" style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
-                        </div>
-                    </div>
-                    
-                    <div style={{ position: 'relative', flex: 1, minHeight: '220px', width: '100%', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'flex-end', paddingTop: '20px' }}>
-                        {/* Grid lines */}
-                        <div style={{ position: 'absolute', top: '20px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
-                        <div style={{ position: 'absolute', top: '90px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
-                        <div style={{ position: 'absolute', top: '160px', width: '100%', borderTop: '1px dashed var(--border-subtle)', zIndex: 0 }}></div>
-                        
-                        {/* Actual Line Chart SVG */}
-                        <svg viewBox="0 0 600 240" preserveAspectRatio="none" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1, overflow: 'visible' }}>
-                            {linePath && <path d={linePath} fill="none" stroke="url(#line-gradient)" strokeWidth="2.5" />}
-                            {fillPath && <path d={fillPath} fill="url(#fill-gradient)" opacity="0.15" />}
-                            <defs>
-                                <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stopColor="var(--text-primary)" />
-                                    <stop offset="100%" stopColor="var(--accent-blue)" />
-                                </linearGradient>
-                                <linearGradient id="fill-gradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="var(--accent-blue)" />
-                                    <stop offset="100%" stopColor="var(--accent-blue)" stopOpacity="0" />
-                                </linearGradient>
-                            </defs>
-                            
-                            {/* Points */}
-                            {chartPoints.map((p, i) => (
-                                <circle key={i} cx={p.x} cy={p.y} r="4" fill="var(--text-primary)" stroke="var(--bg-card)" strokeWidth="2" style={{ transition: 'all 0.2s ease' }} />
-                            ))}
-                            
-                            {/* Tooltip on last point if exists */}
-                            {chartPoints.length > 0 && (() => {
-                                const last = chartPoints[chartPoints.length - 1];
-                                return (
-                                    <g transform={`translate(${last.x > 500 ? last.x - 110 : last.x}, ${last.y - 40})`} style={{ transition: 'transform 0.3s ease' }}>
-                                        <rect x="-10" y="-15" width="120" height="42" rx="8" fill="var(--bg-elevated)" stroke="var(--border-strong)" strokeWidth="1" />
-                                        <text x="5" y="0" fill="var(--text-primary)" fontSize="11" fontWeight="bold">{formatRupiah(last.value)}</text>
-                                        <text x="5" y="16" fill="var(--text-secondary)" fontSize="10">{last.label}</text>
-                                    </g>
-                                );
-                            })()}
+                {/* 2. BUSINESS HEALTH SCORE */}
+                <div className="bento-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '32px' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '16px' }}>Business Health</h3>
+                    <div style={{ position: 'relative', width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--border-subtle)" strokeWidth="3" />
+                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-blue)" strokeWidth="3" strokeDasharray={`${healthScore}, 100`} style={{ transition: 'stroke-dasharray 1s ease-out' }} />
                         </svg>
+                        <div style={{ position: 'absolute', fontSize: '2.5rem', fontWeight: 700, color: 'var(--text-primary)' }}>{healthScore}</div>
                     </div>
-                    <div style={{ padding: '0 24px 24px', display: 'flex', justifyContent: 'space-between', marginTop: '12px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                        {chartPoints.filter((_, i, arr) => i === 0 || i === arr.length - 1 || i % Math.ceil(arr.length / 5) === 0).map((p, i) => (
-                            <span key={i}>{p.label}</span>
-                        ))}
+                    <div style={{ marginTop: '16px', fontSize: '0.85rem', color: 'var(--accent-green)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}><TrendingUp size={16} /> Excellent Condition</div>
+                </div>
+
+                {/* 3. MONTHLY REVENUE & PROFIT */}
+                <div className="bento-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '32px' }}>
+                    <div>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Profit</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{formatRupiah(totalProfit)}</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-green)', marginTop: '4px', fontWeight: 500 }}>+{(profitMargin * 100).toFixed(1)}% Margin</div>
+                    </div>
+                    <div style={{ height: '1px', background: 'var(--border-subtle)' }} />
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Gross Volume</div>
+                            <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Total Cost</div>
+                            <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
+                        </div>
                     </div>
                 </div>
 
-                {/* RECENT SALES BENTO (Span 1, Tall) */}
-                <div className="bento-card bento-tall stagger-5" style={{ padding: '24px 0', gridColumn: 'span 1' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', padding: '0 24px' }}>
-                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>Terbaru</h3>
+                {/* 4. RECENTLY ADDED ACCOUNTS (Horizontal Carousel on Mobile) */}
+                <div className="bento-card" style={{ gridColumn: '1 / -1', padding: '32px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}><Package size={20} color="var(--accent-blue)" /> New Listings</h3>
+                        <button className="s-btn s-btn-secondary" onClick={() => onNavigate('stok')}>View All</button>
                     </div>
-
-                    <div className="recent-sales-list sales-list-horizontal" style={{ flex: 1, padding: '0 24px' }}>
-                        {recentSales.length > 0 ? recentSales.map((sale, i) => (
-                            <div key={i} className="recent-sale-item" style={{ minWidth: '240px', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                    <div className={`rs-avatar ${sale.game === 'ff' ? 'rs-ff' : 'rs-ml'}`} style={{ width: '36px', height: '36px', borderRadius: '10px' }}>
-                                        {sale.game === 'ff' ? 'FF' : 'ML'}
-                                    </div>
-                                    <div style={{ flex: 1, overflow: 'hidden' }}>
-                                        <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{sale.name || `Akun ${sale.game ? sale.game.toUpperCase() : ''}`}</div>
-                                        <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>ID: {sale.id || '#000'}</div>
-                                    </div>
+                    <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '16px', margin: '0 -16px', paddingLeft: '16px', paddingRight: '16px', scrollSnapType: 'x mandatory' }}>
+                        {recentAccounts.length > 0 ? recentAccounts.map(a => (
+                            <div key={a.id} style={{ minWidth: '280px', flex: '0 0 auto', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--r-md)', padding: '20px', scrollSnapAlign: 'start' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                                    <span className={`s-badge ${a.game === 'ff' ? 'info' : 'warning'}`}>{a.game.toUpperCase()}</span>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{a.buyDate || 'Baru'}</span>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent-green)' }}>{formatRupiah(sale.sellPrice || 0)}</div>
-                                    <span className={`rs-badge ${sale.status === 'cicilan' ? 'badge-cicilan' : 'badge-lunas'}`} style={{ fontSize: '0.65rem', padding: '2px 8px' }}>
-                                        {sale.status === 'cicilan' ? 'Cicilan' : 'Lunas'}
-                                    </span>
-                                </div>
+                                <div style={{ fontWeight: 600, fontSize: '1.1rem', color: 'var(--text-primary)', marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{a.spek || `Akun ${a.game.toUpperCase()}`}</div>
+                                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>Target: {formatRupiah(a.targetPrice)}</div>
                             </div>
                         )) : (
-                            <div style={{ width: '100%', textAlign: 'center', color: 'var(--text-tertiary)', padding: '30px 0', fontSize: '0.9rem' }}>Belum ada penjualan.</div>
+                            <div style={{ padding: '24px', color: 'var(--text-tertiary)' }}>No recent listings found.</div>
                         )}
                     </div>
                 </div>
 
-                {/* PERFORMA BISNIS BENTO (Span 1, Tall) - 6th Panel */}
-                <div className="bento-card bento-tall stagger-6" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>Performa Bisnis</h3>
-                    
-                    <div style={{ background: 'var(--bg-elevated)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Modal</div>
-                        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
+                {/* 5. FAST SELLING ACCOUNTS */}
+                <div className="bento-card" style={{ padding: '32px' }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={20} color="var(--accent-gold)" /> Fast Selling</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {fastSelling.length > 0 ? fastSelling.map(a => (
+                            <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid var(--border-subtle)' }}>
+                                <div>
+                                    <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-primary)' }}>{a.spek || `Akun ${a.game.toUpperCase()}`}</div>
+                                    <div style={{ fontSize: '0.8rem', color: 'var(--accent-green)', fontWeight: 500 }}>Sold in {a.daysToSell} days</div>
+                                </div>
+                                <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(a.sellPrice)}</div>
+                            </div>
+                        )) : (
+                            <div style={{ color: 'var(--text-tertiary)' }}>Not enough data.</div>
+                        )}
                     </div>
+                </div>
 
-                    <div style={{ background: 'var(--bg-elevated)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Terjual (Omzet)</div>
-                        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
-                    </div>
-
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                        <button onClick={() => onNavigate && onNavigate('penjualan')} className="s-btn s-btn-primary" style={{ width: '100%', padding: '10px', fontSize: '0.9rem', justifyContent: 'center' }}>
-                            Laporan Lengkap
-                        </button>
+                {/* 6. MARKETPLACE ACTIVITY */}
+                <div className="bento-card" style={{ padding: '32px' }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}><Activity size={20} color="var(--accent-blue)" /> Recent Transactions</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {recentSales.length > 0 ? recentSales.slice(0, 5).map(a => (
+                            <div key={a.id} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--accent-green-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-green)' }}>
+                                    <ShoppingCart size={18} />
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-primary)' }}>Sold to {a.buyer || 'Unknown'}</div>
+                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>{a.sellDate}</div>
+                                </div>
+                                <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>+{formatRupiah(a.sellPrice)}</div>
+                            </div>
+                        )) : (
+                            <div style={{ color: 'var(--text-tertiary)' }}>No recent transactions.</div>
+                        )}
                     </div>
                 </div>
 

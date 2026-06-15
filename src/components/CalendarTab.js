@@ -181,7 +181,7 @@ export default function CalendarTab({
         // 2. Empty cells before first day
         for (let i = 0; i < firstDay; i++) {
             gridCells.push(
-                <div key={`empty-${i}`} style={{ background: 'var(--c-50)', padding: '10px', minHeight: '100px', border: '1px solid rgba(255,255,255,0.03)' }} />
+                <div key={`empty-${i}`} style={{ background: 'var(--bg-hover)', padding: '10px', minHeight: '100px', border: '1px solid var(--border-subtle)' }} />
             );
         }
 
@@ -202,13 +202,13 @@ export default function CalendarTab({
                 .reduce((sum, t) => sum + t.jumlah, 0);
             const dayProfitOtomatis = dayKeuntungan ? dayKeuntungan.profit : 0;
 
-            let bgColor = 'rgba(15, 23, 42, 0.4)';
-            if (dayPemasukan > 0 && dayPengeluaran === 0) bgColor = 'rgba(16, 185, 129, 0.15)';
-            else if (dayPengeluaran > 0 && dayPemasukan === 0) bgColor = 'rgba(239, 68, 68, 0.15)';
-            else if (dayPemasukan > 0 && dayPengeluaran > 0) bgColor = 'rgba(245, 158, 11, 0.15)';
+            let bgColor = 'var(--bg-elevated)';
+            if (dayPemasukan > 0 && dayPengeluaran === 0) bgColor = 'rgba(16, 185, 129, 0.1)';
+            else if (dayPengeluaran > 0 && dayPemasukan === 0) bgColor = 'rgba(239, 68, 68, 0.1)';
+            else if (dayPemasukan > 0 && dayPengeluaran > 0) bgColor = 'rgba(245, 158, 11, 0.1)';
 
             if (dayProfitOtomatis !== 0) {
-                bgColor = dayProfitOtomatis >= 0 ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)';
+                bgColor = dayProfitOtomatis >= 0 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)';
             }
 
             gridCells.push(
@@ -218,7 +218,7 @@ export default function CalendarTab({
                         background: bgColor,
                         padding: '10px',
                         minHeight: '100px',
-                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        border: '1px solid var(--border-subtle)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between'
@@ -344,8 +344,8 @@ export default function CalendarTab({
                 </div>
 
                 {/* Calendar Grid Container */}
-                <div style={{ background: 'var(--surface)', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', overflow: 'hidden', marginBottom: '25px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px', background: 'rgba(255, 255, 255, 0.05)' }}>
+                <div style={{ background: 'var(--bg-surface)', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-subtle)', overflow: 'hidden', marginBottom: '25px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '1px', background: 'var(--border-subtle)' }}>
                         {renderCalendarGrid()}
                     </div>
                 </div>
