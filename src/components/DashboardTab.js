@@ -35,6 +35,11 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
     const totalTerjual = soldAccounts.reduce((sum, a) => sum + (a.sellPrice || 0), 0);
     const totalModal = soldAccounts.reduce((sum, a) => sum + (a.buyPrice || 0), 0);
     const totalProfit = totalTerjual - totalModal;
+    
+    // Custom metrics for legacy support
+    const potensiPendapatan = activeAccounts.reduce((sum, a) => sum + (a.targetPrice || a.buyPrice || 0), 0);
+    const ffActive = activeAccounts.filter(a => a.game === 'ff' || a.game === 'FF').length;
+    const mlActive = activeAccounts.filter(a => a.game === 'ml' || a.game === 'ML').length;
 
     // 3. Dynamic Health Score
     // Factors: Stock Availability (30%), Sales Volume (30%), Profit Margin (40%)
@@ -69,15 +74,11 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     </div>
                     <div style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
                         <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Net Revenue</div>
-                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{formatRupiah(totalTerjual)}</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>TOTAL AKUN</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{currentAccounts.length}</div>
                         </div>
                         <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Active Listings</div>
-                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{activeAccounts.length}</div>
-                        </div>
-                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Total Sales</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>TERJUAL</div>
                             <div style={{ fontSize: '2rem', fontWeight: 700 }}>{soldAccounts.length}</div>
                         </div>
                     </div>
@@ -96,21 +97,32 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                     <div style={{ marginTop: '16px', fontSize: '0.85rem', color: 'var(--accent-green)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}><TrendingUp size={16} /> Excellent Condition</div>
                 </div>
 
-                {/* 3. MONTHLY REVENUE & PROFIT */}
-                <div className="bento-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '32px' }}>
-                    <div style={{ border: '1px solid var(--border-subtle)', padding: '24px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)', boxShadow: 'var(--shadow-sm)' }}>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Profit</div>
-                        <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{formatRupiah(totalProfit)}</div>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-green)', marginTop: '4px', fontWeight: 500 }}>+{(profitMargin * 100).toFixed(1)}% Margin</div>
-                    </div>
-                    <div style={{ display: 'flex', gap: '16px' }}>
-                        <div style={{ flex: 1, border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)' }}>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Gross Volume</div>
-                            <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
+                {/* 3. BUSINESS METRICS (3 COLUMNS) */}
+                <div style={{ gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+                    {/* Col 1 */}
+                    <div className="bento-card" style={{ border: '1px solid var(--border-subtle)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Profit Bersih</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalProfit)}</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
+                            <TrendingUp size={16} /> +Potensi {formatRupiah(potensiPendapatan)}
                         </div>
-                        <div style={{ flex: 1, border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)' }}>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Total Cost</div>
-                            <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
+                    </div>
+
+                    {/* Col 2 */}
+                    <div className="bento-card" style={{ border: '1px solid var(--border-subtle)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Stok Aktif</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{activeAccounts.length}</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 500 }}>
+                            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{ffActive}FF</span> • <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{mlActive} ML</span>
+                        </div>
+                    </div>
+
+                    {/* Col 3 */}
+                    <div className="bento-card" style={{ border: '1px solid var(--border-subtle)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Pendapatan</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--accent-green)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
+                            <TrendingUp size={16} /> +{(profitMargin * 100).toFixed(1)}% Margin
                         </div>
                     </div>
                 </div>
