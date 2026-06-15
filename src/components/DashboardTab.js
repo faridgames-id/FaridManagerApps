@@ -67,17 +67,17 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
                         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, lineHeight: 1.1, fontFamily: 'var(--font-display)' }}>Premium Marketplace</h2>
                         <p style={{ opacity: 0.9, maxWidth: '500px', marginTop: '8px', fontSize: '1.05rem', fontWeight: 300 }}>Operating system for high-end gaming account acquisitions and sales.</p>
                     </div>
-                    <div style={{ display: 'flex', gap: '48px', marginTop: '40px', flexWrap: 'wrap' }}>
-                        <div>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Net Revenue</div>
+                    <div style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
+                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Net Revenue</div>
                             <div style={{ fontSize: '2rem', fontWeight: 700 }}>{formatRupiah(totalTerjual)}</div>
                         </div>
-                        <div>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Active Listings</div>
+                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Active Listings</div>
                             <div style={{ fontSize: '2rem', fontWeight: 700 }}>{activeAccounts.length}</div>
                         </div>
-                        <div>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Sales</div>
+                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>Total Sales</div>
                             <div style={{ fontSize: '2rem', fontWeight: 700 }}>{soldAccounts.length}</div>
                         </div>
                     </div>
@@ -98,18 +98,17 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
 
                 {/* 3. MONTHLY REVENUE & PROFIT */}
                 <div className="bento-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '32px' }}>
-                    <div>
+                    <div style={{ border: '1px solid var(--border-subtle)', padding: '24px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)', boxShadow: 'var(--shadow-sm)' }}>
                         <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Profit</div>
                         <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>{formatRupiah(totalProfit)}</div>
                         <div style={{ fontSize: '0.85rem', color: 'var(--accent-green)', marginTop: '4px', fontWeight: 500 }}>+{(profitMargin * 100).toFixed(1)}% Margin</div>
                     </div>
-                    <div style={{ height: '1px', background: 'var(--border-subtle)' }} />
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
+                    <div style={{ display: 'flex', gap: '16px' }}>
+                        <div style={{ flex: 1, border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)' }}>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Gross Volume</div>
                             <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalTerjual)}</div>
                         </div>
-                        <div style={{ textAlign: 'right' }}>
+                        <div style={{ flex: 1, border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: 'var(--r-md)', background: 'var(--bg-surface)' }}>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Total Cost</div>
                             <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
                         </div>
