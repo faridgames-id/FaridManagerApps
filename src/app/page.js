@@ -11,7 +11,6 @@ import Sidebar from '../components/Sidebar';
 import DashboardTab from '../components/DashboardTab';
 import StockTab from '../components/StockTab';
 import DailyInflowTab from '../components/DailyInflowTab';
-import SearchTab from '../components/SearchTab';
 import JournalTab from '../components/JournalTab';
 import WishlistTab from '../components/WishlistTab';
 import CalendarTab from '../components/CalendarTab';
@@ -721,16 +720,6 @@ export default function Home() {
                         globalFilterYear={globalFilterYear}
                     />
                 );
-            case 'pencarian':
-                return (
-                    <SearchTab
-                        accounts={accounts}
-                        formatRupiah={formatRupiah}
-                        onUpdateAccount={handleUpdateAccount}
-                        onDeleteAccount={handleDeleteAccount}
-                        globalKeyword={globalSearchText}
-                    />
-                );
             case 'akun-masuk':
                 return (
                     <DailyInflowTab
@@ -918,7 +907,7 @@ export default function Home() {
                                         value={globalSearchText}
                                         onChange={(e) => setGlobalSearchText(e.target.value)}
                                         onKeyDown={(e) => {
-                                            if (e.key === 'Enter') setActiveTab('pencarian');
+                                            if (e.key === 'Enter') e.target.blur();
                                         }}
                                         style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
                                     />
@@ -982,7 +971,7 @@ export default function Home() {
                                             value={globalSearchText}
                                             onChange={(e) => setGlobalSearchText(e.target.value)}
                                             onKeyDown={(e) => {
-                                                if (e.key === 'Enter') setActiveTab('pencarian');
+                                                if (e.key === 'Enter') e.target.blur();
                                             }}
                                             style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
                                         />
