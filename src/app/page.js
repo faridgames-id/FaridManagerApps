@@ -920,14 +920,14 @@ export default function Home() {
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') setActiveTab('pencarian');
                                         }}
-                                        style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
+                                        style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
                                     />
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </div>
                                 
                                 <button 
                                     onClick={() => setIsNotificationOpen(true)}
-                                    style={{ position: 'relative', width: '42px', height: '42px', borderRadius: 'var(--r-md)', border: '1px solid var(--border-medium)', background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-primary)' }}
+                                    style={{ position: 'relative', width: '42px', height: '42px', borderRadius: 'var(--r-md)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-primary)' }}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                                     {pendingAccounts > 0 && (
@@ -956,7 +956,7 @@ export default function Home() {
                                         title={isSidebarOpen ? "Tutup Sidebar" : "Buka Sidebar"}
                                         style={{ 
                                             display: 'flex', 
-                                            background: 'rgba(0,0,0,0.3)', 
+                                            background: 'var(--bg-surface)', 
                                             border: '1px solid var(--border-medium)', 
                                             borderRadius: 'var(--r-md)', 
                                             width: '40px', height: '40px', 
@@ -966,7 +966,7 @@ export default function Home() {
                                             marginRight: 'auto'
                                         }}
                                         onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,210,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(0,210,255,0.2)'; e.currentTarget.style.color = '#00D2FF'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.3)'; e.currentTarget.style.borderColor = 'var(--border-medium)'; e.currentTarget.style.color = 'var(--text-primary)'; }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = 'var(--bg-surface)'; e.currentTarget.style.borderColor = 'var(--border-medium)'; e.currentTarget.style.color = 'var(--text-primary)'; }}
                                     >
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -984,7 +984,7 @@ export default function Home() {
                                             onKeyDown={(e) => {
                                                 if (e.key === 'Enter') setActiveTab('pencarian');
                                             }}
-                                            style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
+                                            style={{ width: '100%', padding: '10px 16px 10px 40px', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', fontSize: '0.9rem', outline: 'none', color: 'var(--text-primary)' }} 
                                         />
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                     </div>
@@ -992,7 +992,7 @@ export default function Home() {
                                     <button 
                                         onClick={() => setIsNotificationOpen(true)}
                                         title="Notifikasi"
-                                        style={{ position: 'relative', width: '40px', height: '40px', borderRadius: 'var(--r-md)', border: '1px solid var(--border-medium)', background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-primary)' }}
+                                        style={{ position: 'relative', width: '40px', height: '40px', borderRadius: 'var(--r-md)', border: '1px solid var(--border-medium)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-primary)' }}
                                     >
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                                         {pendingAccounts > 0 && (
@@ -1317,11 +1317,11 @@ export default function Home() {
             {isEditInfoOpen && (
                 <div style={{
                     position: 'fixed', inset: 0, zIndex: 200000,
-                    background: 'rgba(0,5,15,0.85)', backdropFilter: 'blur(16px)',
+                    background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }} onClick={() => setIsEditInfoOpen(false)}>
                     <div onClick={e => e.stopPropagation()} style={{
-                        background: 'linear-gradient(135deg, rgba(10,18,34,0.98), rgba(6,12,24,0.98))',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,245,255,0.98))',
                         border: '1px solid rgba(0,210,255,0.15)',
                         borderRadius: '20px',
                         padding: '32px',
@@ -1430,11 +1430,11 @@ export default function Home() {
             {isNotificationOpen && (
                 <div style={{
                     position: 'fixed', inset: 0, zIndex: 200000,
-                    background: 'rgba(0,5,15,0.85)', backdropFilter: 'blur(16px)',
+                    background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }} onClick={() => setIsNotificationOpen(false)}>
                     <div onClick={e => e.stopPropagation()} style={{
-                        background: 'linear-gradient(135deg, rgba(10,18,34,0.98), rgba(6,12,24,0.98))',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,245,255,0.98))',
                         border: '1px solid rgba(0,210,255,0.15)',
                         borderRadius: '20px',
                         padding: '32px',
