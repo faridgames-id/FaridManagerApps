@@ -303,6 +303,7 @@ export default function Sidebar({ activeTab, onTabChange, isOpen, toggleSidebar,
                     height: 100vh;
                     z-index: 100;
                     border-right: 1px solid var(--border-subtle);
+                    box-shadow: var(--shadow-sm);
                     transition: transform var(--T-slow);
                 }
 
