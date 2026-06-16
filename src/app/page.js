@@ -21,7 +21,6 @@ import RevenueSnapshot from '../components/RevenueSnapshot';
 import BusinessPerformance from '../components/BusinessPerformance';
 import MarketplaceSections from '../components/MarketplaceSections';
 import MarketplaceNotificationSystem from '../components/MarketplaceNotificationSystem';
-import MarketplaceNotificationSystem from '../components/MarketplaceNotificationSystem';
 
 export default function Home() {
     // UI Phase States

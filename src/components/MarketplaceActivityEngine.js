@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, Package, Star, TrendingUp, Zap, Clock, User, DollarSign, Activity, Flame, ArrowUpRight } from 'lucide-react';
 import { supabase } from '../utils/supabase';
-import { supabase } from '../utils/supabase';
 
 export default function MarketplaceActivityEngine({ accounts = [], sales = [], formatRupiah }) {
   const [liveFeed, setLiveFeed] = useState([]);
