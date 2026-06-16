@@ -43,7 +43,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                 position: 'fixed',
                 inset: 0,
                 zIndex: 10000,
-                background: 'linear-gradient(180deg, #09090b 0%, #18181b 100%)',
+                background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -62,63 +62,68 @@ export default function IntroOverlay({ onIntroFinished }) {
                     height: '80px',
                     margin: '0 auto 24px',
                     position: 'relative',
-                    borderRadius: '20px',
+                    borderRadius: '24px',
                     padding: '2px',
-                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0) 100%)',
-                    boxShadow: 'var(--glow-strong)'
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 100%)',
+                    boxShadow: '0 20px 40px rgba(59, 130, 246, 0.15)'
                 }}>
                     <div style={{
                         width: '100%',
                         height: '100%',
-                        background: '#09090b',
-                        borderRadius: '18px',
+                        background: '#FFFFFF',
+                        borderRadius: '22px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
                     }}>
                         <img src="/logo.png" alt="FRD Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', animation: 'pulse 2s infinite ease-in-out' }} />
                     </div>
                 </div>
                 
                 <h1 style={{
-                    fontSize: '1.5rem',
+                    fontSize: '1.75rem',
                     fontWeight: 800,
-                    letterSpacing: '-0.03em',
-                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.04em',
+                    color: '#0F172A',
                     marginBottom: '8px'
                 }}>FARID SHOP GAME</h1>
                 <p style={{
-                    color: 'var(--text-secondary)',
-                    fontSize: '0.9rem',
+                    color: '#64748B',
+                    fontSize: '0.95rem',
                     lineHeight: 1.5,
                     marginBottom: '32px'
                 }}>
                     Sistem Manajemen Akun Premium<br />
                     <span style={{
-                        color: 'var(--accent-indigo)',
-                        fontWeight: 600,
+                        color: '#3B82F6',
+                        fontWeight: 700,
                         fontSize: '0.75rem',
                         marginTop: '12px',
                         display: 'inline-block',
-                        letterSpacing: '0.04em',
-                        textTransform: 'uppercase'
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        background: 'rgba(59, 130, 246, 0.1)',
+                        padding: '4px 10px',
+                        borderRadius: '99px'
                     }}>Jual Beli Akun #1 se-Universe</span>
                 </p>
                 
                 <div style={{ width: '240px', margin: '0 auto' }}>
                     <div style={{
-                        height: '4px',
-                        background: 'rgba(255, 255, 255, 0.08)',
+                        height: '6px',
+                        background: 'rgba(15, 23, 42, 0.05)',
                         borderRadius: '99px',
                         overflow: 'hidden',
                         marginBottom: '12px',
-                        position: 'relative'
+                        position: 'relative',
+                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
                     }}>
                         <div style={{
                             width: `${progress}%`,
                             height: '100%',
-                            background: 'linear-gradient(90deg, var(--accent-indigo) 0%, #8b5cf6 100%)',
+                            background: 'linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)',
                             borderRadius: '99px',
                             transition: 'width 0.2s ease-out',
                             position: 'relative'
@@ -129,14 +134,14 @@ export default function IntroOverlay({ onIntroFinished }) {
                                 left: 0,
                                 right: 0,
                                 bottom: 0,
-                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
                                 animation: 'shimmer 1.5s infinite linear'
                             }}></div>
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem', fontWeight: 500 }}>{statusText}</p>
-                        <p style={{ color: 'var(--text-primary)', fontSize: '0.75rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{Math.round(progress)}%</p>
+                        <p style={{ color: '#64748B', fontSize: '0.75rem', fontWeight: 600 }}>{statusText}</p>
+                        <p style={{ color: '#0F172A', fontSize: '0.75rem', fontWeight: 800, fontVariantNumeric: 'tabular-nums' }}>{Math.round(progress)}%</p>
                     </div>
                 </div>
                 
@@ -146,15 +151,15 @@ export default function IntroOverlay({ onIntroFinished }) {
                         marginTop: '40px',
                         background: 'transparent',
                         border: 'none',
-                        color: 'var(--text-tertiary)',
+                        color: '#64748B',
                         fontSize: '0.8rem',
                         fontWeight: 500,
                         cursor: 'pointer',
                         padding: '8px 16px',
                         transition: 'color 0.2s'
                     }}
-                    onMouseOver={(e) => e.target.style.color = 'var(--text-primary)'}
-                    onMouseOut={(e) => e.target.style.color = 'var(--text-tertiary)'}
+                    onMouseOver={(e) => e.target.style.color = '#0F172A'}
+                    onMouseOut={(e) => e.target.style.color = '#64748B'}
                 >Lewati</button>
             </div>
         </div>
