@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function IntroOverlay({ onIntroFinished }) {
     const [progress, setProgress] = useState(0);
-    const [statusText, setStatusText] = useState('Menghubungkan Sistem...');
+    const [statusText, setStatusText] = useState('Initializing Core Systems...');
     const [hide, setHide] = useState(false);
     const [mount, setMount] = useState(false);
 
@@ -17,294 +17,404 @@ export default function IntroOverlay({ onIntroFinished }) {
             if (currentProgress >= 100) {
                 currentProgress = 100;
                 clearInterval(interval);
-                setStatusText('Sistem Siap!');
+                setStatusText('Systems Online');
                 setTimeout(() => {
                     setHide(true);
                     setTimeout(() => {
                         onIntroFinished();
-                    }, 800); // Wait for fade out
-                }, 500);
+                    }, 1000); // Wait for fade out
+                }, 800);
             } else {
-                if (currentProgress > 80) setStatusText('Menyiapkan Dashboard...');
-                else if (currentProgress > 50) setStatusText('Sinkronisasi Database...');
-                else if (currentProgress > 20) setStatusText('Memuat Konfigurasi...');
+                if (currentProgress > 80) setStatusText('Launching Dashboard Interface...');
+                else if (currentProgress > 50) setStatusText('Synchronizing Encrypted Database...');
+                else if (currentProgress > 20) setStatusText('Loading Premium Assets...');
                 setProgress(currentProgress);
             }
-        }, 100);
+        }, 120);
 
         return () => clearInterval(interval);
     }, [onIntroFinished]);
 
     const handleSkip = () => {
         setHide(true);
-        setTimeout(() => onIntroFinished(), 800);
+        setTimeout(() => onIntroFinished(), 1000);
     };
 
     return (
         <div 
-            className={`app-intro-overlay ${hide ? 'hide' : ''}`}
+            className={`premium-intro-overlay ${hide ? 'hide' : ''}`}
             aria-hidden="true"
         >
-            {/* Ambient Animated Background */}
-            <div className="ambient-blobs"></div>
+            {/* Dynamic Glassmorphism Background */}
+            <div className="gradient-sphere sphere-1"></div>
+            <div className="gradient-sphere sphere-2"></div>
+            <div className="gradient-sphere sphere-3"></div>
+            <div className="grid-overlay"></div>
 
-            <div className={`intro-content ${mount ? 'mounted' : ''}`}>
-                <div className="stagger-1 logo-container">
+            <div className={`intro-glass-panel ${mount ? 'mounted' : ''}`}>
+                <div className="stagger-1 logo-wrapper">
+                    <div className="logo-glow"></div>
                     <div className="logo-inner">
                         <img src="/logo.png" alt="FRD Logo" />
                     </div>
                 </div>
                 
-                <h1 className="stagger-2 title">FARID SHOP GAME</h1>
-                <p className="stagger-3 subtitle">
-                    Sistem Manajemen Akun Premium<br />
-                    <span className="badge">Jual Beli Akun #1 se-Universe</span>
+                <h1 className="stagger-2 premium-title">FARID <span className="text-gradient">SHOP GAME</span></h1>
+                <p className="stagger-3 premium-subtitle">
+                    Elite Account Management<br />
+                    <span className="premium-badge">
+                        <span className="badge-glow"></span>
+                        Premium Universe Edition
+                    </span>
                 </p>
                 
-                <div className="stagger-4 progress-container">
-                    <div className="progress-track">
+                <div className="stagger-4 loader-wrapper">
+                    <div className="progress-bar-container">
                         <div 
-                            className="progress-fill" 
+                            className="progress-bar-fill" 
                             style={{ width: `${progress}%` }}
                         >
-                            <div className="shimmer"></div>
+                            <div className="progress-glow"></div>
+                            <div className="progress-particles"></div>
                         </div>
                     </div>
-                    <div className="progress-text-row">
-                        <p className="status-text">{statusText}</p>
-                        <p className="percentage-text">{Math.round(progress)}%</p>
+                    <div className="status-container">
+                        <p className="status-message">{statusText}</p>
+                        <p className="percentage-display">{Math.round(progress)}%</p>
                     </div>
                 </div>
                 
                 <button 
-                    className="stagger-5 skip-button"
+                    className="stagger-5 premium-skip-btn"
                     onClick={handleSkip}
                 >
-                    Lewati
+                    <span>Skip Sequence</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
                 </button>
             </div>
 
             <style jsx>{`
-                .app-intro-overlay {
+                .premium-intro-overlay {
                     position: fixed;
                     inset: 0;
                     z-index: 10000;
-                    background: #F8FAFC;
+                    background: #050505;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
                     overflow: hidden;
+                    font-family: 'Inter', sans-serif;
                 }
 
-                .app-intro-overlay.hide {
+                .premium-intro-overlay.hide {
                     opacity: 0;
-                    transform: scale(1.03);
+                    transform: scale(1.05) translateY(-20px);
                     pointer-events: none;
                 }
 
-                .ambient-blobs {
+                /* Animated Spheres */
+                .gradient-sphere {
                     position: absolute;
-                    inset: 0;
+                    border-radius: 50%;
+                    filter: blur(80px);
+                    opacity: 0.6;
+                    animation: float 20s infinite ease-in-out alternate;
                     z-index: 0;
-                    overflow: hidden;
-                    pointer-events: none;
                 }
 
-                .ambient-blobs::before,
-                .ambient-blobs::after {
-                    content: '';
+                .sphere-1 {
+                    width: 400px;
+                    height: 400px;
+                    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+                    top: -100px;
+                    left: -100px;
+                }
+
+                .sphere-2 {
+                    width: 500px;
+                    height: 500px;
+                    background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+                    bottom: -150px;
+                    right: -100px;
+                    animation-delay: -5s;
+                }
+
+                .sphere-3 {
+                    width: 300px;
+                    height: 300px;
+                    background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+                    top: 40%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    animation-duration: 25s;
+                }
+
+                .grid-overlay {
                     position: absolute;
                     inset: 0;
-                    animation: drift 20s ease-in-out infinite alternate;
+                    background-image: 
+                        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                    background-size: 30px 30px;
+                    z-index: 0;
+                    opacity: 0.5;
                 }
 
-                .ambient-blobs::before {
-                    background: radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+                @keyframes float {
+                    0% { transform: translate(0, 0) scale(1); }
+                    100% { transform: translate(30px, 50px) scale(1.1); }
                 }
 
-                .ambient-blobs::after {
-                    background: radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
-                    animation-delay: -10s;
-                }
-
-                @keyframes drift {
-                    0% { transform: scale(1) translate(0, 0); }
-                    100% { transform: scale(1.1) translate(-2%, 2%); }
-                }
-
-                .intro-content {
+                .intro-glass-panel {
                     position: relative;
-                    z-index: 1;
-                    text-align: center;
+                    z-index: 10;
                     width: 100%;
-                    max-width: 320px;
-                    padding: 0 24px;
+                    max-width: 420px;
+                    padding: 40px 30px;
+                    background: rgba(15, 15, 20, 0.6);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 30px;
+                    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                    text-align: center;
+                    transform: translateY(20px);
+                    opacity: 0;
+                    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                .intro-glass-panel.mounted {
+                    transform: translateY(0);
+                    opacity: 1;
                 }
 
                 /* Staggered Animations */
                 .stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5 {
                     opacity: 0;
-                    transform: translateY(16px) scale(0.98);
+                    transform: translateY(20px);
                     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
-                .mounted .stagger-1 { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.1s; }
-                .mounted .stagger-2 { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.2s; }
-                .mounted .stagger-3 { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.3s; }
-                .mounted .stagger-4 { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.4s; }
-                .mounted .stagger-5 { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.5s; }
+                .mounted .stagger-1 { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+                .mounted .stagger-2 { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+                .mounted .stagger-3 { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+                .mounted .stagger-4 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+                .mounted .stagger-5 { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
 
                 /* Logo */
-                .logo-container {
-                    width: 88px;
-                    height: 88px;
-                    margin: 0 auto 24px;
+                .logo-wrapper {
+                    width: 100px;
+                    height: 100px;
+                    margin: 0 auto 30px;
                     position: relative;
-                    border-radius: 24px;
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
-                    box-shadow: 
-                        0 20px 40px rgba(0, 0, 0, 0.06), 
-                        0 1px 3px rgba(0, 0, 0, 0.04),
-                        inset 0 2px 4px rgba(255, 255, 255, 1);
-                    padding: 8px;
-                    border: 1px solid rgba(0, 0, 0, 0.04);
+                }
+
+                .logo-glow {
+                    position: absolute;
+                    inset: -10px;
+                    background: linear-gradient(135deg, #3b82f6, #ec4899);
+                    border-radius: 30px;
+                    filter: blur(15px);
+                    opacity: 0.5;
+                    animation: pulse-glow 3s infinite alternate;
                 }
 
                 .logo-inner {
+                    position: relative;
                     width: 100%;
                     height: 100%;
+                    background: #111;
+                    border-radius: 24px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    animation: pulseLogo 3s infinite ease-in-out;
+                    padding: 10px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
                 }
 
                 .logo-inner img {
                     width: 100%;
                     height: 100%;
                     object-fit: contain;
+                    animation: heartbeat 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
                 }
 
-                @keyframes pulseLogo {
+                @keyframes pulse-glow {
+                    0% { opacity: 0.4; transform: scale(0.95); }
+                    100% { opacity: 0.8; transform: scale(1.05); }
+                }
+
+                @keyframes heartbeat {
                     0%, 100% { transform: scale(1); }
                     50% { transform: scale(0.95); }
                 }
 
                 /* Typography */
-                .title {
-                    font-size: 1.5rem;
+                .premium-title {
+                    font-size: 1.7rem;
                     font-weight: 800;
-                    letter-spacing: -0.04em;
-                    color: #0F172A;
-                    margin: 0 0 8px;
+                    letter-spacing: -0.02em;
+                    color: #fff;
+                    margin: 0 0 10px;
                 }
 
-                .subtitle {
-                    color: #64748B;
+                .text-gradient {
+                    background: linear-gradient(135deg, #60a5fa, #c084fc);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+
+                .premium-subtitle {
+                    color: #94a3b8;
                     font-size: 0.95rem;
-                    line-height: 1.5;
+                    line-height: 1.6;
                     margin: 0 0 40px;
                 }
 
-                .badge {
-                    color: #3B82F6;
-                    font-weight: 700;
-                    font-size: 0.7rem;
-                    margin-top: 12px;
-                    display: inline-block;
-                    letter-spacing: 0.06em;
+                .premium-badge {
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    color: #fff;
+                    font-weight: 600;
+                    font-size: 0.75rem;
+                    margin-top: 15px;
+                    letter-spacing: 0.05em;
                     text-transform: uppercase;
-                    background: rgba(59, 130, 246, 0.1);
-                    padding: 6px 12px;
-                    border-radius: 99px;
-                    border: 1px solid rgba(59, 130, 246, 0.1);
-                }
-
-                /* Progress Bar */
-                .progress-container {
-                    width: 100%;
-                    margin: 0 auto;
-                }
-
-                .progress-track {
-                    height: 6px;
-                    background: rgba(15, 23, 42, 0.06);
-                    border-radius: 99px;
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 8px 16px;
+                    border-radius: 100px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
                     overflow: hidden;
-                    margin-bottom: 12px;
-                    position: relative;
-                    box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
                 }
 
-                .progress-fill {
-                    height: 100%;
-                    background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%);
-                    border-radius: 99px;
-                    transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                    position: relative;
-                    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-                }
-
-                .shimmer {
+                .badge-glow {
                     position: absolute;
                     top: 0;
-                    left: 0;
+                    left: -100%;
+                    width: 50%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    animation: sweep 3s infinite;
+                }
+
+                @keyframes sweep {
+                    0% { left: -100%; }
+                    100% { left: 200%; }
+                }
+
+                /* Loader */
+                .loader-wrapper {
+                    width: 100%;
+                    margin-bottom: 30px;
+                }
+
+                .progress-bar-container {
+                    height: 8px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 100px;
+                    overflow: hidden;
+                    margin-bottom: 16px;
+                    position: relative;
+                    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                }
+
+                .progress-bar-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+                    background-size: 200% 100%;
+                    border-radius: 100px;
+                    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    position: relative;
+                    animation: gradient-shift 2s infinite linear;
+                }
+
+                @keyframes gradient-shift {
+                    0% { background-position: 100% 0; }
+                    100% { background-position: -100% 0; }
+                }
+
+                .progress-glow {
+                    position: absolute;
                     right: 0;
-                    bottom: 0;
-                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-                    animation: shimmerAnim 1.5s infinite linear;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    background: #fff;
+                    border-radius: 50%;
+                    filter: blur(10px);
+                    opacity: 0.8;
                 }
 
-                @keyframes shimmerAnim {
-                    0% { transform: translateX(-100%); }
-                    100% { transform: translateX(100%); }
-                }
-
-                .progress-text-row {
+                .status-container {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    padding: 0 4px;
                 }
 
-                .status-text {
-                    color: #64748B;
-                    font-size: 0.75rem;
-                    font-weight: 600;
-                    margin: 0;
-                }
-
-                .percentage-text {
-                    color: #0F172A;
+                .status-message {
+                    color: #94a3b8;
                     font-size: 0.8rem;
-                    font-weight: 800;
+                    font-weight: 500;
+                    margin: 0;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                }
+
+                .percentage-display {
+                    color: #fff;
+                    font-size: 0.9rem;
+                    font-weight: 700;
                     font-variant-numeric: tabular-nums;
                     margin: 0;
+                    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
                 }
 
                 /* Skip Button */
-                .skip-button {
-                    margin-top: 48px;
-                    background: transparent;
-                    border: none;
-                    color: #94A3B8;
+                .premium-skip-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    color: #cbd5e1;
                     font-size: 0.85rem;
                     font-weight: 600;
                     cursor: pointer;
-                    padding: 10px 24px;
-                    border-radius: 99px;
-                    transition: all 0.2s;
+                    padding: 12px 24px;
+                    border-radius: 100px;
+                    transition: all 0.3s ease;
+                    outline: none;
                 }
 
-                .skip-button:hover {
-                    color: #0F172A;
-                    background: rgba(15, 23, 42, 0.04);
-                    transform: translateY(-1px);
+                .premium-skip-btn:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #fff;
+                    border-color: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 }
                 
-                .skip-button:active {
+                .premium-skip-btn:active {
                     transform: translateY(0);
-                    background: rgba(15, 23, 42, 0.08);
+                    background: rgba(255, 255, 255, 0.05);
+                }
+
+                .premium-skip-btn svg {
+                    transition: transform 0.3s ease;
+                }
+
+                .premium-skip-btn:hover svg {
+                    transform: translateX(4px);
                 }
             `}</style>
         </div>
