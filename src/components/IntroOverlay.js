@@ -100,7 +100,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                     position: fixed;
                     inset: 0;
                     z-index: 10000;
-                    background: #050505;
+                    background: #FFFFFF;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -120,7 +120,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                     position: absolute;
                     border-radius: 50%;
                     filter: blur(80px);
-                    opacity: 0.6;
+                    opacity: 0.15;
                     animation: float 20s infinite ease-in-out alternate;
                     z-index: 0;
                 }
@@ -156,8 +156,8 @@ export default function IntroOverlay({ onIntroFinished }) {
                     position: absolute;
                     inset: 0;
                     background-image: 
-                        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
                     background-size: 30px 30px;
                     z-index: 0;
                     opacity: 0.5;
@@ -174,12 +174,12 @@ export default function IntroOverlay({ onIntroFinished }) {
                     width: 100%;
                     max-width: 420px;
                     padding: 40px 30px;
-                    background: rgba(15, 15, 20, 0.6);
+                    background: rgba(255, 255, 255, 0.7);
                     backdrop-filter: blur(20px);
                     -webkit-backdrop-filter: blur(20px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(0, 0, 0, 0.05);
                     border-radius: 30px;
-                    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5);
                     text-align: center;
                     transform: translateY(20px);
                     opacity: 0;
@@ -218,7 +218,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                     background: linear-gradient(135deg, #3b82f6, #ec4899);
                     border-radius: 30px;
                     filter: blur(15px);
-                    opacity: 0.5;
+                    opacity: 0.2;
                     animation: pulse-glow 3s infinite alternate;
                 }
 
@@ -226,14 +226,14 @@ export default function IntroOverlay({ onIntroFinished }) {
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    background: #111;
+                    background: #ffffff;
                     border-radius: 24px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     padding: 10px;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+                    border: 1px solid rgba(0, 0, 0, 0.05);
+                    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
                 }
 
                 .logo-inner img {
@@ -244,8 +244,8 @@ export default function IntroOverlay({ onIntroFinished }) {
                 }
 
                 @keyframes pulse-glow {
-                    0% { opacity: 0.4; transform: scale(0.95); }
-                    100% { opacity: 0.8; transform: scale(1.05); }
+                    0% { opacity: 0.15; transform: scale(0.95); }
+                    100% { opacity: 0.3; transform: scale(1.05); }
                 }
 
                 @keyframes heartbeat {
@@ -258,19 +258,19 @@ export default function IntroOverlay({ onIntroFinished }) {
                     font-size: 1.7rem;
                     font-weight: 800;
                     letter-spacing: -0.02em;
-                    color: #fff;
+                    color: #0f172a;
                     margin: 0 0 10px;
                 }
 
                 .text-gradient {
-                    background: linear-gradient(135deg, #60a5fa, #c084fc);
+                    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
                 }
 
                 .premium-subtitle {
-                    color: #94a3b8;
+                    color: #64748b;
                     font-size: 0.95rem;
                     line-height: 1.6;
                     margin: 0 0 40px;
@@ -281,16 +281,16 @@ export default function IntroOverlay({ onIntroFinished }) {
                     display: inline-flex;
                     align-items: center;
                     gap: 6px;
-                    color: #fff;
+                    color: #3b82f6;
                     font-weight: 600;
                     font-size: 0.75rem;
                     margin-top: 15px;
                     letter-spacing: 0.05em;
                     text-transform: uppercase;
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgba(59, 130, 246, 0.1);
                     padding: 8px 16px;
                     border-radius: 100px;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(59, 130, 246, 0.2);
                     overflow: hidden;
                 }
 
@@ -300,7 +300,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                     left: -100%;
                     width: 50%;
                     height: 100%;
-                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
                     animation: sweep 3s infinite;
                 }
 
@@ -317,13 +317,13 @@ export default function IntroOverlay({ onIntroFinished }) {
 
                 .progress-bar-container {
                     height: 8px;
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgba(0, 0, 0, 0.05);
                     border-radius: 100px;
                     overflow: hidden;
                     margin-bottom: 16px;
                     position: relative;
-                    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
-                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+                    border: 1px solid rgba(0, 0, 0, 0.05);
                 }
 
                 .progress-bar-fill {
@@ -350,8 +350,8 @@ export default function IntroOverlay({ onIntroFinished }) {
                     height: 20px;
                     background: #fff;
                     border-radius: 50%;
-                    filter: blur(10px);
-                    opacity: 0.8;
+                    filter: blur(8px);
+                    opacity: 0.9;
                 }
 
                 .status-container {
@@ -362,7 +362,7 @@ export default function IntroOverlay({ onIntroFinished }) {
                 }
 
                 .status-message {
-                    color: #94a3b8;
+                    color: #64748b;
                     font-size: 0.8rem;
                     font-weight: 500;
                     margin: 0;
@@ -371,12 +371,11 @@ export default function IntroOverlay({ onIntroFinished }) {
                 }
 
                 .percentage-display {
-                    color: #fff;
+                    color: #0f172a;
                     font-size: 0.9rem;
                     font-weight: 700;
                     font-variant-numeric: tabular-nums;
                     margin: 0;
-                    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
                 }
 
                 /* Skip Button */
@@ -384,9 +383,9 @@ export default function IntroOverlay({ onIntroFinished }) {
                     display: inline-flex;
                     align-items: center;
                     gap: 8px;
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    color: #cbd5e1;
+                    background: rgba(0, 0, 0, 0.02);
+                    border: 1px solid rgba(0, 0, 0, 0.05);
+                    color: #64748b;
                     font-size: 0.85rem;
                     font-weight: 600;
                     cursor: pointer;
@@ -397,16 +396,16 @@ export default function IntroOverlay({ onIntroFinished }) {
                 }
 
                 .premium-skip-btn:hover {
-                    background: rgba(255, 255, 255, 0.1);
-                    color: #fff;
-                    border-color: rgba(255, 255, 255, 0.2);
+                    background: rgba(0, 0, 0, 0.05);
+                    color: #0f172a;
+                    border-color: rgba(0, 0, 0, 0.1);
                     transform: translateY(-2px);
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
                 }
                 
                 .premium-skip-btn:active {
                     transform: translateY(0);
-                    background: rgba(255, 255, 255, 0.05);
+                    background: rgba(0, 0, 0, 0.08);
                 }
 
                 .premium-skip-btn svg {

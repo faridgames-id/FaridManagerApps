@@ -10,13 +10,13 @@
 /* ── DESIGN TOKENS ── */
 :root {
     /* Surfaces: Premium Light */
-    --bg-body:       #F8FAFC;
+    --bg-body:       #FFFFFF;
     --bg-surface:    #FFFFFF;
     --bg-card:       #FFFFFF;
-    --bg-elevated:   #F1F5F9;
+    --bg-elevated:   #F8FAFC;
     --bg-hover:      #E2E8F0;
     --bg-active:     #CBD5E1;
-    --bg-input:      #F8FAFC;
+    --bg-input:      #F1F5F9;
 
     /* Text */
     --text-primary:   #0F172A;
