@@ -9,8 +9,8 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-    /* Surfaces: Premium Light */
-    --bg-body:       #FFFFFF;
+    /* Surfaces: ProMax Dark Navy Body + White Cards */
+    --bg-body:       #0A1128; /* Deep Navy Dark */
     --bg-surface:    #FFFFFF;
     --bg-card:       #FFFFFF;
     --bg-elevated:   #F8FAFC;
@@ -24,6 +24,7 @@
     --text-tertiary:  #64748B;
     --text-muted:     #94A3B8;
     --text-inverse:   #FFFFFF;
+    --text-body-dark: #F8FAFC; /* Light text for the dark body */
 
     /* Accent Colors - Lavender Purple & Soft Blue Fintech Theme */
     --accent-blue:    #8B5CF6; /* Lavender Purple as primary */
@@ -266,9 +267,9 @@ html {
 body {
     font-family: var(--font);
     background-color: var(--bg-body);
-    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 24px 24px;
-    color: var(--text-primary);
+    color: var(--text-body-dark);
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
@@ -336,6 +337,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── CARDS ── */
+.s-card, .premium-card, .bento-card, .form-section, .s-table-container, .sidebar-container, .modal-content, .widget, .dashboard-tab {
+    color: var(--text-primary);
+}
+
 .s-card {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
