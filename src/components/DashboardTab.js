@@ -65,21 +65,21 @@ export default function DashboardTab({ accounts, sales, formatRupiah, activeFilt
             
             <div className="bento-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
                 
-                {/* 1. EXECUTIVE OVERVIEW HERO */}
-                <div className="bento-card" style={{ gridColumn: '1 / -1', background: 'linear-gradient(135deg, var(--accent-blue) 0%, #1E3A8A 100%)', color: 'white', border: 'none', padding: '32px' }}>
+                {/* 1. EXECUTIVE OVERVIEW HERO (Light Fintech Theme) */}
+                <div className="bento-card" style={{ gridColumn: '1 / -1', background: 'linear-gradient(135deg, #F3E8FF 0%, #E0E7FF 100%)', color: 'var(--text-primary)', border: '1px solid rgba(139, 92, 246, 0.1)', padding: '32px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>Farid Shop Game</div>
-                        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, lineHeight: 1.1, fontFamily: 'var(--font-display)' }}>Premium Marketplace</h2>
-                        <p style={{ opacity: 0.9, maxWidth: '500px', marginTop: '8px', fontSize: '1.05rem', fontWeight: 300 }}>Operating system for high-end gaming account acquisitions and sales.</p>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--accent-blue)' }}>Farid Shop Game</div>
+                        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, lineHeight: 1.1, fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>Premium Marketplace</h2>
+                        <p style={{ color: 'var(--text-secondary)', maxWidth: '500px', marginTop: '8px', fontSize: '1.05rem', fontWeight: 400 }}>Operating system for high-end gaming account acquisitions and sales.</p>
                     </div>
                     <div style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
-                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>TOTAL AKUN</div>
-                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{currentAccounts.length}</div>
+                        <div style={{ border: '1px solid rgba(139, 92, 246, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.6)', flex: '1 1 min-content', boxShadow: 'var(--shadow-sm)' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap', fontWeight: 600 }}>TOTAL AKUN</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{currentAccounts.length}</div>
                         </div>
-                        <div style={{ border: '1px solid rgba(255, 255, 255, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.1)', flex: '1 1 min-content' }}>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap' }}>TERJUAL</div>
-                            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{soldAccounts.length}</div>
+                        <div style={{ border: '1px solid rgba(139, 92, 246, 0.2)', padding: '16px 24px', borderRadius: 'var(--r-md)', background: 'rgba(255, 255, 255, 0.6)', flex: '1 1 min-content', boxShadow: 'var(--shadow-sm)' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px', whiteSpace: 'nowrap', fontWeight: 600 }}>TERJUAL</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{soldAccounts.length}</div>
                         </div>
                     </div>
                 </div>

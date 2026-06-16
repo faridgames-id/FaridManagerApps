@@ -8,7 +8,6 @@ import DataSyncQueue from '../utils/DataSyncQueue';
 import IntroOverlay from '../components/IntroOverlay';
 import LoginOverlay from '../components/LoginOverlay';
 import Sidebar from '../components/Sidebar';
-import DashboardTab from '../components/DashboardTab';
 import StockTab from '../components/StockTab';
 import DailyInflowTab from '../components/DailyInflowTab';
 import JournalTab from '../components/JournalTab';
@@ -17,6 +16,12 @@ import CalendarTab from '../components/CalendarTab';
 import StatsTab from '../components/StatsTab';
 import SalesTab from '../components/SalesTab';
 import AnimatedBackground from '../components/AnimatedBackground';
+import MarketplaceHero from '../components/MarketplaceHero';
+import RevenueSnapshot from '../components/RevenueSnapshot';
+import BusinessPerformance from '../components/BusinessPerformance';
+import MarketplaceSections from '../components/MarketplaceSections';
+import MarketplaceNotificationSystem from '../components/MarketplaceNotificationSystem';
+import MarketplaceNotificationSystem from '../components/MarketplaceNotificationSystem';
 
 export default function Home() {
     // UI Phase States
@@ -683,14 +688,42 @@ export default function Home() {
         switch (activeTab) {
             case 'dashboard':
                 return (
-                    <DashboardTab
-                        accounts={accounts}
-                        sales={sales}
-                        formatRupiah={formatRupiah}
-                        activeFilterMonth={globalFilterMonth}
-                        activeFilterYear={globalFilterYear}
-                        onNavigate={setActiveTab}
-                    />
+                    <div className="premium-marketplace-layout">
+                        {/* 1. Marketplace Overview Hero */}
+                        <MarketplaceHero
+                            accounts={accounts}
+                            sales={sales}
+                            formatRupiah={formatRupiah}
+                        />
+
+                        {/* 2. Revenue Snapshot */}
+                        <RevenueSnapshot
+                            sales={sales}
+                            formatRupiah={formatRupiah}
+                            activeFilterMonth={globalFilterMonth}
+                            activeFilterYear={globalFilterYear}
+                        />
+
+                        {/* 3. Business Performance */}
+                        <BusinessPerformance
+                            accounts={accounts}
+                            sales={sales}
+                            formatRupiah={formatRupiah}
+                        />
+
+                        {/* 4. Marketplace Sections */}
+                        <MarketplaceSections
+                            accounts={accounts}
+                            onNavigate={setActiveTab}
+                        />
+
+                        {/* 5. Notification System */}
+                        <MarketplaceNotificationSystem
+                            accounts={accounts}
+                            sales={sales}
+                            formatRupiah={formatRupiah}
+                        />
+                    </div>
                 );
             case 'stok-ff':
                 return (

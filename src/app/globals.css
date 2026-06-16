@@ -1,8 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════
-   FARID SHOP — PREMIUM SAAS DESIGN SYSTEM v2.0
-   Inspired by: Linear, Vercel, Stripe, Raycast, Revolut, Apple Wallet
-   Theme: Light Premium Blue + White + Gold
-   Fonts: Sora + Outfit
+   FARID SHOP GAME v3.1 — PREMIUM GAMING MARKETPLACE OPERATING SYSTEM
+   Built Around The 8 Design Pillars: Trust, Clarity, Premium, Speed,
+   Power, Growth, Community, Innovation
+   Inspired by: Linear, Arc Browser, Revolut, Apple Design, Premium Exchanges
+   Theme: Lavender Purple Premium + Clean White
+   Fonts: Sora + Outfit + Inter (Premium Stack)
 ═══════════════════════════════════════════════════════════════════ */
 
 /* ── DESIGN TOKENS ── */
@@ -23,10 +25,10 @@
     --text-muted:     #94A3B8;
     --text-inverse:   #FFFFFF;
 
-    /* Accent Colors */
-    --accent-blue:    #2563EB;
-    --accent-blue-subtle: rgba(37, 99, 235, 0.1);
-    --accent-secondary: #3B82F6;
+    /* Accent Colors - Lavender Purple & Soft Blue Fintech Theme */
+    --accent-blue:    #8B5CF6; /* Lavender Purple as primary */
+    --accent-blue-subtle: rgba(139, 92, 246, 0.1);
+    --accent-secondary: #60A5FA; /* Soft Blue */
     --accent-gold:    #FBBF24;
     --accent-gold-subtle: rgba(251, 191, 36, 0.15);
     --accent-green:   #10B981;
@@ -83,6 +85,120 @@
     /* Typography */
     --font-display: 'Clash Display', var(--font-inter), sans-serif;
     --font: 'General Sans', var(--font-inter), sans-serif;
+}
+
+/* ── NOTIFICATION SYSTEM ── */
+
+.marketplace-notification-system {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.notification-toast {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-width: 280px;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: all;
+  animation: slideInRight 0.4s ease-out;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.notification-toast.newest {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.notification-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.notification-message {
+  font-size: 11px;
+  color: #9CA3AF;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notification-amount {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.notification-dismiss {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #6B7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.notification-dismiss:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.stats-live-indicator {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10B981;
+  border-radius: 20px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.live-pulse {
+  width: 6px;
+  height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
 
 /* ── ANIMATIONS ── */
@@ -992,6 +1108,263 @@ table td:not(:last-child) {
 .badge-cicilan { background: var(--accent-amber-subtle); color: var(--accent-amber); }
 .rs-price { flex: 1.5; font-weight: 600; font-size: 0.9rem; text-align: right; color: var(--text-primary); }
 .rs-date { flex: 1; text-align: right; font-size: 0.72rem; display: flex; flex-direction: column; gap: 1px; color: var(--text-tertiary); }
+
+/* ─── MARKETPLACE COMPONENTS ───────────────────────────────────────────────────── */
+
+/* Marketplace Hero */
+.marketplace-hero {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  border-radius: 24px;
+  padding: 48px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.marketplace-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(50%, -20%);
+}
+
+.marketplace-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.marketplace-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--surface-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.marketplace-subtitle {
+  font-size: 20px;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.marketplace-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent-blue-primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Revenue Snapshot */
+.revenue-snapshot {
+  background: var(--surface-primary);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid var(--surface-border);
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--surface-primary);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.revenue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.revenue-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  transition: all 0.2s ease;
+}
+
+.revenue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.revenue-amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent-green);
+  margin-bottom: 8px;
+}
+
+.revenue-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.revenue-change {
+  font-size: 12px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.revenue-change.positive {
+  color: var(--accent-green);
+}
+
+.revenue-change.negative {
+  color: var(--accent-red);
+}
+
+/* Business Performance */
+.business-performance {
+  background: var(--surface-primary);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid var(--surface-border);
+}
+
+.performance-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.metric-item {
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 0.1 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.metric-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  background: var(--accent-gold);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--surface-primary);
+  margin-bottom: 4px;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Marketplace Sections */
+.marketplace-sections {
+  display: grid;
+  gap: 32px;
+}
+
+.section-card {
+  background: var(--surface-primary);
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid var(--surface-border);
+  transition: all 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent-blue-primary) 0%, var(--accent-blue-secondary) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 16px;
+}
+
+.section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.content-item {
+  padding: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.content-item:hover {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+}
+
+.content-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--surface-primary);
+  margin-bottom: 4px;
+}
+
+.content-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
 
 /* ── COLOR UTILITIES ── */
 .bg-blue   { background: var(--accent-blue-subtle); color: var(--accent-blue); }
