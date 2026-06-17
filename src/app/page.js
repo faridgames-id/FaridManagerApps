@@ -713,6 +713,8 @@ export default function Home() {
                         {/* 4. Marketplace Sections */}
                         <MarketplaceSections
                             accounts={accounts}
+                            sales={sales}
+                            formatRupiah={formatRupiah}
                             onNavigate={setActiveTab}
                         />
 
