@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import "./marketplace-components.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
