@@ -415,3 +415,39 @@ Prioritize product quality over implementation convenience.
 Maintain all existing functionality while completely transforming the user experience.
 
 The final application should feel like a premium gaming marketplace operating system with fintech-level visual quality, luxury SaaS aesthetics, HD visuals, smooth motion, and world-class mobile usability.
+
+### Design Pillar #9 — Front-End Architecture & Mock Data Standards
+
+Since backend integration is deferred, the Front-End must be engineered using robust, realistic Mock Data to simulate a fully operational environment. The architecture must support seamless transition to a real API in the future.
+
+#### Tech Stack Requirements:
+- Framework: Next.js (App Router) / React
+- Styling: Tailwind CSS
+- Animation: Framer Motion
+- Icons: Lucide React
+- Component Structure: Highly modular (separate UI from Mock Data).
+
+#### Mock Data Schema & Business Logic:
+
+1. Business Overview Data (Viewport 1)
+The interface must consume a realistic data structure for the cockpit.
+- `monthlyRevenue`: Integer (e.g., Rp 145,500,000)
+- `revenueTrend`: Percentage (e.g., +12.5% from last month)
+- `healthScore`: Integer out of 100 (e.g., 92 - "Excellent")
+- `demandIndicator`: Array of objects showing hot titles.
+  Format: `[{ game: "Valorant", trend: "High", icon: "Gamepad2" }, { game: "Mobile Legends", trend: "Surging", icon: "Sword" }]`
+
+2. Game Account Object Model (For Viewport 2 & Tables)
+When displaying products, every account must adhere to this data structure:
+- `id`: String (e.g., "ACC-VAL-0092")
+- `gameTitle`: String (e.g., "Valorant", "Genshin Impact")
+- `tierRank`: String (e.g., "Radiant", "AR 55")
+- `price`: Integer (e.g., 2500000)
+- `status`: Enum ("Available", "In Escrow", "Sold")
+- `sellerId`: String
+- `visualAsset`: URL or Placeholder string for the account's hero image.
+
+Rules for Mock Data:
+- NEVER use generic "Lorem Ipsum".
+- All mock data must reflect a premium Indonesian/Global gaming marketplace.
+- Structure mock data in a separate utility file or clearly defined constants at the top of components to ensure easy swap to a real API later.

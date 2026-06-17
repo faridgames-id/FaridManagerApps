@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
-import { TrendingUp, Users, ShoppingBag, Zap, Clock, Activity, ArrowUpRight, Sparkles, supabase } from '../utils/supabase';
+import { TrendingUp, Users, ShoppingBag, Zap, Clock, Activity, ArrowUpRight, Sparkles } from 'lucide-react';
+import { supabase } from '../utils/supabase';
 
 export default function MarketplaceHero({ accounts = [], sales = [], formatRupiah }) {
     const [currentTime, setCurrentTime] = useState(new Date());
