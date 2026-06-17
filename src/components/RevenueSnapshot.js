@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { TrendingUp, TrendingDown, DollarSign, BarChart3, PieChart, Clock, Target, Calendar, ArrowUpRight, Wallet } from 'lucide-react';
-
+import { motion } from 'framer-motion';
 export default function RevenueSnapshot({ sales = [], formatRupiah, activeFilterMonth, activeFilterYear }) {
     const [animateIn, setAnimateIn] = useState(false);
 
@@ -96,48 +96,53 @@ export default function RevenueSnapshot({ sales = [], formatRupiah, activeFilter
     ];
 
     return (
-        <div className={`revenue-snapshot ${animateIn ? 'animate-in' : ''}`}>
-            <div className="section-header">
-                <div className="section-header-left">
-                    <div className="section-icon">
-                        <DollarSign size={18} />
+        <div className="mb-8 bg-white/80 backdrop-blur-md border border-slate-100 rounded-2xl p-6 shadow-sm">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                        <DollarSign size={24} />
                     </div>
                     <div>
-                        <h2 className="section-title">Revenue Snapshot</h2>
-                        <p className="section-subtitle">Ringkasan pendapatan dan performa finansial</p>
+                        <h2 className="text-2xl font-bold text-slate-900 tracking-tight font-clash">Revenue Snapshot</h2>
+                        <p className="text-sm text-slate-500 font-sans">Ringkasan pendapatan dan performa finansial</p>
                     </div>
                 </div>
-                <div className="section-header-right">
-                    <div className="section-period">
-                        <Calendar size={14} />
-                        <span>{new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
-                    </div>
+                <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full text-sm font-semibold text-slate-700 font-sans">
+                    <Calendar size={14} className="text-slate-400" />
+                    <span>{new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</span>
                 </div>
             </div>
 
-            <div className="revenue-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {metrics.map((metric, index) => {
                     const Icon = metric.icon;
                     return (
-                        <div key={index} className={`revenue-card ${metric.color}`} style={{ animationDelay: `${index * 0.1}s` }}>
-                            <div className="revenue-card-header">
-                                <div className={`revenue-card-icon ${metric.color}`}>
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            whileHover={{ scale: 1.02, y: -2 }}
+                            key={index} 
+                            className="bg-slate-50/50 border border-slate-100 rounded-2xl p-5 shadow-sm relative overflow-hidden group"
+                        >
+                            <div className="flex justify-between items-center mb-4">
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white shadow-sm text-slate-600">
                                     <Icon size={20} />
                                 </div>
-                                <div className={`revenue-trend ${metric.direction}`}>
-                                    {metric.direction === 'up' ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                                <div className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold ${metric.direction === 'up' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
+                                    {metric.direction === 'up' ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                                     <span>{metric.trend}</span>
                                 </div>
                             </div>
-                            <div className="revenue-card-body">
-                                <span className="revenue-card-value">{metric.value}</span>
-                                <span className="revenue-card-label">{metric.label}</span>
-                                <span className="revenue-card-subtitle">{metric.subtitle}</span>
+                            <div className="flex flex-col">
+                                <span className="text-2xl font-extrabold text-slate-900 mb-1 font-clash">{metric.value}</span>
+                                <span className="text-sm font-semibold text-slate-700 mb-1 font-sans">{metric.label}</span>
+                                <span className="text-xs text-slate-400 font-sans">{metric.subtitle}</span>
                             </div>
-                            <div className="revenue-card-footer">
-                                <ArrowUpRight size={14} />
+                            <div className="absolute bottom-4 right-4 text-slate-300 opacity-0 transform translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-slate-400">
+                                <ArrowUpRight size={16} />
                             </div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>

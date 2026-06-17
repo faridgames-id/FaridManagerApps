@@ -1,7 +1,7 @@
 'use client';
 import React, { useMemo } from 'react';
-import { TrendingUp, ShoppingBag, Package, DollarSign, Users, Clock, Zap, Star, ArrowUpRight } from 'lucide-react';
-
+import { TrendingUp, ShoppingBag, Package, DollarSign, Users, Clock, Zap, Star, ArrowUpRight, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
 export default function BusinessPerformance({ accounts = [], sales = [], formatRupiah }) {
     const metrics = useMemo(() => {
         const totalAccounts = accounts.length;
@@ -77,68 +77,76 @@ export default function BusinessPerformance({ accounts = [], sales = [], formatR
     ];
 
     return (
-        <div className="business-performance">
-            <div className="section-header">
-                <div className="section-header-left">
-                    <div className="section-icon">
-                        <BarChart3 size={18} />
-                    </div>
-                    <div>
-                        <h2 className="section-title">Business Performance</h2>
-                        <p className="section-subtitle">Metrik utama performa bisnis</p>
-                    </div>
+        <div className="mb-8">
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/20">
+                    <BarChart3 size={24} />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-900 tracking-tight font-clash">Business Performance</h2>
+                    <p className="text-sm text-slate-500 font-sans">Metrik utama performa bisnis</p>
                 </div>
             </div>
 
-            <div className="performance-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {items.map((item, index) => {
                     const Icon = item.icon;
                     return (
-                        <div key={index} className={`performance-card ${item.color}`}>
-                            <div className="performance-card-header">
-                                <div className={`performance-icon ${item.color}`}>
-                                    <Icon size={18} />
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            whileHover={{ scale: 1.02, y: -2 }}
+                            key={index} 
+                            className="bg-white/80 backdrop-blur-md border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col"
+                        >
+                            <div className="flex justify-between items-center mb-4">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-slate-50 text-slate-600`}>
+                                    <Icon size={20} />
                                 </div>
-                                <ArrowUpRight size={14} className="performance-arrow" />
+                                <ArrowUpRight size={16} className="text-slate-400" />
                             </div>
-                            <div className="performance-card-body">
-                                <span className="performance-value">{item.value}</span>
-                                <span className="performance-label">{item.label}</span>
-                                <span className="performance-trend">{item.trend}</span>
+                            <div className="flex flex-col mt-auto">
+                                <span className="text-2xl font-extrabold text-slate-900 mb-1 font-clash">{item.value}</span>
+                                <span className="text-sm font-semibold text-slate-700 mb-2 font-sans">{item.label}</span>
+                                <span className="text-xs text-slate-500 font-sans">{item.trend}</span>
                             </div>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>
 
             {/* Game Breakdown */}
             {metrics.gameBreakdown.length > 0 && (
-                <div className="game-breakdown">
-                    <h3 className="breakdown-title">Game Distribution</h3>
-                    <div className="breakdown-list">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="mt-8 bg-white/80 backdrop-blur-md border border-slate-100 rounded-2xl p-6 shadow-sm"
+                >
+                    <h3 className="text-lg font-bold text-slate-900 mb-6 font-clash">Game Distribution</h3>
+                    <div className="flex flex-col gap-5">
                         {metrics.gameBreakdown.map(([game, data], i) => {
                             const pct = accounts.length > 0 ? (data.total / accounts.length) * 100 : 0;
                             return (
-                                <div key={i} className="breakdown-item">
-                                    <div className="breakdown-item-header">
-                                        <span className="breakdown-game">{game}</span>
-                                        <span className="breakdown-count">{data.total} akun</span>
+                                <div key={i} className="flex flex-col gap-2">
+                                    <div className="flex justify-between items-end">
+                                        <span className="text-sm font-bold text-slate-800 font-sans">{game}</span>
+                                        <span className="text-xs font-semibold text-slate-500">{data.total} akun</span>
                                     </div>
-                                    <div className="breakdown-bar-track">
-                                        <div className="breakdown-bar-fill" style={{ width: `${pct}%` }} />
+                                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
                                     </div>
-                                    <div className="breakdown-item-footer">
+                                    <div className="flex justify-between items-center text-xs text-slate-500">
                                         <span>{data.sold} terjual</span>
-                                        <span>{formatRupiah(data.revenue)}</span>
+                                        <span className="font-semibold text-slate-700">{formatRupiah(data.revenue)}</span>
                                     </div>
                                 </div>
                             );
                         })}
                     </div>
-                </div>
+                </motion.div>
             )}
         </div>
     );
 }
-
-import { BarChart3 } from 'lucide-react';

@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TrendingUp, Users, ShoppingBag, Zap, Clock, Activity, ArrowUpRight, Sparkles } from 'lucide-react';
 import { supabase } from '../utils/supabase';
+import { motion } from 'framer-motion';
 
 export default function MarketplaceHero({ accounts = [], sales = [], formatRupiah }) {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -104,45 +105,52 @@ export default function MarketplaceHero({ accounts = [], sales = [], formatRupia
     }, [sales]);
 
     return (
-        <div className="marketplace-hero">
-            {/* Background Gradient Effects */}
-            <div className="hero-bg-glow top-right" />
-            <div className="hero-bg-glow bottom-left" />
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="relative bg-white/80 backdrop-blur-md border border-slate-100 rounded-2xl p-6 shadow-sm overflow-hidden mb-8"
+        >
+            {/* Background Accents */}
+            <div className="absolute w-[300px] h-[300px] rounded-full bg-blue-500/10 blur-[80px] -top-24 -right-12 pointer-events-none" />
+            <div className="absolute w-[300px] h-[300px] rounded-full bg-emerald-500/10 blur-[80px] -bottom-24 -left-24 pointer-events-none" />
 
             {/* Top Bar */}
-            <div className="hero-top-bar">
-                <div className="hero-status">
-                    <div className="status-dot live" />
-                    <span className="status-text">Marketplace Live</span>
-                    <span className="status-separator">•</span>
-                    <span className="status-time">{formatTime(currentTime)}</span>
+            <div className="flex justify-between items-center mb-6 relative z-10 pb-4 border-b border-slate-200/60">
+                <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-full text-xs">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Marketplace Live</span>
+                    </div>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-slate-500">{formatTime(currentTime)}</span>
                 </div>
-                <div className="hero-date">{formatDate(currentTime)}</div>
+                <div className="text-sm text-slate-500 font-medium">{formatDate(currentTime)}</div>
             </div>
 
             {/* Main Content */}
-            <div className="hero-main">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 relative z-10">
                 {/* Left: Hero Content */}
-                <div className="hero-content-left">
-                    <div className="hero-badge">
+                <div className="flex flex-col justify-center">
+                    <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full text-xs font-semibold mb-4 w-fit">
                         <Sparkles size={14} />
                         <span>Premium Gaming Marketplace</span>
                     </div>
-                    <h1 className="hero-title">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 leading-tight tracking-tight font-clash">
                         Farid Shop
-                        <span className="hero-title-accent"> Game</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600"> Game</span>
                     </h1>
-                    <p className="hero-subtitle">
+                    <p className="text-base text-slate-500 leading-relaxed mb-8 max-w-md font-sans">
                         Platform premium untuk jual beli akun game.
                         Transaksi aman, harga terbaik, proses cepat.
                     </p>
-                    <div className="hero-cta-row">
-                        <button className="hero-btn-primary" onClick={() => {}}>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button className="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-md shadow-slate-900/20" onClick={() => {}}>
                             <ShoppingBag size={18} />
                             Jelajahi Marketplace
                             <ArrowUpRight size={16} />
                         </button>
-                        <button className="hero-btn-secondary" onClick={() => {}}>
+                        <button className="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 px-6 py-3 rounded-xl font-semibold transition-all" onClick={() => {}}>
                             <Activity size={18} />
                             Lihat Aktivitas
                         </button>
@@ -150,41 +158,46 @@ export default function MarketplaceHero({ accounts = [], sales = [], formatRupia
                 </div>
 
                 {/* Right: Featured Listings Carousel */}
-                <div className="hero-content-right">
-                    <div className="hero-carousel">
-                        <div className="carousel-header">
-                            <Zap size={16} className="carousel-icon" />
+                <div className="flex flex-col gap-6">
+                    <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 border border-slate-200 relative">
+                        <div className="flex items-center gap-2 font-semibold text-slate-700 mb-4 text-sm uppercase tracking-wider">
+                            <Zap size={16} className="text-amber-500" />
                             <span>Featured Listings</span>
                         </div>
-                        <div className="carousel-track">
+                        <div className="relative min-h-[140px]">
                             {featuredListings.length > 0 && (
-                                <div className="carousel-card" key={activeIndex}>
-                                    <div className="carousel-card-top">
-                                        <span className="carousel-game-badge">{featuredListings[activeIndex].game}</span>
+                                <motion.div 
+                                    key={activeIndex}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className="bg-white rounded-xl p-5 shadow-sm border border-slate-100"
+                                >
+                                    <div className="flex justify-between mb-3">
+                                        <span className="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-xs font-bold uppercase">{featuredListings[activeIndex].game}</span>
                                         {featuredListings[activeIndex].discount > 0 && (
-                                            <span className="carousel-discount-badge">-{featuredListings[activeIndex].discount}%</span>
+                                            <span className="bg-red-50 text-red-500 px-2.5 py-1 rounded-md text-xs font-bold">-{featuredListings[activeIndex].discount}%</span>
                                         )}
                                     </div>
-                                    <h3 className="carousel-card-title">{featuredListings[activeIndex].name}</h3>
-                                    <div className="carousel-card-meta">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2 font-clash">{featuredListings[activeIndex].name}</h3>
+                                    <div className="flex gap-2 text-xs text-slate-500 mb-4">
                                         <span>Level {featuredListings[activeIndex].level}</span>
                                         <span>•</span>
                                         <span>{featuredListings[activeIndex].skin} Skins</span>
                                     </div>
-                                    <div className="carousel-card-price">
+                                    <div className="flex items-center gap-3">
                                         {featuredListings[activeIndex].originalPrice > 0 && (
-                                            <span className="carousel-original-price">{formatRupiah(featuredListings[activeIndex].originalPrice)}</span>
+                                            <span className="text-sm text-slate-400 line-through">{formatRupiah(featuredListings[activeIndex].originalPrice)}</span>
                                         )}
-                                        <span className="carousel-current-price">{formatRupiah(featuredListings[activeIndex].price)}</span>
+                                        <span className="text-xl font-extrabold text-emerald-500 font-clash">{formatRupiah(featuredListings[activeIndex].price)}</span>
                                     </div>
-                                </div>
+                                </motion.div>
                             )}
                         </div>
-                        <div className="carousel-dots">
+                        <div className="flex gap-1.5 justify-center mt-4">
                             {featuredListings.map((_, i) => (
                                 <button
                                     key={i}
-                                    className={`carousel-dot ${i === activeIndex ? 'active' : ''}`}
+                                    className={`h-2 rounded-full transition-all ${i === activeIndex ? 'w-6 bg-blue-600' : 'w-2 bg-slate-300'}`}
                                     onClick={() => setActiveIndex(i)}
                                 />
                             ))}
@@ -192,61 +205,61 @@ export default function MarketplaceHero({ accounts = [], sales = [], formatRupia
                     </div>
 
                     {/* Quick Stats */}
-                    <div className="hero-quick-stats">
+                    <div className="grid grid-cols-3 gap-4 relative">
                         {isLive && (
-                            <div className="stats-live-indicator">
-                                <span className="live-pulse"></span>
+                            <div className="absolute -top-3 right-0 flex items-center gap-1.5 bg-red-50 text-red-500 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider z-10">
+                                <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
                                 <span>LIVE</span>
                             </div>
                         )}
-                        <div className="quick-stat">
-                            <div className="quick-stat-icon">
-                                <ShoppingBag size={16} />
+                        <motion.div whileHover={{ y: -2 }} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-blue-50 text-blue-500 shrink-0">
+                                <ShoppingBag size={18} />
                             </div>
-                            <div className="quick-stat-info">
-                                <span className="quick-stat-value">{stats.availableAccounts}</span>
-                                <span className="quick-stat-label">Tersedia</span>
+                            <div className="flex flex-col items-center sm:items-start">
+                                <span className="text-xl font-bold text-slate-900 font-clash">{stats.availableAccounts}</span>
+                                <span className="text-xs text-slate-500 font-medium">Tersedia</span>
                             </div>
-                        </div>
-                        <div className="quick-stat">
-                            <div className="quick-stat-icon sold">
-                                <TrendingUp size={16} />
+                        </motion.div>
+                        <motion.div whileHover={{ y: -2 }} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-emerald-50 text-emerald-500 shrink-0">
+                                <TrendingUp size={18} />
                             </div>
-                            <div className="quick-stat-info">
-                                <span className="quick-stat-value">{stats.soldAccounts}</span>
-                                <span className="quick-stat-label">Terjual</span>
+                            <div className="flex flex-col items-center sm:items-start">
+                                <span className="text-xl font-bold text-slate-900 font-clash">{stats.soldAccounts}</span>
+                                <span className="text-xs text-slate-500 font-medium">Terjual</span>
                             </div>
-                        </div>
-                        <div className="quick-stat">
-                            <div className="quick-stat-icon revenue">
-                                <Users size={16} />
+                        </motion.div>
+                        <motion.div whileHover={{ y: -2 }} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-fuchsia-50 text-fuchsia-500 shrink-0">
+                                <Users size={18} />
                             </div>
-                            <div className="quick-stat-info">
-                                <span className="quick-stat-value">{stats.todayCount}</span>
-                                <span className="quick-stat-label">Hari Ini</span>
+                            <div className="flex flex-col items-center sm:items-start">
+                                <span className="text-xl font-bold text-slate-900 font-clash">{stats.todayCount}</span>
+                                <span className="text-xs text-slate-500 font-medium">Hari Ini</span>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
 
             {/* Activity Ticker */}
             {recentActivity.length > 0 && (
-                <div className="hero-activity-ticker">
-                    <div className="ticker-icon">
+                <div className="mt-6 flex items-center gap-3 pt-4 border-t border-slate-200/60 relative z-10 overflow-hidden">
+                    <div className="text-violet-500 animate-[spin_4s_linear_infinite] shrink-0">
                         <Activity size={14} />
                     </div>
-                    <div className="ticker-content">
+                    <div className="flex gap-4 whitespace-nowrap overflow-hidden animate-[marquee_20s_linear_infinite] text-sm text-slate-600">
                         {recentActivity.map((act, i) => (
-                            <span key={i} className="ticker-item">
-                                <strong>{act.game}</strong> — {act.account} terjual {formatRupiah(act.price)}
-                                <span className="ticker-time">{act.time}</span>
-                                {i < recentActivity.length - 1 && <span className="ticker-sep">•</span>}
+                            <span key={i} className="flex items-center">
+                                <strong className="text-slate-900 mr-1">{act.game}</strong> — {act.account} terjual {formatRupiah(act.price)}
+                                <span className="text-xs text-slate-400 ml-2">{act.time}</span>
+                                {i < recentActivity.length - 1 && <span className="text-slate-300 ml-3">•</span>}
                             </span>
                         ))}
                     </div>
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 }
