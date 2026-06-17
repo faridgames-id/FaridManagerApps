@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "concurrently \"npx @tailwindcss/cli -i src/app/tailwind.css -o src/app/globals.css --watch\" \"next dev\"",
+    "build": "npx @tailwindcss/cli -i src/app/tailwind.css -o src/app/globals.css && next build",
     "start": "next start",
     "electron:build": "electron-packager . \"Farid Shop App\" --platform=win32 --arch=x64 --out=dist-desktop-4 --overwrite --icon=public/icon.png --ignore=\"^/dist|^/android|^/.next|^/.git\""
   },
