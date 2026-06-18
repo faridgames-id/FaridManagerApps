@@ -243,23 +243,7 @@ export default function MarketplaceHero({ accounts = [], sales = [], formatRupia
                 </div>
             </div>
 
-            {/* Activity Ticker */}
-            {recentActivity.length > 0 && (
-                <div className="mt-6 flex items-center gap-3 pt-4 border-t border-slate-200/60 relative z-10 overflow-hidden">
-                    <div className="text-violet-500 animate-[spin_4s_linear_infinite] shrink-0">
-                        <Activity size={14} />
-                    </div>
-                    <div className="flex gap-4 whitespace-nowrap overflow-hidden animate-[marquee_20s_linear_infinite] text-sm text-slate-600">
-                        {recentActivity.map((act, i) => (
-                            <span key={i} className="flex items-center">
-                                <strong className="text-slate-900 mr-1">{act.game}</strong> — {act.account} terjual {formatRupiah(act.price)}
-                                <span className="text-xs text-slate-400 ml-2">{act.time}</span>
-                                {i < recentActivity.length - 1 && <span className="text-slate-300 ml-3">•</span>}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-            )}
+            {/* Activity Ticker Removed */}
         </motion.div>
     );
 }

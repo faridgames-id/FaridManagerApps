@@ -155,26 +155,26 @@ export default function StatsTab({
             {
                 label: 'Pendapatan (IDR)',
                 data: revenueData.length > 0 ? revenueData : [0],
-                borderColor: '#3b82f6',
+                borderColor: '#8b5cf6', // Purple
                 borderWidth: 3,
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)', // Purple transparent
                 fill: true,
                 tension: 0.4,
-                pointBackgroundcolor: 'var(--text-primary)',
-                pointBorderColor: '#3b82f6',
+                pointBackgroundColor: '#ffffff',
+                pointBorderColor: '#8b5cf6',
                 pointRadius: 4,
                 yAxisID: 'y'
             },
             {
                 label: 'Unit Terjual',
                 data: salesData.length > 0 ? salesData : [0],
-                borderColor: '#f59e0b',
+                borderColor: '#c084fc', // Light purple
                 borderWidth: 3,
                 backgroundColor: 'transparent',
                 borderDash: [5, 5],
                 tension: 0.4,
-                pointBackgroundcolor: 'var(--text-primary)',
-                pointBorderColor: '#f59e0b',
+                pointBackgroundColor: '#ffffff',
+                pointBorderColor: '#c084fc',
                 pointRadius: 4,
                 yAxisID: 'y1'
             }
@@ -188,21 +188,21 @@ export default function StatsTab({
         plugins: {
             legend: {
                 position: 'top',
-                labels: { color: '#CBD5E1', font: { size: 11 } }
+                labels: { color: '#64748b', font: { size: 11 } }
             }
         },
         scales: {
             x: {
-                grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                ticks: { color: '#94A3B8' }
+                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                ticks: { color: '#64748b' }
             },
             y: {
                 type: 'linear',
                 display: true,
                 position: 'left',
-                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' },
                 ticks: {
-                    color: '#94A3B8',
+                    color: '#64748b',
                     callback: (val) => formatRupiah(val)
                 }
             },
@@ -211,7 +211,7 @@ export default function StatsTab({
                 display: true,
                 position: 'right',
                 grid: { drawOnChartArea: false },
-                ticks: { color: '#94A3B8' }
+                ticks: { color: '#64748b' }
             }
         }
     };
@@ -221,7 +221,7 @@ export default function StatsTab({
         labels: ['Ready', 'Terjual', 'Cicilan'],
         datasets: [{
             data: [readyCount, soldCount, cicilanCount],
-            backgroundColor: ['#10b981', '#3b82f6', '#f59e0b'],
+            backgroundColor: ['#8b5cf6', '#c084fc', '#e9d5ff'], // Purple variants
             borderWidth: 0,
             hoverOffset: 4
         }]
@@ -254,12 +254,12 @@ export default function StatsTab({
         scales: {
             x: {
                 grid: { display: false },
-                ticks: { color: '#94A3B8', font: { size: 10 } }
+                ticks: { color: '#64748b', font: { size: 10 } }
             },
             y: {
-                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                grid: { color: 'rgba(0, 0, 0, 0.05)' },
                 ticks: {
-                    color: '#94A3B8',
+                    color: '#64748b',
                     font: { size: 10 },
                     callback: (val) => formatRupiah(val)
                 }
@@ -272,7 +272,7 @@ export default function StatsTab({
         labels: ['Free Fire', 'Mobile Legends'],
         datasets: [{
             data: [ffCount, mlCount],
-            backgroundColor: ['#f97316', '#3b82f6'],
+            backgroundColor: ['#8b5cf6', '#c084fc'], // Purple variants
             borderRadius: 6,
             barThickness: 20
         }]
@@ -287,7 +287,7 @@ export default function StatsTab({
             x: { display: false, grid: { display: false } },
             y: {
                 grid: { display: false },
-                ticks: { color: '#CBD5E1', font: { weight: 'bold' } }
+                ticks: { color: '#64748b', font: { weight: 'bold' } }
             }
         }
     };
@@ -299,14 +299,14 @@ export default function StatsTab({
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     .adv-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 15px; width: 100%; margin-bottom: 30px; }
-                    .adv-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease, box-shadow 0.3s ease; backdrop-filter: blur(10px); }
-                    .adv-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); border-color: rgba(59, 130, 246, 0.4); }
+                    .adv-card { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+                    .adv-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-color: rgba(139, 92, 246, 0.3); }
                     .adv-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-                    .adv-card-title { font-size: 0.85rem; font-weight: 700; color: #CBD5E1; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+                    .adv-card-title { font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
                     
                     .adv-mini { display: flex; flex-direction: column; justify-content: space-between; height: 110px; }
-                    .adv-mini-title { font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-                    .adv-mini-val { font-size: 1.4rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 2px 4px rgba(0,0,0,0.3); word-break: break-all; }
+                    .adv-mini-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+                    .adv-mini-val { font-size: 1.4rem; font-weight: 800; color: #1e293b; word-break: break-all; }
                     .adv-mini-trend { font-size: 0.7rem; font-weight: 600; color: #ef4444; padding: 4px 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; display: inline-block; align-self: flex-start; }
                     .adv-mini-trend.positive { color: #10b981; background: rgba(16, 185, 129, 0.1); }
                     
@@ -349,16 +349,16 @@ export default function StatsTab({
                         <div className="adv-mini-val">{avgMargin}%</div>
                         <div className="adv-mini-trend positive">Profitabilitas</div>
                     </div>
-                    <div className="adv-card adv-mini" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: 'var(--bg-surface)' }}>
-                        <div className="adv-mini-title" style={{ color: 'rgba(255,255,255,0.7)' }}>Performa Sistem</div>
+                    <div className="adv-card adv-mini" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', background: '#FFFFFF' }}>
+                        <div className="adv-mini-title" style={{ color: '#64748b' }}>Performa Sistem</div>
                         <div className="adv-mini-val" style={{ 
-                            background: 'linear-gradient(90deg, #00E68A, #00D2FF)', 
+                            background: 'linear-gradient(90deg, #8b5cf6, #c084fc)', 
                             WebkitBackgroundClip: 'text', 
                             WebkitTextFillColor: 'transparent',
                             fontSize: '1.6rem', 
                             letterSpacing: '1px',
                             fontWeight: 900,
-                            filter: 'drop-shadow(0 0 8px rgba(0,230,138,0.5))'
+                            filter: 'drop-shadow(0 0 8px rgba(139,92,246,0.3))'
                         }}>EXCELLENT</div>
                     </div>
 
@@ -380,8 +380,8 @@ export default function StatsTab({
                         <div style={{ height: '200px', width: '100%', position: 'relative' }}>
                             <Doughnut data={donutChartData} options={donutChartOptions} />
                             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
-                                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)' }}>{soldPercent}%</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase' }}>Terjual</div>
+                                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#1e293b' }}>{soldPercent}%</div>
+                                <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>Terjual</div>
                             </div>
                         </div>
                     </div>
@@ -413,19 +413,19 @@ export default function StatsTab({
                         </div>
                         <div style={{ flex: 1, overflowY: 'auto', paddingRight: '5px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                             {recentSales.length === 0 ? (
-                                <div style={{ color: '#94a3b8', fontSize: '0.8rem', textAlign: 'center', marginTop: '20px' }}>
+                                <div style={{ color: '#64748b', fontSize: '0.8rem', textAlign: 'center', marginTop: '20px' }}>
                                     Belum ada penjualan
                                 </div>
                             ) : (
                                 recentSales.map(a => {
                                     const profit = (a.sellPrice || 0) - (a.buyPrice || 0);
                                     return (
-                                        <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.05)', padding: '8px 12px', borderRadius: '8px' }}>
+                                        <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.03)', padding: '8px 12px', borderRadius: '8px' }}>
                                             <div>
-                                                <div style={{ color: 'var(--text-primary)', fontSize: '0.8rem', fontWeight: 700 }}>
+                                                <div style={{ color: '#1e293b', fontSize: '0.8rem', fontWeight: 700 }}>
                                                     {a.spek}
                                                 </div>
-                                                <div style={{ color: '#94a3b8', fontSize: '0.7rem' }}>
+                                                <div style={{ color: '#64748b', fontSize: '0.7rem' }}>
                                                     {(a.game || '').toUpperCase()} - {a.sellDate}
                                                 </div>
                                             </div>
