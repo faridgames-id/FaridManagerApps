@@ -132,23 +132,35 @@ export default function DailyInflowTab({ accounts, formatRupiah, globalFilterMon
                 <h2 style={{ color: 'var(--text-primary)', marginBottom: '20px' }}><Calendar width={20} height={20} style={{ display: 'inline', marginRight: '8px' }} />Kalender Akun Masuk Harian</h2>
 
 
-                {/* Summary Cards — pola sama dengan CalendarTab */}
-                <div className="summary-cards" style={{ marginBottom: '25px' }}>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>📥 Total Akun Masuk</h3>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{monthAccounts.length}</div>
+                {/* Summary Cards */}
+                <div className="summary-cards" style={{ marginBottom: '25px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #6366F1' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Total Akun Masuk</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{monthAccounts.length}</div>
+                        </div>
+                        <Calendar size={24} color="#6366F1" />
                     </div>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>🔶 Akun FF</h3>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FFD700' }}>{ffAccounts.length}</div>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #F59E0B' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Akun FF</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{ffAccounts.length}</div>
+                        </div>
+                        <div style={{ color: '#F59E0B', fontWeight: 'bold' }}>FF</div>
                     </div>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>🔵 Akun ML</h3>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00D2FF' }}>{mlAccounts.length}</div>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #3B82F6' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Akun ML</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{mlAccounts.length}</div>
+                        </div>
+                        <div style={{ color: '#3B82F6', fontWeight: 'bold' }}>ML</div>
                     </div>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>💵 Pengeluaran Modal</h3>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00E68A' }}>{formatRupiah(totalModal)}</div>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #10B981' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Pengeluaran Modal</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalModal)}</div>
+                        </div>
+                        <DollarSign size={24} color="#10B981" />
                     </div>
                 </div>
 

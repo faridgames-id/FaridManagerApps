@@ -695,35 +695,8 @@ export default function Home() {
                             formatRupiah={formatRupiah}
                         />
 
-                        {/* 2. Revenue Snapshot */}
-                        <RevenueSnapshot
-                            sales={sales}
-                            formatRupiah={formatRupiah}
-                            activeFilterMonth={globalFilterMonth}
-                            activeFilterYear={globalFilterYear}
-                        />
-
-                        {/* 3. Business Performance */}
-                        <BusinessPerformance
-                            accounts={accounts}
-                            sales={sales}
-                            formatRupiah={formatRupiah}
-                        />
-
-                        {/* 4. Marketplace Sections */}
-                        <MarketplaceSections
-                            accounts={accounts}
-                            sales={sales}
-                            formatRupiah={formatRupiah}
-                            onNavigate={setActiveTab}
-                        />
-
-                        {/* 5. Notification System */}
-                        <MarketplaceNotificationSystem
-                            accounts={accounts}
-                            sales={sales}
-                            formatRupiah={formatRupiah}
-                        />
+                        {/* Rest of the dashboard is intentionally left empty per user request */}
+                        {/* Notification Disabled: <MarketplaceNotificationSystem ... /> */}
                     </div>
                 );
             case 'stok-ff':

@@ -328,18 +328,27 @@ export default function CalendarTab({
                 )}
 
                 {/* Summary Cards */}
-                <div className="summary-cards" style={{ marginBottom: '25px' }}>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}><DollarSign className="inline-block mr-1" style={{ verticalAlign: 'middle' }} /> Total Pemasukan</h3>
-                        <div className="amount" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPemasukan)}</div>
+                <div className="summary-cards" style={{ marginBottom: '25px', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #10B981' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Total Pemasukan</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPemasukan)}</div>
+                        </div>
+                        <DollarSign size={24} color="#10B981" />
                     </div>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}><ArrowDown className="inline-block mr-1" style={{ verticalAlign: 'middle' }} /> Total Pengeluaran</h3>
-                        <div className="amount" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPengeluaran)}</div>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: '4px solid #EF4444' }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Total Pengeluaran</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{formatRupiah(totalPengeluaran)}</div>
+                        </div>
+                        <ArrowDown size={24} color="#EF4444" />
                     </div>
-                    <div className="card" style={{ background: 'var(--bg-surface)', borderRadius: '15px', padding: '20px', textAlign: 'center', color: 'var(--text-primary)' }}>
-                        <h3 style={{ fontSize: '.73rem', marginBottom: '10px', opacity: .92, textTransform: 'uppercase', letterSpacing: '1.3px', fontWeight: 700, color: 'var(--text-secondary)' }}>📊 Keuntungan Bersih</h3>
-                        <div className="amount" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{(keuntungan >= 0 ? '+' : '') + formatRupiah(keuntungan)}</div>
+                    <div className="card" style={{ flex: '1 1 200px', background: 'var(--bg-surface)', borderRadius: '15px', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-primary)', borderLeft: `4px solid ${keuntungan >= 0 ? '#10B981' : '#EF4444'}` }}>
+                        <div>
+                            <h3 style={{ fontSize: '.75rem', marginBottom: '5px', opacity: .8, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--text-secondary)' }}>Keuntungan Bersih</h3>
+                            <div className="amount" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>{(keuntungan >= 0 ? '+' : '') + formatRupiah(keuntungan)}</div>
+                        </div>
+                        <TrendingUp size={24} color={keuntungan >= 0 ? '#10B981' : '#EF4444'} />
                     </div>
                 </div>
 
